@@ -1,12 +1,18 @@
 <template>
     <div>
-MapSearch
 
+<button>MapSearch</button>
     </div>
 </template>
 
 <script>
-export default {};
+import googleMaps from "../../../api/googleMaps.vue";
+export default {
+  //   template: require("../../../api/googleMaps.html")
+  components: {
+    googleMaps: googleMaps
+  }
+};
 </script>
 
 <style scoped>
