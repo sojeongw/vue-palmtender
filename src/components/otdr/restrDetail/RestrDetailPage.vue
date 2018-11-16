@@ -1,17 +1,39 @@
 
 <template>
     <div>
-detailpage
-<router-view></router-view>
+<h3> detail page </h3>
+<restr-detail/>
+<menu-list/>
+<table-status/>
+<review-list/>
+<!-- <router-view></router-view> -->
     </div>
 </template>
 
 <script>
+import RestrDetail from "./RestrDetail";
+import MenuList from "../../common/MenuList";
+import TableStatus from "../../common/TableStatus";
+import ReviewList from "../../common/review/ReviewList";
+
 export default {
+  components: {
+    RestrDetail: RestrDetail,
+    ReviewList: ReviewList,
+    MenuList: MenuList,
+    TableStatus: TableStatus
+  },
   data() {
     return {
-      list: []
+      lists: []
     };
+  },
+  created() {
+    console.log("RestrDetailPage created()");
+    const baseURI = "http://10.30.39.157:4000";
+    this.$http.get(`${baseURI}/detail?restr_id=` + 1).then(result => {
+      this.lists = result.data;
+    });
   },
   methods: {
     // created() {
@@ -23,13 +45,6 @@ export default {
     //     });
     //   });
     // } //created
-    created(result) {
-      const baseURI = "http://10.30.39.157:4000";
-      this.$http.get(`${baseURI}/detail?restr_id=` + result).then(result => {
-        console.log(result.data);
-        this.list = result.data;
-      });
-    }
   } //method
 }; //export
 </script>

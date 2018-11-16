@@ -1,11 +1,12 @@
 <template>
   <div>
     <div>
-      <h2>Search and add a pin</h2>
+      <h3>Search and add a pin</h3>
       <label>
         <gmap-autocomplete
           @place_changed="setPlace">
         </gmap-autocomplete>
+       
         <button @click="addMarker">Add</button>
       </label>
       <br/>
@@ -34,10 +35,12 @@ export default {
     return {
       // default to Montreal to keep it simple
       // change this to whatever makes sense
-      center: { lat: 45.508, lng: -73.587 },
+      center: { lat: 37.38996, lng: 127.09873 },
       markers: [],
       places: [],
-      currentPlace: null
+      currentPlace: null,
+      getLat: null,
+      getLng: null
     };
   },
 
@@ -47,6 +50,7 @@ export default {
 
   methods: {
     // receives a place object via the autocomplete component
+
     setPlace(place) {
       this.currentPlace = place;
     },

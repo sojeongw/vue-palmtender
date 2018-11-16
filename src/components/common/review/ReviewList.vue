@@ -1,11 +1,12 @@
 <template>
     <div>
- <div v-if="hasResult">
+<h3>review list</h3>
+<div v-if="hasResult">
     <div v-for="item in items" v-bind:key="item.restr_id">
          <div>
-            {{item.restrName}}
-              <article> {{item.restrInfo}} - {{item.restrCategoryName}} - {{item.table[0].tableSeatTotal}}</article>
-              <article> {{item.restrParking}} - {{item.restrTel}} - {{item.table[0].tableAmountRemaining}}</article>
+            {{item.review[0].reviewDate}}
+              <article> {{item.review[0].reviewContents}} - {{item.review[0].reviewRating}}</article>
+              <article> {{item.review[0].reviewUser_id}} - {{item.review[0].review_id}}</article>
                 
                  </div>
              </div>
@@ -22,14 +23,14 @@ export default {
   },
   computed: {
     hasResult() {
-      console.log("RestrDetail hasResult()");
+      console.log("ReviewList hasResult()");
       return this.items.length > 0;
     }
   },
   created() {
     const baseURI = "http://10.30.39.157:4000";
     this.$http.get(`${baseURI}/detail?restr_id=` + 1).then(result => {
-      console.log("restrDetail: created()");
+      console.log("ReviewList: created()");
       console.log(result.data);
       this.items = result.data;
     });

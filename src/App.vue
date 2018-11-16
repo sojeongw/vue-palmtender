@@ -1,20 +1,25 @@
 <template>
   <div id="app">
-    <googleMaps/>
-  <RestrListPage></RestrListPage>
-  <!-- <RestrDetailPage></RestrDetailPage> -->
+    <Header/>
+  <!-- <RestrListPage></RestrListPage>
+  <RestrDetailPage></RestrDetailPage> -->
+  <router-view></router-view>
+  <Footer/>
   </div>
 </template>
 
 <script>
 import RestrListPage from "./components/otdr/restrList/RestrListPage";
+import Header from "./components/common/Header";
+import Footer from "./components/common/Footer";
 // import RestrDetailPage from "./components/otdr/restrDetail/RestrDetailPage";
-import googleMaps from "./api/googleMaps.vue";
 
 export default {
   components: {
-    RestrListPage: RestrListPage,
-    googleMaps: googleMaps
+    Header: Header,
+    Footer: Footer,
+    RestrListPage: RestrListPage
+
     // RestrDetailPage: RestrDetailPage
   }
 };

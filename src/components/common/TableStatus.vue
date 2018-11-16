@@ -1,12 +1,11 @@
 <template>
     <div>
+<h3>table status</h3>
  <div v-if="hasResult">
     <div v-for="item in items" v-bind:key="item.restr_id">
          <div>
-            {{item.restrName}}
-              <article> {{item.restrInfo}} - {{item.restrCategoryName}} - {{item.table[0].tableSeatTotal}}</article>
-              <article> {{item.restrParking}} - {{item.restrTel}} - {{item.table[0].tableAmountRemaining}}</article>
-                
+            {{item.table[0].tableStatus}}
+              <article> {{item.table[0].tableSeatTotal}} - {{item.table[0].tableAmountDone}} - {{item.table[0].tableAmountRemaining}}</article>
                  </div>
              </div>
         </div>
@@ -22,18 +21,18 @@ export default {
   },
   computed: {
     hasResult() {
-      console.log("RestrDetail hasResult()");
+      console.log("TableStatus hasResult()");
       return this.items.length > 0;
     }
   },
   created() {
     const baseURI = "http://10.30.39.157:4000";
     this.$http.get(`${baseURI}/detail?restr_id=` + 1).then(result => {
-      console.log("restrDetail: created()");
+      console.log("TableStatus: created()");
       console.log(result.data);
       this.items = result.data;
     });
-  } // created
+  }
 };
 </script>
 
