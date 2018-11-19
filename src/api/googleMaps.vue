@@ -15,7 +15,7 @@
     <br>
     <gmap-map
       :center="center"
-      :zoom="12"
+      :zoom="16"
       style="width:100%;  height: 400px;"
     >
       <gmap-marker
@@ -35,7 +35,7 @@ export default {
     return {
       // default to Montreal to keep it simple
       // change this to whatever makes sense
-      center: { lat: 37.38996, lng: 127.09873 },
+      center: { lat: 37.4008093, lng: 127.10806309999998 },
       markers: [],
       places: [],
       currentPlace: null,
