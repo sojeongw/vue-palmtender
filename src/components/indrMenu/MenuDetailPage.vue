@@ -1,38 +1,41 @@
 <template>
-    <div v-if="hasResult">
+    <div>
 <div>
     <!-- <div v-for="item in items" v-bind:key="item.menu_id">
          <div>
             {{item.restrName}}
               <article> {{item.menuName}} - {{item.menuPrice}} - {{item.menuIngredients}}</article>
                  </div>
-             </div> -->
+             </div> --> 
              <p/>
-             메뉴 사진: {{items.menuPhoto}}
+             메뉴 사진: {{menuItems.menuPhoto}}
              <p/>
-             메뉴 카테고리: {{this.items.menuCategory_id}}
+             메뉴 카테고리: {{this.menuItems.menuCategory_id}}
              <p/>
-             메뉴 이름: {{this.items.menuName}}
+             메뉴 이름: {{this.menuItems.menuName}}
              <p/>
-             메뉴 정보: {{this.items.menuInfo}}
+             메뉴 정보: {{this.menuItems.menuInfo}}
              <p/>
-             메뉴 재료: {{this.items.menuIngredients}}
+             메뉴 재료: {{this.menuItems.menuIngredients}}
              <p/>
-             메뉴 가격: {{this.items.menuPrice}}
+             메뉴 가격: {{this.menuItems.menuPrice}}
              <p/>
-            알러지 정보: {{this.items.menuAllergy}}
+            알러지 정보: {{this.menuItems.menuAllergy}}
              <p/>
-           메뉴가 속한 식당 아이디:  {{this.items.menuRestr_id}}
+           메뉴가 속한 식당 아이디:  {{this.menuItems.menuRestr_id}}
             <p/>
-           메뉴 아이디:  {{this.items.menu_id}}
+           메뉴 아이디:  {{this.menuItems.menu_id}}
              <p/>
 </div>
             ---------------------
-    <div>{{this.optionItems.options[0].optionName}}</div>
-  <div v-for="option in optionItems.options[0].optionValue" v-bind:key="option.key">
-     {{option}}
+    <!-- <div>{{this.optionItems[0].optionName}}</div> -->
+  <div v-for="option in optionItems" v-bind:key="option.key">
+     {{option.optionName}} - 
+     {{option.optionPrice}} -
+     {{option.optionValue[0]}} - {{option.optionValue[1]}} - {{option.optionValue[2]}}
+     </p>
     </div>
-    <div>{{this.optionItems.options[0].optionPrice}}</div>
+    <!-- <div>{{this.optionItems[0].optionPrice}}</div> -->
     
 </div>
        <!-- {{option.optionValue}}
@@ -66,7 +69,7 @@
 export default {
   data() {
     return {
-      items: [],
+      menuItems: [],
       optionItems: [],
       checkedOptions: [],
       optionPrice: [],
@@ -98,16 +101,16 @@ export default {
         // console.log("MenuDetail: created()", result.data[0].menuName);
         // this.items = result.data;
 
-        this.items = result.data[0];
+        this.menuItems = result.data[0];
 
-        console.log("최종 items:", this.items);
+        console.log("최종 items:", this.menuItems);
       }); // get
     this.$http
       .get(`${baseURI}/menu-option?menu_id=` + this.$route.params.menu_id)
       .then(result => {
         console.log("MenuOptionDetail: created()", result.data[0]);
-        this.optionItems.optionMenu_id = result.data[0].optionMenu_id;
-        this.optionItems.options = result.data[0].options;
+        // this.optionItems.optionMenu_id = result.data[0].optionMenu_id;
+        this.optionItems = result.data[0].options;
         console.log("최종 options 값: ", this.optionItems);
       }); // get
   }, // created
