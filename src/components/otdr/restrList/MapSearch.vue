@@ -38,24 +38,12 @@ export default {
   },
   components: {
     googleMaps: googleMaps
-    // RestrDetailPage: RestrDetailPage
   },
   methods: {
     searchList(lat, lng) {
       console.log("이벤트 실행: ", lat, lng);
       this.$eventBus.$emit("searchList", lat, lng);
     }
-    // receives a place object via the autocomplete component
-    // searchList() {
-    //   var lat = this.$refs.getLat.value;
-    //   var lng = this.$refs.getLng.value;
-    //   console.log("searchList: " + lat + lng);
-    // },
-    //  searchList(getLat, getLng) {
-    //   var lat = this.getLat.value;
-    //   var lng = this.getLng.value;
-    //   console.log("searchList: " + lat + lng);
-    // },
   }
 };
 </script>

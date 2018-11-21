@@ -1,7 +1,8 @@
 <template>
     <div class = "row">
 cart 
-<button v-on:click='addToCart'>추가</button>
+<br/>
+<button v-on:click='addToCart'>주문하기</button>
 <p/>
 <!-- <div class="col-md-3" v-for="item in listHeader" :key="item.id">
 {{item.name}}
