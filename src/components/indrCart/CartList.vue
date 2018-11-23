@@ -32,7 +32,7 @@ export default {
   },
   methods: {
     addToCart() {
-      const baseURI = "http://10.30.39.220:4000";
+      const baseURI = "http://10.20.201.156:4000";
       var params = new URLSearchParams();
       params.append("menu_id", this.menu_id);
       params.append("menuName", this.menuName);

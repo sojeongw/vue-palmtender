@@ -30,7 +30,7 @@ export default {
   },
   created() {
     console.log("RestrDetailPage created()");
-    const baseURI = "http://10.30.39.157:4000";
+    const baseURI = "http://10.20.201.156:4000";
     this.$http.get(`${baseURI}/detail?restr_id=` + 1).then(result => {
       this.lists = result.data;
     });

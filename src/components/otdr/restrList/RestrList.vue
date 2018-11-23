@@ -31,7 +31,7 @@ export default {
   },
   methods: {
     searchList(lat, lng) {
-      const baseURI = "http://10.30.39.220:4000";
+      const baseURI = "http://10.20.201.156:4000";
       this.$http
         .get(`${baseURI}/otdr?lat=` + lat + `&lng=` + lng)
         .then(result => {
