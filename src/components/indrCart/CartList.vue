@@ -1,10 +1,11 @@
 <template>
-    <div class = "row">
-cart 
-<br/>
-<button v-on:click='addToCart'>주문하기</button>
-<p/>
-<!-- <div class="col-md-3" v-for="item in listHeader" :key="item.id">
+  <div class="row">cart 조회
+    <br>
+    <router-link :to="{name:'order'}" exact>
+      <button>주문하기</button>
+    </router-link>
+    <p/>
+    <!-- <div class="col-md-3" v-for="item in listHeader" :key="item.id">
 {{item.name}}
 </div>
 
@@ -13,8 +14,8 @@ cart
 <div v-for="item in items" :key="item.id">
 {{item.name}}
 {{item.price}}
-</div> -->
-    </div>
+    </div>-->
+  </div>
 </template>
 
 <script>
@@ -32,7 +33,7 @@ export default {
   },
   methods: {
     addToCart() {
-      const baseURI = "http://10.20.201.156:4000";
+      const baseURI = "http://219.240.99.118:4000";
       var params = new URLSearchParams();
       params.append("menu_id", this.menu_id);
       params.append("menuName", this.menuName);

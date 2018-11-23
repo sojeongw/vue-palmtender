@@ -1,14 +1,16 @@
 <template>
-    <div id="app">
+  <div id="app">
+    <div>
+      <div v-for="list in lists" v-bind:key="list.restr_id">
         <div>
-             <div v-for="list in lists" v-bind:key="list.restr_id">
-                 <div>
-             <router-link :to="{name:'restr-detail', params:{restr_id: list.restr_id}}"> {{list.restrName}}</router-link>
-              <article> {{list.restrInfo}} - {{list.restrCategoryName}} - {{list.usableTable}}</article>
-                 </div>
-             </div>
+          <router-link
+            :to="{name:'restr-detail', params:{restr_id: list.restr_id}}"
+          >{{list.restrName}}</router-link>
+          <article>{{list.restrInfo}} - {{list.restrCategoryName}} - {{list.usableTable}}</article>
         </div>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -31,7 +33,7 @@ export default {
   },
   methods: {
     searchList(lat, lng) {
-      const baseURI = "http://10.20.201.156:4000";
+      const baseURI = "http://219.240.99.118:4000";
       this.$http
         .get(`${baseURI}/otdr?lat=` + lat + `&lng=` + lng)
         .then(result => {

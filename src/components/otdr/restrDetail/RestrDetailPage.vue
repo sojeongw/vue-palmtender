@@ -1,13 +1,13 @@
 
 <template>
-    <div>
-<h3> detail page </h3>
-<restr-detail/>
-<menu-list/>
-<table-status/>
-<review-list/>
-<!-- <router-view></router-view> -->
-    </div>
+  <div>
+    <h3>detail page</h3>
+    <restr-detail/>
+    <menu-list/>
+    <table-status/>
+    <review-list/>
+    <!-- <router-view></router-view> -->
+  </div>
 </template>
 
 <script>
@@ -30,7 +30,7 @@ export default {
   },
   created() {
     console.log("RestrDetailPage created()");
-    const baseURI = "http://10.20.201.156:4000";
+    const baseURI = "http://219.240.99.118:4000";
     this.$http.get(`${baseURI}/detail?restr_id=` + 1).then(result => {
       this.lists = result.data;
     });

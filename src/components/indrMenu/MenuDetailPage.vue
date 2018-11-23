@@ -27,16 +27,16 @@
   </div>
     </div>-->
     <!-- 테스트 -->
-    <div v-for="(option, i) in optionItems" v-bind:key="i">
+    <div v-for="(option,index_1) in optionItems" v-bind:key="index_1">
       {{option.optionName}}:
       {{option.optionPrice}}원 추가
-      <div v-for="(value, index) in option.optionValue" v-bind:key="index">
+      <div v-for="(value, index_2) in option.optionValue" v-bind:key="index_2">
         <input
           type="radio"
+          v-on:change="updateOptionPrice(option.optionPrice, index_1, index_2)"
           :name="option.optionName"
-          :value="option.optionName+'-'+value"
-          v-model="checkedOptions[i]"
-          v-on:change="updateOptionPrice(option.optionPrice, index, i)"
+          :value="option.optionName+'-'+value+'-'+option.optionPrice*index_2"
+          v-model="checkedOptions[index_1]"
         >
         <label :name="option.optionName" :for="option">{{value}}</label>
       </div>
@@ -55,8 +55,8 @@
 export default {
   data() {
     return {
-      checked: true,
       // 받아온 menu 정보 세팅
+
       menuItems: [],
       optionMenu_id: null,
       optionItems: [
@@ -67,34 +67,27 @@ export default {
         },
         {}
       ],
-      ////////////////
+      // 중간 정산
       checkedOptions: [],
       optionPrice: [],
       // 전송할 최종값
       cartItem: [
         {
           checkedMenu_id: null,
-          checkedOptionItems: [
-            {
-              key: "value"
-            }
-          ],
+          checkedOptionItems: [{}],
           totalAmount: null
         }
       ]
     };
   },
   methods: {
-    updateOptionPrice(price, index, i) {
+    updateOptionPrice(price, index_1, index_2) {
       // 받은 파라미터 확인
-      console.log("updateOptionPrice(): ", price, index, i);
+      console.log("updateOptionPrice(): ", price, index_1, index_2);
 
       // 옵션 가격 계산
-      this.optionPrice[i] = price * index;
+      this.optionPrice[index_1] = price * index_2;
       console.log("updateOptionPrice() 가격: ", this.optionPrice);
-
-      // 로컬 스토리지에 가격 저장
-      // localStorage.setItem("optionPrice", this.optionPrice);
     },
     addToCart() {
       // 메뉴 아이디
@@ -102,8 +95,6 @@ export default {
 
       // 선택한 옵션
       this.cartItem[0].checkedOptionItems = this.checkedOptions;
-
-      // console.log("------키 확인:", this.cartItem[0].checkedOptionItems);
 
       // 옵션 가격 합계
       var i;
@@ -124,20 +115,24 @@ export default {
 
       // cart에 담길 내용
       console.log("add to cart(): " + JSON.stringify(this.cartItem));
-      localStorage.setItem("서버에 보낼 내용", JSON.stringify(this.cartItem));
-
-      //   // 로컬에 저장
-      //   localStorage.setItem(selecteMenuId, this.selectedMenuItems);
+      localStorage.setItem(
+        "menu_id: " + this.cartItem[0].checkedMenu_id,
+        JSON.stringify(this.cartItem)
+      );
+    },
+    sendToServer() {
+      const baseURI = "http://219.240.99.118:4000";
+      this.$http.post(`${baseURI}/order`).then(result => {
+        console.log("order");
+      });
     }
   },
   created() {
-    const baseURI = "http://10.20.111.4:4000";
+    const baseURI = "http://219.240.99.118:4000";
     this.$http
       .get(`${baseURI}/menu-detail?menu_id=` + this.$route.params.menu_id)
       .then(result => {
         console.log("MenuDetail: created()");
-        // console.log("MenuDetail: created()", result.data[0].menuName);
-        // this.items = result.data;
         this.checkedMenu_id = result.data[0].menu_id;
         this.menuItems = result.data[0];
 
@@ -147,18 +142,10 @@ export default {
       .get(`${baseURI}/menu-option?menu_id=` + this.$route.params.menu_id)
       .then(result => {
         console.log("MenuOptionDetail: created()", result.data[0]);
-        // this.optionItems.optionMenu_id = result.data[0].optionMenu_id;
-        // this.menu_id = result.data[0].optionMenu_id;
         this.optionItems = result.data[0].options;
         console.log("최종 options 값: ", this.optionItems);
       }); // get
   } // created
-  // computed: {
-  //   hasResult() {
-  //     console.log("MenuDetail hasResult()");
-  //     return this.items.length > 0;
-  //   }
-  // }
 };
 </script>
 
