@@ -1,68 +1,86 @@
 <template>
     <div>
 <div>
-    <!-- <div v-for="item in items" v-bind:key="item.menu_id">
-         <div>
-            {{item.restrName}}
-              <article> {{item.menuName}} - {{item.menuPrice}} - {{item.menuIngredients}}</article>
-                 </div>
-             </div> --> 
              <p/>
              메뉴 사진: {{menuItems.menuPhoto}}
              <p/>
-             메뉴 카테고리: {{this.menuItems.menuCategory_id}}
+             메뉴 카테고리: {{menuItems.menuCategory_id}}
              <p/>
-             메뉴 이름: {{this.menuItems.menuName}}
+             메뉴 이름: {{menuItems.menuName}}
              <p/>
-             메뉴 정보: {{this.menuItems.menuInfo}}
+             메뉴 정보: {{menuItems.menuInfo}}
              <p/>
-             메뉴 재료: {{this.menuItems.menuIngredients}}
+             메뉴 재료: {{menuItems.menuIngredients}}
              <p/>
-             메뉴 가격: {{this.menuItems.menuPrice}}
+             메뉴 가격: {{menuItems.menuPrice}}
              <p/>
-            알러지 정보: {{this.menuItems.menuAllergy}}
+            알러지 정보: {{menuItems.menuAllergy}}
              <p/>
-           메뉴가 속한 식당 아이디:  {{this.menuItems.menuRestr_id}}
+           메뉴가 속한 식당 아이디:  {{menuItems.menuRestr_id}}
             <p/>
-           메뉴 아이디:  {{this.menuItems.menu_id}}
+           메뉴 아이디:  {{menuItems.menu_id}}
              <p/>
 </div>
             ---------------------
-    <!-- <div>{{this.optionItems[0].optionName}}</div> -->
-  <div v-for="option in optionItems" v-bind:key="option.key">
-     {{option.optionName}} - 
-     {{option.optionPrice}} -
-     {{option.optionValue[0]}} - {{option.optionValue[1]}} - {{option.optionValue[2]}}
-     </p>
-    </div>
-    <!-- <div>{{this.optionItems[0].optionPrice}}</div> -->
-    
-</div>
-       <!-- {{option.optionValue}}
-       {{option.optionPrice}} -->
-  <!-- 메뉴 옵션 선택하기 -->
-  <!-- <form @submit.prevent="submit"> -->
-   <!-- <input type="checkbox" id="option" :value="{optionName: option.options[0].optionName}" v-model="checkedOptions">
-   <label for="option-1">{{option.options[0].optionName}}
-   - {{option.options[0].optionPrice}}
-   - {{option.options[0].optionValue[0]}}</label>
-    <p/>
-     <input type="checkbox" id="option" :value="{optionName: option.options[1].optionName}" v-model="checkedOptions">
-   <label for="option-2">{{option.options[1].optionName}}
-   - {{option.options[1].optionPrice}}
-   - {{option.options[1].optionValue[1]}}</label>
+       <!-- <div>     {{optionItems[0].optionName}}</div>
+       <div>     {{optionItems[0].optionPrice}}</div> -->
+      
+       <div v-for="(option,i) in optionItems" v-bind:key="i">
+         {{option.optionName}}: 
+         {{option.optionPrice}}원 추가
+       <!-- <div>   <input type="radio" :name="option.optionName" value="0" checked> 선택 안 함</div> -->
+        <div v-for="(value,index) in option.optionValue" v-bind:key="index">
+          <input type="radio" :name="option.optionName " :id="option" :value="value" v-model="checkedOptions[i]"
+          v-on:click="updateOptionPrice(option.optionPrice, index)">
+       <label :for="option">{{value}}</label>
+          
+        </div>
+        <p/>
+         </div>
+      
+         <!-- <input type="radio" id="one" :value="optionItems[0].optionValue[0]" v-model="checkedOptions[0]">
+         <label for="one">{{optionItems[0].optionValue[0]}}</label>
+
+         <input type="radio" id="two" :value="optionItems[0].optionValue[1]" v-model="checkedOptions[0]">
+         <label for="value1">{{optionItems[0].optionValue[1]}}</label>
+
+         <input type="radio" id="three" :value="optionItems[0].optionValue[2]" v-model="checkedOptions[0]">
+         <label for="three">{{optionItems[0].optionValue[2]}}</label>
 <p/>
-    <input type="checkbox" id="option" :value="{optionName: option.options[2].optionName}" v-model="checkedOptions">
-   <label for="option-3">{{option.options[2].optionName}}
-   - {{option.options[2].optionPrice}}
-   - {{option.options[2].optionValue[2]}}</label> -->
-   <!-- <p/>
-   <div><span>선택한 옵션: {{checkedOptions}}</span></div>
-   <div><span>옵션 총액: </span></div>
-     <div>   <button v-on:click="addToCart">장바구니 넣기</button></div> -->
-     <!-- </form> -->
-     
+
+     <input type="radio" id="one" :value="optionItems[1].optionValue[0]" v-model="checkedOptions[1]">
+         <label for="one">대</label>
+         <input type="radio" id="two" value="중,2000" v-model="checkedOptions[1]">
+         <label for="value1">중</label>
+         <input type="radio" id="three" value="소,1000" v-model="checkedOptions[1]">
+         <label for="three">소</label>
+<p/> -->
+<div>{{checkedOptions}}</div>
+<p/>
+         <!-- <label for="value1">{{optionItems.optionValue[2]}}</label> -->
+  <!-- <div v-for="option in optionItems" v-bind:key="option.optionName">
+     {{option.optionName}} - 
+     {{option.optionPrice}}원
+ <div v-for="value in option.optionValue" v-bind:key="value" >
+     <input type="radio" :name="option.optionName" v-bind:value="value"
+     v-model="checkedOptions.val"
+     >
+  {{value}}
+    </div>
+    <p/> -->
     
+<!-- <form @submit.prevent="addToCart($event.target.value)"> -->
+  <!-- 3번째 값은 존재할 때만 출력 -->
+ <!-- <div>   <input v-if="option.optionValue[2]" type="radio" :name="option.optionName"
+ v-on:click="updateOptionPrice(option.optionPrice, $event.target)"
+ v-bind:value="option.optionValue[2]" >
+  <label>  {{option.optionValue[2]}}</label></div>
+     <p/> -->
+
+    <!-- </div> -->
+<button v-on:click="clickRadio" >장바구니 넣기</button>
+
+</div>
 </template>
 
 <script>
@@ -70,30 +88,70 @@ export default {
   data() {
     return {
       menuItems: [],
-      optionItems: [],
+      optionMenu_id: null,
+      optionItems: [
+        {
+          optionName: "",
+          optionPrice: null,
+          optionValue: [
+            {
+              // 0: "",
+              // 1: "",
+              // 2: ""
+            }
+          ]
+        },
+        {}
+      ],
       checkedOptions: [],
-      optionPrice: [],
-      cartItem: ""
+      optionPrice: null,
+      selectedMenuItems: []
     };
   },
 
   methods: {
-    submit() {},
-    addToCart() {
-      localStorage.setItem(this.checkedOptions, this.checkedOptions);
-      // console.log("add to cart(): " + this.checkedOptions[0].optionName);
-    }
-  },
-  watch: {
-    items: function(newVal, oldVal) {
-      return this.items;
+    clickRadio() {
+      // this.checkedOptions.push({ val: "" });
+      console.log(this.checkedOptions);
     },
-    optionItems: function(newVal, oldVal) {
-      return this.items;
+    updateOptionPrice(price, index) {
+      // console.log("updateOptionPrice(): ", prVal);
+      console.log("updateOptionPrice(): ", price, index);
+      // console.log("updateOptionPrice(): ", tgVal.checked);
+
+      // if (tgVal.checked == true) {
+      //   this.optionPrice += prVal;
+      //   console.log(this.optionPrice);
+      //   localStorage.setItem("optionPrice", this.optionPrice);
+      // } else {
+      //   this.optionPrice -= prVal;
+      //   console.log(this.optionPrice);
+      //   localStorage.setItem("optionPrice", this.optionPrice);
+      // }
+    },
+    removeOption(opName, opPrice, index) {
+      console.log(opName, opPrice);
+    },
+
+    addToCart() {
+      // this.checkedOptions.push({ value: "" });
+      console.log("add to cart(): " + this.checkedOptions);
+      // console.log("add to cart(): " + selecteMenuId, selectedMenuPrice);
+      //   this.selectedMenuItems = {
+      //     menu_id: selecteMenuId,
+      //     menuPrice: selectedMenuPrice
+      //   };
+
+      //   // 객체에 담겼는지 확인
+      //   console.log("add to cart(): " + JSON.stringify(this.selectedMenuItems));
+
+      //   // 로컬에 저장
+      //   localStorage.setItem(selecteMenuId, this.selectedMenuItems);
     }
   },
+
   created() {
-    const baseURI = "http://10.30.39.220:4000";
+    const baseURI = "http://10.20.201.156:4000";
     this.$http
       .get(`${baseURI}/menu-detail?menu_id=` + this.$route.params.menu_id)
       .then(result => {
@@ -110,6 +168,7 @@ export default {
       .then(result => {
         console.log("MenuOptionDetail: created()", result.data[0]);
         // this.optionItems.optionMenu_id = result.data[0].optionMenu_id;
+        this.optionMenu_id = result.data[0].optionMenu_id;
         this.optionItems = result.data[0].options;
         console.log("최종 options 값: ", this.optionItems);
       }); // get

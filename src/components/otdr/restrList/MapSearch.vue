@@ -1,24 +1,10 @@
 <template>
     <div>
-    
-      <!-- <form>
-  <div>
-    <label for="lat">lat</label>
-    <input id="lat" v-model='this.getLat' type="text">
-  </div>
-  <div>
-    <label for="lng">lng</label>
-    <input id="lng"  v-model='this.getLng' type="text">
-  </div>
-  <div>
-    <button v-on:click='searchList(lat,lng)'>식당 검색</button>
-  </div>
-</form> -->
-<div class="form-group">
-<input type="text" v-model="lat">
-<input type="text" v-model="lng">
-  <input type="submit" value="submit" v-on:click="searchList(lat, lng)">
-</div>
+      <div>
+  <button v-on:click="searchList(37.40078, 127.10813)">회사</button>
+  <button v-on:click="searchList(37.39618, 127.11120)">판교역</button>
+  <button v-on:click="searchList(37.49792, 127.02746)">강남역</button>
+      </div>
 <google-maps/>
     </div>
 </template>
