@@ -22,6 +22,7 @@ export default {
   }, // data
   created() {
     const baseURI = "http://219.240.99.118:4000";
+    // const baseURI = "http://localhost:4000";
     this.$http.get(`${baseURI}/detail?restr_id=` + 1).then(result => {
       console.log("MenuList created()");
       console.log(result.data);

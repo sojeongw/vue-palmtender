@@ -34,6 +34,7 @@ export default {
   methods: {
     addToCart() {
       const baseURI = "http://219.240.99.118:4000";
+      // const baseURI = "http://localhost:4000";
       var params = new URLSearchParams();
       params.append("menu_id", this.menu_id);
       params.append("menuName", this.menuName);

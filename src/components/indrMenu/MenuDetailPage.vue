@@ -129,6 +129,7 @@ export default {
   },
   created() {
     const baseURI = "http://219.240.99.118:4000";
+    // const baseURI = "http://localhost:4000";
     this.$http
       .get(`${baseURI}/menu-detail?menu_id=` + this.$route.params.menu_id)
       .then(result => {
