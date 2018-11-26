@@ -48,6 +48,7 @@
     <div>카트에 담긴 가격: {{cartItem[0].totalAmount}}</div>
     <p/>
     <button v-on:click="addToCart">장바구니 넣기</button>
+    <button v-on:click="sendToServer">주문</button>
   </div>
 </template>
 
@@ -115,16 +116,31 @@ export default {
 
       // cart에 담길 내용
       console.log("add to cart(): " + JSON.stringify(this.cartItem));
-      localStorage.setItem(
-        "menu_id: " + this.cartItem[0].checkedMenu_id,
-        JSON.stringify(this.cartItem)
-      );
+      ///////////////////////
+
+      localStorage.setItem("menu_id", this.menuItems.menu_id);
+      localStorage.setItem("checkedOptions", this.checkedOptions);
+      localStorage.setItem("totalAmount", this.menuItems.menuPrice + amount);
     },
     sendToServer() {
       const baseURI = "http://219.240.99.118:4000";
-      this.$http.post(`${baseURI}/order`).then(result => {
-        console.log("order");
-      });
+      // const baseURI = "http://localhost:4000";
+
+      var params = new URLSearchParams();
+      // 식당 id, 테이블 번호, 메모, 메뉴 가격
+      params.append("menu_id", localStorage.getItem("menu_id"));
+      params.append("checkedOptions", localStorage.getItem("checkedOptions"));
+      params.append("totalAmount", localStorage.getItem("totalAmount"));
+
+      console.log("스토리지 타입: ", params);
+      this.$http
+        .post(`${baseURI}/order/`, params)
+        .then(result => {
+          console.log("로컬 데이터 전송: ", result.data);
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
   },
   created() {

@@ -44,7 +44,7 @@ const routes = [
     name: "cart-page"
   },
   {
-    path: "/menu",
+    path: "/menu/:restr_id/:table_id",
     component: MenuPage,
     name: "menu-page"
   },

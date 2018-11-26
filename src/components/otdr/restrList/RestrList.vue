@@ -1,14 +1,20 @@
 <template>
-  <div id="app">
-    <div>
-      <div v-for="list in lists" v-bind:key="list.restr_id">
-        <div>
-          <router-link
-            :to="{name:'restr-detail', params:{restr_id: list.restr_id}}"
-          >{{list.restrName}}</router-link>
-          <article>{{list.restrInfo}} - {{list.restrCategoryName}} - {{list.usableTable}}</article>
-        </div>
-      </div>
+  <div id="app" v-if="hasResult">
+    <div v-for="list in lists" v-bind:key="list.restr_id">
+      <b-list-group>
+        <b-list-group-item href="#" class="flex-column align-items-start">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">
+              <router-link
+                :to="{name:'restr-detail', params:{restr_id: list.restr_id}}"
+              >{{list.restrName}}</router-link>
+            </h5>
+            <small>{{list.restrCategoryName}}</small>
+          </div>
+          <p class="mb-1">{{list.restrInfo}}</p>
+          <small>사용 가능 테이블: {{list.usableTable}}</small>
+        </b-list-group-item>
+      </b-list-group>
     </div>
   </div>
 </template>

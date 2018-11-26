@@ -4,6 +4,7 @@ import App from "./App.vue";
 import routes from "./routes";
 import axios from "axios";
 import * as VueGoogleMaps from "vue2-google-maps";
+import BootstrapVue from "bootstrap-vue";
 
 // event bus
 // Vue.prototype.$EventBus = new Vue();
@@ -16,6 +17,8 @@ Object.defineProperties(Vue.prototype, {
     }
   }
 });
+
+Vue.use(BootstrapVue);
 
 // googleMaps
 Vue.use(VueGoogleMaps, {

@@ -1,9 +1,14 @@
 
 <template>
+  <div>
     <div>
-<MapSearch></MapSearch>
-<RestrList></RestrList>
+      <MapSearch></MapSearch>
     </div>
+    <p/>
+    <div>
+      <RestrList></RestrList>
+    </div>
+  </div>
 </template>
 
 <script>
