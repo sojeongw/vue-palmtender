@@ -6,6 +6,7 @@ import MenuPage from "./components/indrMenu/MenuPage";
 import MenuDetailPage from "./components/indrMenu/MenuDetailPage";
 import PayPage from "./components/indrPay/PayPage";
 import OrderPage from "./components/indrOrder/OrderPage";
+import OrderComplPage from "./components/indrOrder/OrderComplPage";
 
 const routes = [
   {
@@ -44,7 +45,7 @@ const routes = [
     name: "cart-page"
   },
   {
-    path: "/menu/:restr_id/:table_id",
+    path: "/menu/:restr_id/:table_id/:retag",
     component: MenuPage,
     name: "menu-page"
   },
@@ -62,6 +63,11 @@ const routes = [
     path: "/order",
     component: OrderPage,
     name: "order"
+  },
+  {
+    path: "/order-completed",
+    component: OrderComplPage,
+    name: "order-completed"
   }
 ];
 

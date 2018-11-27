@@ -19,9 +19,11 @@
 export default {
   data() {
     return {
-      items: [],
+      items: []
       // NFC에서 받는 값
-      restrId: "1"
+      // restr_Id: 2,
+      // table_Id: 1,
+      // retag: 0
     };
   },
   computed: {
@@ -34,11 +36,21 @@ export default {
     const baseURI = "http://219.240.99.118:4000";
     // const baseURI = "http://localhost:4000";
     this.$http
-      .get(`${baseURI}/detail?restr_id=` + this.restrId)
+      .get(
+        `${baseURI}/menu?restr_id=` +
+          this.$route.params.restr_id +
+          `&table_id=` +
+          this.$route.params.table_id +
+          `&retag=` +
+          this.$route.params.retag
+      )
       .then(result => {
-        console.log("MenuPage: created()");
-        console.log(result.data[0].menu);
-        this.items = result.data[0].menu;
+        console.log("MenuPage: created()", result);
+        console.log(result.data);
+        this.items = result.data;
+
+        // 태그 유무
+        localStorage.setItem("retag", parseInt(this.$route.params.retag) + 1);
       });
   } // created
 };

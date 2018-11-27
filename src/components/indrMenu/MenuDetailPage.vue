@@ -45,19 +45,23 @@
     <!-- 테스트 -->
     <div>옵션 내용: {{checkedOptions}}</div>
     <div>중간 정산: {{optionPrice}}</div>
-    <div>카트에 담긴 가격: {{cartItem[0].totalAmount}}</div>
+    <!-- <div>카트에 담긴 가격: {{cartItem[0].totalAmount}}</div> -->
     <p/>
-    <button v-on:click="addToCart">장바구니 넣기</button>
-    <button v-on:click="sendToServer">주문</button>
+    <router-link :to="{name:'order'}">
+      <button v-on:click="addToCart">장바구니 넣기</button>
+    </router-link>
+    <!-- <button v-on:click="sendToServer(cartItem)">주문</button> -->
   </div>
 </template>
 
 <script>
+import Vue from "vue";
+var eventBus = new Vue();
+
 export default {
   data() {
     return {
       // 받아온 menu 정보 세팅
-
       menuItems: [],
       optionMenu_id: null,
       optionItems: [
@@ -75,7 +79,7 @@ export default {
       cartItem: [
         {
           checkedMenu_id: null,
-          checkedOptionItems: [{}],
+          checkedOptionItems: [],
           totalAmount: null
         }
       ]
@@ -84,7 +88,7 @@ export default {
   methods: {
     updateOptionPrice(price, index_1, index_2) {
       // 받은 파라미터 확인
-      console.log("updateOptionPrice(): ", price, index_1, index_2);
+      // console.log("updateOptionPrice(): ", price, index_1, index_2);
 
       // 옵션 가격 계산
       this.optionPrice[index_1] = price * index_2;
@@ -117,31 +121,38 @@ export default {
       // cart에 담길 내용
       console.log("add to cart(): " + JSON.stringify(this.cartItem));
       ///////////////////////
+      this.$eventBus.$emit("sendToOrder", this.cartItem);
 
       localStorage.setItem("menu_id", this.menuItems.menu_id);
       localStorage.setItem("checkedOptions", this.checkedOptions);
       localStorage.setItem("totalAmount", this.menuItems.menuPrice + amount);
+
+      // this.$eventBus.$emit("sendToOrder", "hi");
+      // this.sendToOrder();
     },
-    sendToServer() {
-      const baseURI = "http://219.240.99.118:4000";
-      // const baseURI = "http://localhost:4000";
+    sendToOrder() {
+      console.log("sendToOrder in MenuDetail");
+      this.$eventBus.$emit("sendToOrder", "hello order");
 
-      var params = new URLSearchParams();
-      // 식당 id, 테이블 번호, 메모, 메뉴 가격
-      params.append("menu_id", localStorage.getItem("menu_id"));
-      params.append("checkedOptions", localStorage.getItem("checkedOptions"));
-      params.append("totalAmount", localStorage.getItem("totalAmount"));
+      // const baseURI = "http://219.240.99.118:4000";
+      // // const baseURI = "http://localhost:4000";
 
-      console.log("스토리지 타입: ", params);
-      this.$http
-        .post(`${baseURI}/order/`, params)
-        .then(result => {
-          console.log("로컬 데이터 전송: ", result.data);
-        })
-        .catch(error => {
-          console.log(error);
-        });
-    }
+      // var params = new URLSearchParams();
+      // // 식당 id, 테이블 번호, 메모, 메뉴 가격
+      // params.append("menu_id", localStorage.getItem("menu_id"));
+      // params.append("checkedOptions", localStorage.getItem("checkedOptions"));
+      // params.append("totalAmount", localStorage.getItem("totalAmount"));
+
+      // console.log("스토리지 타입: ", params);
+      // this.$http
+      //   .post(`${baseURI}/order/`, params)
+      //   .then(result => {
+      //     console.log("로컬 데이터 전송: ", result.data);
+      //   })
+      //   .catch(error => {
+      //     console.log(error);
+      //   });
+    } // send to server
   },
   created() {
     const baseURI = "http://219.240.99.118:4000";
