@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>
+    <!-- <div>
       <div>메뉴 사진: {{menuItems.menuPhoto}}</div>
       <div>메뉴 정보: {{menuItems.menuInfo}}</div>
       <div>메뉴 재료: {{menuItems.menuIngredients}}</div>
@@ -10,149 +10,139 @@
       <div>알러지 정보: {{menuItems.menuAllergy}}</div>
       <div>메뉴가 속한 식당 아이디: {{menuItems.menuRestr_id}}</div>
       <div>메뉴 아이디: {{menuItems.menu_id}}</div>
-    </div>---------------------
-    <!-- <div>     {{optionItems[0].optionName}}</div>
-    <div>     {{optionItems[0].optionPrice}}</div>-->
-    <!-- <div v-for="(option,i) in optionItems" v-bind:key="i">
-         {{option.optionName}}: 
-         {{option.optionPrice}}원 추가
-<div>
-  <select v-model="checkedOptions[i]">
-    <option :value="value" v-for="(value,index) in option.optionValue"
-     v-bind:key="index" >
-  {{value}}
-  </option>
-  </select>
-  <p/>
-  </div>
     </div>-->
-    <!-- 테스트 -->
-    <div v-for="(option,index_1) in optionItems" v-bind:key="index_1">
-      {{option.optionName}}:
-      {{option.optionPrice}}원 추가
-      <div v-for="(value, index_2) in option.optionValue" v-bind:key="index_2">
-        <input
-          type="radio"
-          v-on:change="updateOptionPrice(option.optionPrice, index_1, index_2)"
-          :name="option.optionName"
-          :value="option.optionName+'-'+value+'-'+option.optionPrice*index_2"
-          v-model="checkedOptions[index_1]"
-        >
-        <label :name="option.optionName" :for="option">{{value}}</label>
-      </div>
-      <p/>
+    {{options[0].optionName}}
+    <div v-for="option in options" :key="option.key">
+      <b-form-select size="300px" v-model="selected" :options="option.optionValue" class="mb-3"/>
     </div>
-    <!-- 테스트 -->
-    <div>옵션 내용: {{checkedOptions}}</div>
-    <div>중간 정산: {{optionPrice}}</div>
-    <!-- <div>카트에 담긴 가격: {{cartItem[0].totalAmount}}</div> -->
-    <p/>
-    <router-link :to="{name:'order'}">
-      <button v-on:click="addToCart">장바구니 넣기</button>
-    </router-link>
-    <!-- <button v-on:click="sendToServer(cartItem)">주문</button> -->
+
+    <div>
+      Selected:
+      <strong>{{ selected }}</strong>
+    </div>
   </div>
 </template>
 
 <script>
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap-vue/dist/bootstrap-vue.css";
 import Vue from "vue";
 var eventBus = new Vue();
 
 export default {
   data() {
     return {
-      // 받아온 menu 정보 세팅
-      menuItems: [],
-      optionMenu_id: null,
-      optionItems: [
+      selected: [],
+      newName: "",
+      newPrice: "",
+      // menu_id를 키, option을 value로 해서 보내기
+      menu_id: "",
+      options: [
         {
-          optionName: "",
-          optionPrice: null,
-          optionValue: []
-        },
-        {}
-      ],
-      // 중간 정산
-      checkedOptions: [],
-      optionPrice: [],
-      // 전송할 최종값
-      cartItem: [
+          optionName: null,
+          optionValue: [
+            { value: { subname: "", price: null }, text: "선택하세요" }
+          ]
+        }, // 1
         {
-          checkedMenu_id: null,
-          checkedOptionItems: [],
-          totalAmount: null
-        }
+          optionName: null,
+          optionValue: [
+            { value: { subname: "", price: null }, text: "선택하세요" }
+          ]
+        }, // 1
+        {
+          optionName: null,
+          optionValue: [
+            { value: { subname: "", price: null }, text: "선택하세요" }
+          ]
+        }, // 1
+        {
+          optionName: null,
+          optionValue: [
+            { value: { subname: "", price: null }, text: "선택하세요" }
+          ]
+        } // 1
       ]
     };
   },
   methods: {
-    updateOptionPrice(price, index_1, index_2) {
-      // 받은 파라미터 확인
-      // console.log("updateOptionPrice(): ", price, index_1, index_2);
-
-      // 옵션 가격 계산
-      this.optionPrice[index_1] = price * index_2;
-      console.log("updateOptionPrice() 가격: ", this.optionPrice);
+    toggleActive: function(s) {
+      s.active = !s.active;
     },
-    addToCart() {
-      // 메뉴 아이디
-      this.cartItem[0].checkedMenu_id = this.menuItems.menu_id;
+    total: function() {
+      var total = 0;
+      this.services.forEach(function(s) {
+        if (s.selected) {
+          total += s.price;
+        }
+      });
 
-      // 선택한 옵션
-      this.cartItem[0].checkedOptionItems = this.checkedOptions;
+      return total;
+    },
+    addService: function() {},
+    deleteService: function() {},
+    setOptions(result, optionIndex, subOptionIndex) {
+      // console.log("length: ", result.data[0].options.length);
+      console.log("result: ", result.length);
 
-      // 옵션 가격 합계
-      var i;
-      var data = [];
-      var amount = null;
-      for (i = 0; i < this.optionPrice.length; i++) {
-        data[i] = Object.values(this.optionPrice)[i];
-        amount += data[i];
-        console.log("개별 가격 ", i, ": ", data[i]);
+      //// 한꺼번에 넣기
+      // 일단 기존 내용을 삭제하고
+      this.options.splice(0);
+      // 값을 집어넣는다
+      for (var i = 0; i < result.length; i++) {
+        this.options.push(result[i]);
       }
-      console.log("총 가격: ", amount);
+      // 초기 선택값 세팅 및 선택 요소 반영
+      this.selected = this.options[0].optionValue[0].value;
+      // 확인
+      console.log("setOptions push: ", this.options);
 
-      // 메뉴 + 옵션 가격
-      this.cartItem[0].totalAmount = this.menuItems.menuPrice + amount;
+      // for (var i = 0; i < data.length; i++) {
+      //   this.options[i].optionName = data[i].options[i].optionName;
+      //   for (var j = 0; j < data.options.length; i++) {
+      //     this.options[i].optionValue[j].value =
+      //       data[i].options[i].optionValue[j];
+      //   }
+      //   console.log("key in data: ", this.options);
+      // }
 
-      // cart에 담길 총 가격 확인
-      console.log("add to cart(): " + this.cartItem[0].totalAmount);
+      /////////////////////////   첫번째 옵션
+      // this.options[optionIndex].menu_id = data.optionMenu_id;
 
-      // cart에 담길 내용
-      console.log("add to cart(): " + JSON.stringify(this.cartItem));
-      ///////////////////////
-      this.$eventBus.$emit("sendToOrder", this.cartItem);
+      // this.options[0].optionName = data.options[subOptionIndex].optionName;
 
-      localStorage.setItem("menu_id", this.menuItems.menu_id);
-      localStorage.setItem("checkedOptions", this.checkedOptions);
-      localStorage.setItem("totalAmount", this.menuItems.menuPrice + amount);
+      // ///////   첫번째 sub 옵션값
+      // this.options[optionIndex].subOptions[0].text =
+      //   data.options[subOptionIndex].optionValue[0].subname;
 
-      // this.$eventBus.$emit("sendToOrder", "hi");
-      // this.sendToOrder();
-    },
-    sendToOrder() {
-      console.log("sendToOrder in MenuDetail");
-      this.$eventBus.$emit("sendToOrder", "hello order");
+      // this.options[optionIndex].subOptions[0].value.subname =
+      //   data.options[subOptionIndex].optionValue[0].subname;
 
-      // const baseURI = "http://219.240.99.118:4000";
-      // // const baseURI = "http://localhost:4000";
+      // this.options[optionIndex].subOptions[0].value.price =
+      //   data.options[subOptionIndex].optionValue[0].price;
+      // ////// default 값 설정
+      // this.selected = this.options[optionIndex].subOptions[0].value;
 
-      // var params = new URLSearchParams();
-      // // 식당 id, 테이블 번호, 메모, 메뉴 가격
-      // params.append("menu_id", localStorage.getItem("menu_id"));
-      // params.append("checkedOptions", localStorage.getItem("checkedOptions"));
-      // params.append("totalAmount", localStorage.getItem("totalAmount"));
+      // ///////   두번째 sub 옵션값
+      // this.options[optionIndex].subOptions[1].text =
+      //   data.options[subOptionIndex].optionValue[1].subname;
 
-      // console.log("스토리지 타입: ", params);
-      // this.$http
-      //   .post(`${baseURI}/order/`, params)
-      //   .then(result => {
-      //     console.log("로컬 데이터 전송: ", result.data);
-      //   })
-      //   .catch(error => {
-      //     console.log(error);
-      //   });
-    } // send to server
+      // this.options[optionIndex].subOptions[1].value.subname =
+      //   data.options[subOptionIndex].optionValue[1].subname;
+
+      // this.options[optionIndex].subOptions[1].value.price =
+      //   data.options[subOptionIndex].optionValue[1].price;
+
+      // ///////   세번째 sub 옵션값
+      // this.options[optionIndex].subOptions[2].text =
+      //   data.options[subOptionIndex].optionValue[2].subname;
+
+      // this.options[optionIndex].subOptions[2].value.subname =
+      //   data.options[subOptionIndex].optionValue[2].subname;
+
+      // this.options[optionIndex].subOptions[2].value.price =
+      //   data.options[subOptionIndex].optionValue[2].price;
+    }
   },
   created() {
     const baseURI = "http://219.240.99.118:4000";
@@ -163,15 +153,20 @@ export default {
         console.log("MenuDetail: created()");
         this.checkedMenu_id = result.data[0].menu_id;
         this.menuItems = result.data[0];
-
-        console.log("최종 items:", this.menuItems);
+        console.log("최종 menu items:", this.menuItems);
       }); // get
     this.$http
       .get(`${baseURI}/menu-option?menu_id=` + this.$route.params.menu_id)
       .then(result => {
-        console.log("MenuOptionDetail: created()", result.data[0]);
-        this.optionItems = result.data[0].options;
-        console.log("최종 options 값: ", this.optionItems);
+        // this.optionItems = result.data[0].options;
+        // console.log("최종 options 값: ", this.optionItems);
+
+        ////////  select 메뉴 초기 설정값
+        // console.log("확인---->", this.options[0].subOptions[0].text);
+        var optionIndex = 0;
+        var subOptionIndex = 0;
+        this.setOptions(result.data[0].options, optionIndex, subOptionIndex);
+        // console.log("왜 이건 안해줌? ", result.data[0].options.length);
       }); // get
   } // created
 };
@@ -179,3 +174,6 @@ export default {
 
 <style scoped>
 </style>
+
+
+
