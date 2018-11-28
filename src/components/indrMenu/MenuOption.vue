@@ -11,23 +11,32 @@
       <div>메뉴가 속한 식당 아이디: {{menuItems.menuRestr_id}}</div>
       <div>메뉴 아이디: {{menuItems.menu_id}}</div>
     </div>-->
-    <b-form>
-      <!-- param: {{optionParam}} -->
-      <div id="option-select">
-        {{options[0].optionName}}
-        <b-form-group :id="options[0].optionName" :name="options[0].optionName">
-          <b-form-select v-model="selected" :options="options[0].optionValue" class="mb-3"/>
-        </b-form-group>
-      </div>
-      <div>
+    <!-- <b-form> -->
+    <!-- param: {{optionParam}} -->
+    <div id="option-select">
+      {{options[0].optionName}}
+      <!-- <b-form-group :id="options[0].optionName" :name="options[0].optionName"> -->
+      <b-form-select
+        v-model="selected"
+        v-on:change="getAmount"
+        :options="options[0].optionValue"
+        class="mb-3"
+      />
+      <!-- </b-form-group> -->
+    </div>
+    <!-- <div>
         Selected:
         <strong>{{ selected }}</strong>
-      </div>
-    </b-form>
+        <p/>
+    </div>-->
+    <!-- </b-form> -->
   </div>
 </template>
 
 <script>
+import Vue from "vue";
+var eventBus = new Vue();
+
 export default {
   beforeMount() {
     this.optionParam = this.optionParamParent;
@@ -53,61 +62,62 @@ export default {
         {
           optionName: null,
           optionValue: [{ value: { subname: "", price: null }, text: "" }]
-        }, // 1
-        {
-          optionName: null,
-          optionValue: [{ value: { subname: "", price: null }, text: "" }]
-        }, // 2
-        {
-          optionName: null,
-          optionValue: [{ value: { subname: "", price: null }, text: "" }]
-        }, // 3
-        {
-          optionName: null,
-          optionValue: [{ value: { subname: "", price: null }, text: "" }]
-        } // 4
+        } // 0
       ]
     };
   },
   methods: {
-    toggleActive: function(s) {
-      s.active = !s.active;
-    },
-    total: function() {
-      var total = 0;
-      this.services.forEach(function(s) {
-        if (s.selected) {
-          total += s.price;
-        }
-      });
+    getAmount(value) {
+      value = value.price;
+      // console.log("child add to cart()", value, this.options[0].optionName);
 
-      return total;
+      // 키값 넣어 전송
+      // this.$eventBus.$emit("getAmount", value, this.options[0].optionName);
+
+      // 키값 없이 전송
+      this.$eventBus.$emit(
+        "getAmount",
+        value,
+        this.options[0].optionName,
+        this.options[0].optionValue[0].value.subname
+      );
+
+      // console.log(this.options[0].optionValue[0].value.price);
+      // this.total();
     },
-    addService: function() {},
-    deleteService: function() {},
+    // toggleActive: function(s) {
+    //   s.active = !s.active;
+    // },
+    // total: function() {
+    //   var total = 0;
+    //   this.options[0].optionValue[0].value.price.forEach(function(s) {
+    //     if (s.selected) {
+    //       total += s.price;
+    //     }
+    //   });
+    //   console.log("total:", total);
+    //   // return total;
+    // },
+    // addService: function() {},
+    // deleteService: function() {},
     setOptions(result, opIndex) {
       // console.log("length: ", result.data[0].options.length);
-      console.log("result: ", result);
+      // console.log("result: ", result);
 
       //// 한꺼번에 넣기
       // 일단 기존 내용을 삭제하고
       this.options.splice(0);
       // 값을 집어넣는다
-      //   var i;
-      //   for (i = 0; i < result.length; i++) {
+
       this.options.push(result[opIndex]);
-      console.log("set options push: ", this.options);
-      // console.log("key test:", Object.keys(result[i].optionValue));
-      // for (var j = 0; j < 1; j++) {
-      //   // 초기 선택값 세팅 및 선택 요소 반영
-      //   // console.log("key test:", result[i].optionValue[j]);
-      //   this.selected.push(result[i].optionValue[j]);
-      // }
-      //   }
+      // console.log("set options push: ", this.options);
+
       this.selected = this.options[0].optionValue[0].value;
       // 확인
-      console.log("selected ", this.selected);
-      console.log("setOptions push: ", this.options);
+      // console.log("selected ", this.selected);
+      // console.log("setOptions push: ", this.options);
+
+      this.getAmount(this.options[0].optionValue[0].value);
     }
   },
   created() {
@@ -116,10 +126,11 @@ export default {
     this.$http
       .get(`${baseURI}/menu-detail?menu_id=` + this.$route.params.menu_id)
       .then(result => {
-        console.log("MenuDetail: created()");
-        this.checkedMenu_id = result.data[0].menu_id;
-        this.menuItems = result.data[0];
-        console.log("최종 menu items:", this.menuItems);
+        // console.log("MenuDetail: created()");
+        // this.checkedMenu_id = result.data[0].menu_id;
+        // this.menuItems = result.data[0];
+        // console.log("최종 menu items:", this.menuItems);
+        this.menu_id = result.data[0].menu_id;
       }); // get
     this.$http
       .get(`${baseURI}/menu-option?menu_id=` + this.$route.params.menu_id)
@@ -130,7 +141,7 @@ export default {
         ////////  select 메뉴 초기 설정값
         // console.log("확인---->", this.options[0].subOptions[0].text);
 
-        console.log("created param: ", this.optionParam);
+        // console.log("created param: ", this.optionParam);
         this.opIndex = this.optionParam;
         this.setOptions(result.data[0].options, this.opIndex);
         // console.log("왜 이건 안해줌? ", result.data[0].options.length);
@@ -140,9 +151,6 @@ export default {
 </script>
 
 <style scoped>
-#pane {
-  padding: 1rem;
-}
 #option-select {
   width: 150px;
 }
