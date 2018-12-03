@@ -38,16 +38,18 @@ export default {
     this.$eventBus.$on("searchList", this.searchList);
   },
   methods: {
-    searchList(lat, lng) {
-      const baseURI = "http://219.240.99.118:4000";
-      // const baseURI = "http://localhost:4000";
+    searchList(data) {
+      // const baseURI = "http://219.240.99.118:4000";
+      // // const baseURI = "http://localhost:4000";
 
-      this.$http
-        .get(`${baseURI}/otdr?lat=` + lat + `&lng=` + lng)
-        .then(result => {
-          this.lists = result.data;
-          console.log("searchList(): ", this.lists);
-        });
+      // this.$http
+      //   .get(`${baseURI}/otdr?lat=` + lat + `&lng=` + lng)
+      //   .then(result => {
+      //     this.lists = result.data;
+      //     console.log("searchList(): ", this.lists);
+      //   });
+      console.log("eventbus on", data);
+      this.lists = data;
     }
   }
 };

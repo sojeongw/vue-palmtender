@@ -61,7 +61,7 @@ export default {
     };
   },
   created() {
-    this.$eventBus.$on("searchList", this.searchList);
+    // this.$eventBus.$on("searchList", this.searchList);
   },
   mounted() {
     this.geolocate();
@@ -122,7 +122,9 @@ export default {
           )
           .then(result => {
             this.lists = result.data;
-            console.log("searchList(): ", result.data);
+            console.log("초기 화면 진입 시 실행되는 코드 ", result.data);
+            this.$eventBus.$emit("searchList", this.lists);
+
             for (var i = 0; i < result.data.length; i++) {
               //식당 개수만큼 반복
               const marker = {

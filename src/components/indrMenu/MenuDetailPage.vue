@@ -14,9 +14,9 @@
     </div>
     <p/>
     <div>
-      <router-link :to="{name:'order'}">
-        <button>바로 주문하기</button>
-      </router-link>
+      <!-- <router-link :to="{name:'order'}"> -->
+      <button>바로 주문하기</button>
+      <!-- </router-link> -->
     </div>
   </div>
 </template>
