@@ -5,8 +5,9 @@
     <div v-if="hasResult">
       <div v-for="list in lists" v-bind:key="list.restr_id">
         <div>
-          {{list.menu[0].menuName}}
-          <article>{{list.menu[0].menuInfo}} - {{list.menu[0].menuAllergy}} - {{list.menu[0].menuPrice}}</article>
+          {{list.menuName}}
+          <article>{{list.menuInfo}} - {{list.menuAllergy}} - {{list.menuPrice}}</article>
+          <p/>
         </div>
       </div>
     </div>
@@ -27,8 +28,9 @@ export default {
       .get(`${baseURI}/detail?restr_id=` + this.$route.params.restr_id)
       .then(result => {
         console.log("MenuList created()");
-        console.log(result.data);
-        this.lists = result.data;
+        console.log(result.data[0].menu);
+        // this.lists = result.data;
+        this.lists = result.data[0].menu;
       });
   }, // created
   computed: {

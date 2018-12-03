@@ -88,6 +88,7 @@ export default {
           .then(result => {
             this.lists = result.data; //리스트에 데이터 저장
             console.log("searchList(): ", result.data);
+            this.$eventBus.$emit("searchList", this.lists);
 
             //마커그리기
             for (var i = 0; i < result.data.length; i++) {
