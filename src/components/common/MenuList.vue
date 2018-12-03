@@ -23,11 +23,13 @@ export default {
   created() {
     const baseURI = "http://219.240.99.118:4000";
     // const baseURI = "http://localhost:4000";
-    this.$http.get(`${baseURI}/detail?restr_id=` + 1).then(result => {
-      console.log("MenuList created()");
-      console.log(result.data);
-      this.lists = result.data;
-    });
+    this.$http
+      .get(`${baseURI}/detail?restr_id=` + this.$route.params.restr_id)
+      .then(result => {
+        console.log("MenuList created()");
+        console.log(result.data);
+        this.lists = result.data;
+      });
   }, // created
   computed: {
     hasResult() {
