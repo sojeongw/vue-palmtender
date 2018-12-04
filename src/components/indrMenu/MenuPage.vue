@@ -51,6 +51,8 @@ export default {
 
         // 태그 유무
         localStorage.setItem("retag", parseInt(this.$route.params.retag) + 1);
+        localStorage.setItem("restr_id", parseInt(this.$route.params.restr_id));
+        localStorage.setItem("table_id", parseInt(this.$route.params.table_id));
       });
   } // created
 };

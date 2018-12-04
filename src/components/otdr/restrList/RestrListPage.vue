@@ -25,7 +25,7 @@ export default {
 
 <style scoped>
 .panes {
-  height: calc(100vh-4rem);
+  height: 800px;
   display: flex;
 }
 .pane-map,

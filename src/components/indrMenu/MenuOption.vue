@@ -37,14 +37,8 @@
     </div>
     <!-- </b-form> -->
     <div>
-      <button @click="addToCart(selected)">장바구니 넣기</button>
-
-      <!-- 모달 -->
-      <b-modal size="sm" ref="myModalRef" hide-footer title="Shopping Cart">
-        <div class="d-block text-center">장바구니에 담았습니다</div>
-        <!-- <b-btn class="mt-3" variant="info" block @click="hideModal">장바구니로 이동</b-btn> -->
-        <b-btn class="mt-3" variant="info" block @click="hideModal">닫기</b-btn>
-      </b-modal>
+      <!-- <button @click="addToCart(selected)">장바구니 넣기</button> -->
+      <router-link @click="addToCart(selected)" :to="{name:'cart-completed'}" tag="button">장바구니 추가</router-link>
     </div>
     <p/>
     <div>
@@ -52,6 +46,10 @@
       <button>바로 주문하기</button>
       <!-- </router-link> -->
     </div>
+    <router-link
+      :to="{name:'cart-page', params:{restr_id:restr_id, table_id:table_id}}"
+      tag="button"
+    >장바구니 보기</router-link>
   </div>
 </template>
 
@@ -64,6 +62,9 @@ var eventBus = new Vue();
 export default {
   data() {
     return {
+      retag: null,
+      restr_id: null,
+      table_id: null,
       selected: [],
       // menu_id를 키, option을 value로 해서 보내기
       menu_id: null,
@@ -119,6 +120,10 @@ export default {
     }
   },
   created() {
+    this.retag = localStorage.getItem("retag");
+    this.restr_id = localStorage.getItem("restr_id");
+    this.table_id = localStorage.getItem("table_id");
+
     const baseURI = "http://219.240.99.118:4000";
     // const baseURI = "http://localhost:4000";
 

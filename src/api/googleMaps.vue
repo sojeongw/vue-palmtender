@@ -168,26 +168,22 @@ export default {
     },
     getInfoWindowContent: function(marker) {
       //인포윈도우 이미지
-      return `<div class="card">
-  <div class="card-image">
-    <figure class="image is-4by3">
-      <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
-    </figure>
-  </div>
-  <div class="card-content">
-    <div class="media">
-      <div class="media-content">
-        <p class="title is-4">${marker.name}</p>
-      </div>
-    </div>
-    <div class="content">
-      ${marker.description}
-    </div>
-     <div class="table">
-      ${marker.tableinfo}
-    </div>
-  </div>
-</div>`;
+      return `
+       <b-card title=" ${marker.name}"
+                img-src="https://placekitten.com/500/350"
+                img-fluid
+                img-alt="image"
+                img-top>
+              
+            <h6 style="padding-top: 0.5rem">
+            ${marker.name}
+            </h6>
+             <p class="card-text">
+                 ${marker.description}
+            </p>
+            <small class="text-muted"> ${marker.tableinfo}</small>
+        </b-card>
+     `;
     },
     geolocate: function() {
       //첫화면 center 설정

@@ -3,10 +3,6 @@
     <menu-option></menu-option>
     table: {{table_id}}
     <p/>
-    <router-link
-      :to="{name:'cart-page', params:{restr_id:restr_id, table_id:table_id}}"
-      tag="button"
-    >장바구니 보기</router-link>
   </div>
 </template>
 

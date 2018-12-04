@@ -7,6 +7,7 @@ import MenuDetailPage from "./components/indrMenu/MenuDetailPage";
 import PayPage from "./components/indrPay/PayPage";
 import OrderPage from "./components/indrOrder/OrderPage";
 import OrderComplPage from "./components/indrOrder/OrderComplPage";
+import CartCompleted from "./components/indrCart/CartCompleted";
 
 const routes = [
   {
@@ -71,6 +72,11 @@ const routes = [
     path: "/order-completed",
     component: OrderComplPage,
     name: "order-completed"
+  },
+  {
+    path: "/cart-completed",
+    component: CartCompleted,
+    name: "cart-completed"
   }
 ];
 
