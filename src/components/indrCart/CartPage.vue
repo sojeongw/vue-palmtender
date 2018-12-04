@@ -1,6 +1,6 @@
 <template>
   <div>
-    <cart-list :menuItems="menuItems"></cart-list>
+    <cart-list :result="result"></cart-list>
 
     <router-link :to="{name:'order'}" exact tag="button">주문하기</router-link>
     <button v-on:click="deleteItem">삭제하기</button>
@@ -12,11 +12,11 @@ import CartList from "./CartList";
 export default {
   data() {
     return {
-      restr_id: null,
-      table_id: null,
-      menu_id: null,
-      optionAmount: null,
-      menuPrice: null,
+      // restr_id: null,
+      // table_id: null,
+      // menu_id: null,
+      // optionAmount: null,
+      // menuPrice: null,
       total: null,
       menuItems: [],
       result: []
@@ -67,22 +67,24 @@ export default {
         // console.log("카트 조회", result.data.length);
         // console.log("카트 조회", result.data[0]);
         if (result.data.length > 0) {
-          this.menu_id = result.data[0].cartMenu_id;
-          this.table_id = result.data[0].cartMenu_id;
-          this.menuPrice = result.data[0].menuPrice;
-          this.optionAmount = result.data[0].optionAmount;
-          this.total = result.data[0].total;
+          this.result = result.data[0];
+          console.log("----------result값: ", this.result);
+          // this.menu_id = result.data[0].cartMenu_id;
+          // this.table_id = result.data[0].cartMenu_id;
+          // this.menuPrice = result.data[0].menuPrice;
+          // this.optionAmount = result.data[0].optionAmount;
+          // this.total = result.data[0].total;
 
-          for (var key in result.data[0].optionIndex) {
-            var optionPrice = result.data[0].optionPrice[key];
-            var subName = result.data[0].subName[key];
-            var optionName = result.data[0].optionName[key];
-            // this.menuItems[key].push(result.data[0].optionPrice[key]);
-            // this.menuItems[key].push(result.data[0].subName[key]);
-            // this.menuItems[key].push(result.data[0].optionName[key]);
-            // this.menuItems=Object.assign({})
-            this.menuItems[key] = { optionName, subName, optionPrice };
-          }
+          // for (var key in result.data[0].optionIndex) {
+          //   var optionPrice = result.data[0].optionPrice[key];
+          //   var subName = result.data[0].subName[key];
+          //   var optionName = result.data[0].optionName[key];
+          //   // this.menuItems[key].push(result.data[0].optionPrice[key]);
+          //   // this.menuItems[key].push(result.data[0].subName[key]);
+          //   // this.menuItems[key].push(result.data[0].optionName[key]);
+          //   // this.menuItems=Object.assign({})
+          //   this.menuItems[key] = { optionName, subName, optionPrice };
+          // }
 
           console.log("cartList menuItems ", this.menuItems);
         }

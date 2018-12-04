@@ -10,6 +10,7 @@
 import MenuOption from "./MenuOption";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
+import axios from "axios";
 import Vue from "vue";
 var eventBus = new Vue();
 
@@ -20,14 +21,15 @@ export default {
       menu_id: null,
       total: null,
       basicPrice: null,
-      cartOption: []
+      cartOption: [],
+      table_id: null
     };
   },
   components: {
     MenuOption: MenuOption
   },
   // router에서 받아온 props
-  props: ["table_id"],
+  // props: ["table_id"],
   methods: {
     addToCart(selected, options, amount) {
       // console.log("받은 테이블 아이디", this.table_id);
@@ -50,38 +52,50 @@ export default {
       /////////////////////////////////
       const baseURI = "http://219.240.99.118:4000";
       // const baseURI = "http://localhost:4000";
-      var params = new URLSearchParams();
-      // 메뉴 id
-      params.append("menu_id", this.menu_id);
-      // 선택한 옵션명과 내용
-      // params.append("selectedOptions", JSON/stringify(this.cartOption));
-      for (var key in this.cartOption) {
-        // console.log("key값 저장: ", this.cartOption[key].opName);
-        // console.log("value값 저장: ", this.cartOption[key].opVal.price);
-        // console.log("value값 저장: ", this.cartOption[key].opVal.subname);
-        params.append("optionIndex", key);
-        params.append("optionName", this.cartOption[key].opName);
-        params.append("subName", this.cartOption[key].opVal.subname);
-        params.append("optionPrice", this.cartOption[key].opVal.price);
-      }
-      // 옵션 가격
-      params.append("optionAmount", amount);
-      // 메뉴 가격
-      params.append("menuPrice", this.basicPrice);
-      // 총 가격
-      params.append("total", this.total);
-      // 레스토랑 아이디
-      params.append("restr_id", this.restr_id);
-      // 테이블 아이디
-      params.append("table_id", this.table_id);
 
-      this.$http
-        .post(`${baseURI}/cart-push/`, params)
-        .then(result => {
-          console.log(result.data);
-          //   this.cart = result.data;
+      axios
+        .post(baseURI + "/cart-push/", {
+          optionName: this.cartOption
         })
-        .catch(error => console.log(error));
+        .then(function(response) {
+          console.log("axios 성공" + response);
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+
+      // var params = new URLSearchParams();
+      // // 메뉴 id
+      // params.append("menu_id", this.menu_id);
+      // // 선택한 옵션명과 내용
+      // // params.append("selectedOptions", JSON/stringify(this.cartOption));
+      // for (var key in this.cartOption) {
+      //   // console.log("key값 저장: ", this.cartOption[key].opName);
+      //   // console.log("value값 저장: ", this.cartOption[key].opVal.price);
+      //   // console.log("value값 저장: ", this.cartOption[key].opVal.subname);
+      //   params.append("optionIndex", key);
+      //   params.append("optionName", this.cartOption[key].opName);
+      //   params.append("subName", this.cartOption[key].opVal.subname);
+      //   params.append("optionPrice", this.cartOption[key].opVal.price);
+      // }
+      // // 옵션 가격
+      // params.append("optionAmount", amount);
+      // // 메뉴 가격
+      // params.append("menuPrice", this.basicPrice);
+      // // 총 가격
+      // params.append("total", this.total);
+      // // 레스토랑 아이디
+      // params.append("restr_id", this.restr_id);
+      // // 테이블 아이디
+      // params.append("table_id", this.table_id);
+
+      // this.$http
+      //   .post(`${baseURI}/cart-push/`, params)
+      //   .then(result => {
+      //     console.log("성공: ", result.data);
+      //     //   this.cart = result.data;
+      //   })
+      //   .catch(error => console.log(error));
     },
     hideModal() {
       this.$refs.myModalRef.hide();
@@ -89,6 +103,7 @@ export default {
   },
   created() {
     this.$eventBus.$on("addToCart", this.addToCart);
+    this.table_id = localStorage.getItem("table_id");
 
     const baseURI = "http://219.240.99.118:4000";
     this.$http

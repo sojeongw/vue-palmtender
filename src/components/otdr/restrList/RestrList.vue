@@ -1,46 +1,21 @@
 <template>
   <div id="app" v-if="hasResult">
     <b-list-group>
-      <div v-for="(list, key) in lists" v-bind:key="key">
-        <b-list-group-item href="#" class="flex-column align-items-start">
-          <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1">restr name</h5>
-            <!-- <h5 class="mb-1">List group item heading</h5> -->
-            <small>category</small>
-          </div>
-          <p class="mb-1">info</p>
-          <small class="text-muted">사용 가능 테이블</small>
-        </b-list-group-item>
-
-        <b-list-group-item href="#" class="flex-column align-items-start">
-          <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1">List group item heading</h5>
-            <small class="text-muted">3 days ago</small>
-          </div>
-          <p class="mb-1">
-            Donec id elit non mi porta gravida at eget metus. Maecenas
-            sed diam eget risus varius blandit.
-          </p>
-          <small class="text-muted">Donec id elit non mi porta.</small>
-        </b-list-group-item>
-      </div>
-    </b-list-group>
-
-    <!-- <b-list-group>
-      <div v-for="list in lists" v-bind:key="list.restr_id">
+      <div v-for="(list,index) in lists" v-bind:key="index">
         <b-list-group-item
           :to="{name:'restr-detail', params:{restr_id: list.restr_id}}"
           class="flex-column align-items-start"
         >
           <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1">{{list.restrName}}</h5>
+            <!-- <img src="http://www.newsculture.tv/imgdata/newsculture_tv/201709/201709283725878.jpg"> -->
+            <h5 class="mb-1">{{index+1}}. {{list.restrName}}</h5>
             <small>{{list.restrCategoryName}}</small>
           </div>
           <p class="mb-1">{{list.restrInfo}}</p>
-          <small>사용 가능 테이블: {{list.usableTable}}</small>
+          <small class="text-muted">사용 가능 테이블: {{list.usableTable}}</small>
         </b-list-group-item>
       </div>
-    </b-list-group>-->
+    </b-list-group>
   </div>
 </template>
 
@@ -81,4 +56,21 @@ export default {
 </script>
 
 <style scoped>
+img {
+  display: block;
+  max-width: 200px;
+  max-height: 200px;
+  width: auto;
+  height: auto;
+  /* height: 200px; */
+}
+a:link {
+  text-decoration: none;
+}
+a:visited {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: none;
+}
 </style>

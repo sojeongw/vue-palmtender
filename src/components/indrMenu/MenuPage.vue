@@ -5,7 +5,7 @@
       <div v-for="(item, key) in items" v-bind:key="key">
         <div>
           <router-link
-            :to="{name:'menu-detail', params:{menu_id: item.menu_id, table_id:table_id}}"
+            :to="{name:'menu-detail', params:{menu_id: item.menu_id}}"
             exact
           >{{item.menuName}}</router-link>
           <article>{{key}}: {{item.menuInfo}} - {{item.menuAllergy}} - {{item.menuPrice}}</article>

@@ -37,8 +37,10 @@
     </div>
     <!-- </b-form> -->
     <div>
-      <!-- <button @click="addToCart(selected)">장바구니 넣기</button> -->
-      <router-link @click="addToCart(selected)" :to="{name:'cart-completed'}" tag="button">장바구니 추가</router-link>
+      <router-link :to="{name:'cart-completed'}">
+        <button @click="addToCart(selected)">장바구니 넣기</button>
+      </router-link>
+      <!-- <router-link @click="addToCart(selected)" :to="{name:'cart-completed'}" tag="button">장바구니 추가</router-link> -->
     </div>
     <p/>
     <div>
@@ -80,11 +82,7 @@ export default {
   },
 
   methods: {
-    hideModal() {
-      this.$refs.myModalRef.hide();
-    },
     addToCart(selected) {
-      this.$refs.myModalRef.show();
       console.log("add to cart: ", this.optionToCart);
 
       this.$eventBus.$emit("addToCart", selected, this.options, this.amount);

@@ -1,11 +1,9 @@
 <template>
-  <div v-if="hasResult">
-    <!-- <div v-for="(item,key) in menuItems" :key="key">
-      {{item.optionName}}
-      {{item.subName}}
-    {{item.optionPrice}}-->
-    {{menuItems()}}
-    <!-- </div> -->
+  <!-- <div v-if="hasResult"> -->
+  <div>
+    <!-- <div v-for="(name,key) in result.optionName" :key="key">{{name}}</div> -->
+    <!-- <div v-for="(price,index)in result.optionPrice" :key="index">{{price}}</div> -->
+    {{result}}
   </div>
 </template>
 
@@ -23,14 +21,14 @@ export default {
       // menuItems: [{}]
     };
   },
-  props: ["menuItems"],
+  props: ["result"],
   methods: {
     addToCart() {}
   },
   computed: {
-    hasResult() {
-      return this.menuItems.length > 0;
-    }
+    // hasResult() {
+    //   return this.result.length > 0;
+    // }
   },
   created() {
     console.log("cart list created");

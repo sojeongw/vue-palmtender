@@ -1,11 +1,10 @@
 
 <template>
   <div>
-    <h3>detail page</h3>
     <restr-detail/>
-    <menu-list/>
+    <!-- <menu-list/>
     <table-status/>
-    <review-list/>
+    <review-list/>-->
     <!-- <router-view></router-view> -->
   </div>
 </template>

@@ -17,6 +17,13 @@
       <gmap-marker
         :key="index"
         v-for="(m, index) in markers"
+        :label="{
+                  color:'black',
+                  fontFamily: 'Material Icons',
+                  fontSize: '20px',
+                  text: m.text
+                }"
+        :icon.sync="m.icon"
         :position="m.position"
         @click="clickMarker(m,index)"
       ></gmap-marker>
@@ -62,7 +69,8 @@ export default {
           width: 0,
           height: -35
         }
-      }
+      },
+      mnum: 1
     };
   },
   created() {
@@ -103,13 +111,25 @@ export default {
                 lat: parseFloat(result.data[i].restrLat),
                 lng: parseFloat(result.data[i].restrLng)
               };
-              this.markers.push({
-                //마커입력
-                position: marker, //마커 위치
-                name: result.data[i].restrName, //식당 이름
-                description: result.data[i].restrInfo, //식당 소개
-                tableinfo: "남은좌석 : " + result.data[i].usableTable //식당 남은 좌석
-              });
+              if (result.data[i].usableTable == 0) {
+                this.markers.push({
+                  position: marker, //식당 위치
+                  text: "" + (i + 1),
+                  icon: "/src/assets/images/gray.png",
+                  name: result.data[i].restrName, //식당이름
+                  description: result.data[i].restrInfo, //식당소개
+                  tableinfo: "남은좌석 : " + result.data[i].usableTable //사용가능 테이블 수
+                });
+              } else {
+                this.markers.push({
+                  position: marker, //식당 위치
+                  text: "" + (i + 1),
+                  icon: "/src/assets/images/red.png",
+                  name: result.data[i].restrName, //식당이름
+                  description: result.data[i].restrInfo, //식당소개
+                  tableinfo: "남은좌석 : " + result.data[i].usableTable //사용가능 테이블 수
+                });
+              }
             }
 
             this.places.push(this.currentPlace); //검색 시 검색한 좌표로 이동
@@ -138,12 +158,25 @@ export default {
                 lat: parseFloat(result.data[i].restrLat),
                 lng: parseFloat(result.data[i].restrLng)
               };
-              this.markers.push({
-                position: marker, //식당 위치
-                name: result.data[i].restrName, //식당이름
-                description: result.data[i].restrInfo, //식당소개
-                tableinfo: "남은좌석 : " + result.data[i].usableTable //사용가능 테이블 수
-              });
+              if (result.data[i].usableTable == 0) {
+                this.markers.push({
+                  position: marker, //식당 위치
+                  text: "" + (i + 1),
+                  icon: "/src/assets/images/gray.png",
+                  name: result.data[i].restrName, //식당이름
+                  description: result.data[i].restrInfo, //식당소개
+                  tableinfo: "남은좌석 : " + result.data[i].usableTable //사용가능 테이블 수
+                });
+              } else {
+                this.markers.push({
+                  position: marker, //식당 위치
+                  text: "" + (i + 1),
+                  icon: "/src/assets/images/red.png",
+                  name: result.data[i].restrName, //식당이름
+                  description: result.data[i].restrInfo, //식당소개
+                  tableinfo: "남은좌석 : " + result.data[i].usableTable //사용가능 테이블 수
+                });
+              }
             }
           });
       }
