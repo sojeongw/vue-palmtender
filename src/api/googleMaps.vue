@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="set-place">
-      <label>
-        <gmap-autocomplete class="mr-sm-2" @place_changed="setPlace"></gmap-autocomplete>
+      <label class="map-label">
+        <gmap-autocomplete style="width:300px" class="mr-sm-2" @place_changed="setPlace"></gmap-autocomplete>
         <b-button
           size="sm"
           @click="searchList"
@@ -13,7 +13,7 @@
         <!-- <button @click="searchList">Add</button> -->
       </label>
     </div>
-    <gmap-map :center="center" :zoom="15" style="width:100%;  height: 400px;">
+    <gmap-map :center="center" :zoom="15" style="width:100%;  height: 600px;">
       <gmap-marker
         :key="index"
         v-for="(m, index) in markers"
@@ -234,5 +234,12 @@ export default {
 <style scoped>
 .set-place {
   padding: 1rem;
+}
+.map-label {
+  /* display: flex;
+  flex: 1; */
+  /* position: relative; */
+  /* padding-left: 6rem; */
+  /* float: inherit; */
 }
 </style>

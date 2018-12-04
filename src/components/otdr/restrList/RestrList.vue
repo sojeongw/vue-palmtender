@@ -1,21 +1,56 @@
 <template>
   <div id="app" v-if="hasResult">
-    <b-list-group>
-      <div v-for="(list,index) in lists" v-bind:key="index">
-        <b-list-group-item
-          :to="{name:'restr-detail', params:{restr_id: list.restr_id}}"
-          class="flex-column align-items-start"
-        >
-          <div class="d-flex w-100 justify-content-between">
-            <!-- <img src="http://www.newsculture.tv/imgdata/newsculture_tv/201709/201709283725878.jpg"> -->
-            <h5 class="mb-1">{{index+1}}. {{list.restrName}}</h5>
-            <small>{{list.restrCategoryName}}</small>
-          </div>
-          <p class="mb-1">{{list.restrInfo}}</p>
-          <small class="text-muted">사용 가능 테이블: {{list.usableTable}}</small>
-        </b-list-group-item>
-      </div>
-    </b-list-group>
+    <!-- <v-layout row>
+      <v-flex xs12 sm6 offset-sm3>
+        <v-card>
+          <v-toolbar color="cyan" dark>
+            <v-toolbar-side-icon></v-toolbar-side-icon>
+
+            <v-toolbar-title>Inbox</v-toolbar-title>
+
+            <v-spacer></v-spacer>
+
+            <v-btn icon>
+              <v-icon>search</v-icon>
+            </v-btn>
+          </v-toolbar>
+
+          <v-list two-line>
+            <template v-for="(list,index) in lists">
+              <v-subheader v-if="list.header" :key="list.header">{{ item.header }}</v-subheader>
+              <v-divider v-else-if="list.divider" :inset="list.inset" :key="index"></v-divider>
+
+              <v-list-tile v-else :key="index" avatar>
+                <v-list-tile-avatar>
+                <img :src="item.avatar">
+                </v-list-tile-avatar>
+                <v-list-tile-content>
+                  <v-list-tile-title v-html="list.restrName"></v-list-tile-title>
+                  <v-list-tile-sub-title v-html="list.restrInfo"></v-list-tile-sub-title>
+                </v-list-tile-content>
+              </v-list-tile>
+            </template>
+          </v-list>
+        </v-card>
+      </v-flex>
+    </v-layout>-->
+    <b-card header="식당 리스트" header-tag="header">
+      <b-list-group>
+        <div v-for="(list,index) in lists" v-bind:key="index">
+          <b-list-group-item
+            :to="{name:'restr-detail', params:{restr_id: list.restr_id}}"
+            class="flex-column align-items-start"
+          >
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1">{{index+1}}. {{list.restrName}}</h5>
+              <small>{{list.restrCategoryName}}</small>
+            </div>
+            <p class="mb-1">{{list.restrInfo}}</p>
+            <small class="text-muted">사용 가능 테이블: {{list.usableTable}}</small>
+          </b-list-group-item>
+        </div>
+      </b-list-group>
+    </b-card>
   </div>
 </template>
 

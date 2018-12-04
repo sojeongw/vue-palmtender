@@ -25,7 +25,7 @@ export default {
 
 <style scoped>
 .panes {
-  height: 800px;
+  height: 100%;
   display: flex;
 }
 .pane-map,
@@ -44,5 +44,6 @@ export default {
   flex-direction: column;
   /* 내용이 넘치면 스크롤 */
   overflow-y: auto;
+  height: 600px;
 }
 </style>
