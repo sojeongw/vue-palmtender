@@ -1,21 +1,46 @@
 <template>
   <div id="app" v-if="hasResult">
-    <div v-for="list in lists" v-bind:key="list.restr_id">
-      <b-list-group>
+    <b-list-group>
+      <div v-for="(list, key) in lists" v-bind:key="key">
         <b-list-group-item href="#" class="flex-column align-items-start">
           <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1">
-              <router-link
-                :to="{name:'restr-detail', params:{restr_id: list.restr_id}}"
-              >{{list.restrName}}</router-link>
-            </h5>
+            <h5 class="mb-1">restr name</h5>
+            <!-- <h5 class="mb-1">List group item heading</h5> -->
+            <small>category</small>
+          </div>
+          <p class="mb-1">info</p>
+          <small class="text-muted">사용 가능 테이블</small>
+        </b-list-group-item>
+
+        <b-list-group-item href="#" class="flex-column align-items-start">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">List group item heading</h5>
+            <small class="text-muted">3 days ago</small>
+          </div>
+          <p class="mb-1">
+            Donec id elit non mi porta gravida at eget metus. Maecenas
+            sed diam eget risus varius blandit.
+          </p>
+          <small class="text-muted">Donec id elit non mi porta.</small>
+        </b-list-group-item>
+      </div>
+    </b-list-group>
+
+    <!-- <b-list-group>
+      <div v-for="list in lists" v-bind:key="list.restr_id">
+        <b-list-group-item
+          :to="{name:'restr-detail', params:{restr_id: list.restr_id}}"
+          class="flex-column align-items-start"
+        >
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">{{list.restrName}}</h5>
             <small>{{list.restrCategoryName}}</small>
           </div>
           <p class="mb-1">{{list.restrInfo}}</p>
           <small>사용 가능 테이블: {{list.usableTable}}</small>
         </b-list-group-item>
-      </b-list-group>
-    </div>
+      </div>
+    </b-list-group>-->
   </div>
 </template>
 

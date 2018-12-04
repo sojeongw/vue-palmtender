@@ -40,9 +40,10 @@ const routes = [
     name: "reviewPage"
   },
   {
-    path: "/cart",
+    path: "/cart/:restr_id/:table_id",
     component: CartPage,
     name: "cart-page"
+    // props: true
   },
   {
     path: "/menu/:restr_id/:table_id/:retag",
@@ -52,7 +53,9 @@ const routes = [
   {
     path: "/menu-detail/:menu_id",
     component: MenuDetailPage,
-    name: "menu-detail"
+    name: "menu-detail",
+    // 테이블 id를 props로 전달하기 위함
+    props: true
   },
   {
     path: "/pay",

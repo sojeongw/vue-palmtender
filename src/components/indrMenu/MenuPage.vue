@@ -5,7 +5,7 @@
       <div v-for="(item, key) in items" v-bind:key="key">
         <div>
           <router-link
-            :to="{name:'menu-detail', params:{menu_id: item.menu_id}}"
+            :to="{name:'menu-detail', params:{menu_id: item.menu_id, table_id:table_id}}"
             exact
           >{{item.menuName}}</router-link>
           <article>{{key}}: {{item.menuInfo}} - {{item.menuAllergy}} - {{item.menuPrice}}</article>
@@ -19,10 +19,10 @@
 export default {
   data() {
     return {
-      items: []
+      items: [],
       // NFC에서 받는 값
       // restr_Id: 2,
-      // table_Id: 1,
+      table_id: null
       // retag: 0
     };
   },
@@ -45,8 +45,8 @@ export default {
           this.$route.params.retag
       )
       .then(result => {
-        console.log("MenuPage: created()", result);
-        console.log(result.data);
+        this.table_id = this.$route.params.table_id;
+        console.log("MenuPage: created()", result.data);
         this.items = result.data;
 
         // 태그 유무

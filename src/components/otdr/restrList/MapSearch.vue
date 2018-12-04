@@ -1,16 +1,12 @@
 <template>
   <div>
-    <div>
-      <!-- <button v-on:click="searchList(37.40078, 127.10813)">회사</button>
-      <button v-on:click="searchList(37.39618, 127.11120)">판교역</button>
-      <button v-on:click="searchList(37.49792, 127.02746)">강남역</button>-->
-    </div>
     <google-maps/>
   </div>
 </template>
 
 <script>
 import googleMaps from "/Users/sojeong/web_proj/vue/palmtender_frontend/src/api/googleMaps.vue";
+// import googleMaps from "C:/Users/sktsuser/Documents/vue-palmtender/src/api/googleMaps.vue";
 import Vue from "vue";
 
 var eventBus = new Vue();

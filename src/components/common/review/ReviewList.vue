@@ -4,9 +4,9 @@
     <div v-if="hasResult">
       <div v-for="item in items" v-bind:key="item.restr_id">
         <div>
-          {{item.review[0].reviewDate}}
-          <article>{{item.review[0].reviewContents}} - {{item.review[0].reviewRating}}</article>
-          <article>{{item.review[0].reviewUser_id}} - {{item.review[0].review_id}}</article>
+          {{item.reviewDate}}
+          <article>{{item.reviewContents}} - {{item.reviewRating}}</article>
+          <article>{{item.reviewUser_id}} - {{item.review_id}}</article>
         </div>
       </div>
     </div>
@@ -37,7 +37,7 @@ export default {
         this.items = result.data[0].review;
       })
       .catch(err => {
-        console.log("리뷰 없음", err);
+        console.log(err);
       });
   } // created
 };

@@ -1,15 +1,18 @@
 <template>
   <div>
-    <div>
-      <h3>Search and add a pin</h3>
+    <div class="set-place">
       <label>
-        <gmap-autocomplete @place_changed="setPlace"></gmap-autocomplete>
-
-        <button @click="searchList">Add</button>
+        <gmap-autocomplete class="mr-sm-2" @place_changed="setPlace"></gmap-autocomplete>
+        <b-button
+          size="sm"
+          @click="searchList"
+          variant="outline-success"
+          class="my-2 my-sm-0"
+          type="submit"
+        >Search</b-button>
+        <!-- <button @click="searchList">Add</button> -->
       </label>
-      <br>
     </div>
-    <br>
     <gmap-map :center="center" :zoom="15" style="width:100%;  height: 400px;">
       <gmap-marker
         :key="index"
@@ -31,6 +34,8 @@
 </template>
 
 <script>
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap-vue/dist/bootstrap-vue.css";
 export default {
   name: "GoogleMap",
   data() {
@@ -196,3 +201,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.set-place {
+  padding: 1rem;
+}
+</style>

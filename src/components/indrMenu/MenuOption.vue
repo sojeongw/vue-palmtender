@@ -13,138 +13,119 @@
     </div>-->
     <!-- <b-form> -->
     <!-- param: {{optionParam}} -->
-    <div id="option-select">
-      {{options[0].optionName}}
-      <!-- <b-form-group :id="options[0].optionName" :name="options[0].optionName"> -->
-      <b-form-select
-        v-model="selected"
-        v-on:change="getAmount"
-        :options="options[0].optionValue"
-        class="mb-3"
-      />
-      <!-- </b-form-group> -->
+    <div id="option-select" v-for="(option,key) in options" :key="key">
+      {{option.optionName}}
+      <b-form-group :id="option.optionName" :name="option.optionName">
+        <b-form-select
+          v-on:Change="selectOption"
+          v-model="selected[key]"
+          :options="option.optionValue"
+          class="mb-3"
+        />
+      </b-form-group>
     </div>
-    <!-- <div>
-        Selected:
-        <strong>{{ selected }}</strong>
-        <p/>
-    </div>-->
+
+    <div>
+      Selected:
+      <strong>{{ selected }}</strong>
+      <p/>
+    </div>
+    <div>
+      amount:
+      <strong>{{ amount }}</strong>
+      <p/>
+    </div>
     <!-- </b-form> -->
+    <div>
+      <button @click="addToCart(selected)">장바구니 넣기</button>
+
+      <!-- 모달 -->
+      <b-modal size="sm" ref="myModalRef" hide-footer title="Shopping Cart">
+        <div class="d-block text-center">장바구니에 담았습니다</div>
+        <!-- <b-btn class="mt-3" variant="info" block @click="hideModal">장바구니로 이동</b-btn> -->
+        <b-btn class="mt-3" variant="info" block @click="hideModal">닫기</b-btn>
+      </b-modal>
+    </div>
+    <p/>
+    <div>
+      <!-- <router-link :to="{name:'order'}"> -->
+      <button>바로 주문하기</button>
+      <!-- </router-link> -->
+    </div>
   </div>
 </template>
 
 <script>
 import Vue from "vue";
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap-vue/dist/bootstrap-vue.css";
 var eventBus = new Vue();
 
 export default {
-  beforeMount() {
-    this.optionParam = this.optionParamParent;
-  },
-  props: {
-    optionParamParent: {
-      //   type: Number,
-      default() {
-        return null;
-      }
-    }
-  },
   data() {
     return {
-      opIndex: null,
-      optionParam: null,
-      selected: null,
-      newName: "",
-      newPrice: "",
+      selected: [],
       // menu_id를 키, option을 value로 해서 보내기
-      menu_id: "",
+      menu_id: null,
       options: [
         {
           optionName: null,
           optionValue: [{ value: { subname: "", price: null }, text: "" }]
         } // 0
-      ]
+      ],
+      optionToCart: [],
+      amount: 0
     };
   },
+
   methods: {
-    getAmount(value) {
-      value = value.price;
-      // console.log("child add to cart()", value, this.options[0].optionName);
+    hideModal() {
+      this.$refs.myModalRef.hide();
+    },
+    addToCart(selected) {
+      this.$refs.myModalRef.show();
+      console.log("add to cart: ", this.optionToCart);
 
-      // 키값 넣어 전송
-      // this.$eventBus.$emit("getAmount", value, this.options[0].optionName);
-
-      // 키값 없이 전송
-      this.$eventBus.$emit(
-        "getAmount",
-        value,
-        this.options[0].optionName,
-        this.options[0].optionValue[0].value.subname
-      );
-
-      // console.log(this.options[0].optionValue[0].value.price);
-      // this.total();
+      this.$eventBus.$emit("addToCart", selected, this.options, this.amount);
     },
     // toggleActive: function(s) {
     //   s.active = !s.active;
     // },
-    // total: function() {
-    //   var total = 0;
-    //   this.options[0].optionValue[0].value.price.forEach(function(s) {
-    //     if (s.selected) {
-    //       total += s.price;
-    //     }
-    //   });
-    //   console.log("total:", total);
-    //   // return total;
-    // },
+    total: function() {
+      this.amount = 0;
+      this.options[0].optionValue[0].value.price.forEach(function(s) {
+        if (s.selected) {
+          total += s.price;
+        }
+      });
+      console.log("total:", total);
+      // return total;
+    },
     // addService: function() {},
     // deleteService: function() {},
-    setOptions(result, opIndex) {
-      // console.log("length: ", result.data[0].options.length);
-      // console.log("result: ", result);
-
-      //// 한꺼번에 넣기
-      // 일단 기존 내용을 삭제하고
-      this.options.splice(0);
-      // 값을 집어넣는다
-
-      this.options.push(result[opIndex]);
-      // console.log("set options push: ", this.options);
-
-      this.selected = this.options[0].optionValue[0].value;
-      // 확인
-      // console.log("selected ", this.selected);
-      // console.log("setOptions push: ", this.options);
-
-      this.getAmount(this.options[0].optionValue[0].value);
+    setOptions(result) {
+      console.log("set options result: ", result);
+      this.options = result;
+    }
+  },
+  computed: {
+    selectOption: function() {
+      this.amount = 0;
+      for (var key in this.selected) {
+        // console.log("가격 구하기", this.selected[key].price);
+        this.amount += this.selected[key].price;
+      }
+      return this.amount;
     }
   },
   created() {
     const baseURI = "http://219.240.99.118:4000";
     // const baseURI = "http://localhost:4000";
-    this.$http
-      .get(`${baseURI}/menu-detail?menu_id=` + this.$route.params.menu_id)
-      .then(result => {
-        // console.log("MenuDetail: created()");
-        // this.checkedMenu_id = result.data[0].menu_id;
-        // this.menuItems = result.data[0];
-        // console.log("최종 menu items:", this.menuItems);
-        this.menu_id = result.data[0].menu_id;
-      }); // get
+
     this.$http
       .get(`${baseURI}/menu-option?menu_id=` + this.$route.params.menu_id)
       .then(result => {
-        // this.optionItems = result.data[0].options;
-        // console.log("최종 options 값: ", this.optionItems);
-
-        ////////  select 메뉴 초기 설정값
-        // console.log("확인---->", this.options[0].subOptions[0].text);
-
-        // console.log("created param: ", this.optionParam);
-        this.opIndex = this.optionParam;
-        this.setOptions(result.data[0].options, this.opIndex);
-        // console.log("왜 이건 안해줌? ", result.data[0].options.length);
+        this.setOptions(result.data[0].options);
       }); // get
   } // created
 };
