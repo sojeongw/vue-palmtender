@@ -1,8 +1,12 @@
 <template>
   <!-- <div v-if="hasResult"> -->
   <div>
-    <div v-for="(item,index) in result" :key="index">{{item.optionName}}</div>
-    {{result}}
+    <div v-for="(option,index) in result.selectedOptions" :key="index">
+      <!-- {{option}} -->
+      {{option.opName}}
+      {{option.opVal.subname}}
+      {{option.opVal.price}}
+    </div>
   </div>
 </template>
 
@@ -10,15 +14,7 @@
 import axios from "axios";
 export default {
   data() {
-    return {
-      // restr_id: null,
-      // table_id: null,
-      // menu_id: null,
-      // optionAmount: null,
-      // menuPrice: null,
-      // total: null,
-      // menuItems: [{}]
-    };
+    return {};
   },
   props: ["result"],
   methods: {
@@ -31,14 +27,6 @@ export default {
   },
   created() {
     console.log("cart list created");
-  },
-  mounted() {
-    console.log("cart list mounted");
-  },
-  watch: {
-    menuItems: function(data) {
-      console.log("데이터 갱신", data);
-    }
   }
 };
 </script>

@@ -1,13 +1,22 @@
 
 <template>
-  <div>
+  <div class="pane">
     <div class="top-pane">
       <restr-detail/>
-      <menu-list/>
     </div>
-    <table-status/>
-    <!--<review-list/>-->
-    <!-- <router-view></router-view> -->
+    <b-card no-body>
+      <b-tabs card>
+        <b-tab title="메뉴" active>
+          <menu-list/>
+        </b-tab>
+        <b-tab title="테이블 현황">
+          <table-status/>
+        </b-tab>
+        <b-tab title="리뷰">
+          <review-list/>
+        </b-tab>
+      </b-tabs>
+    </b-card>
   </div>
 </template>
 
@@ -52,8 +61,16 @@ export default {
 </script>
 
 <style scoped>
+.pane {
+  padding: 1rem;
+  padding-left: 10rem;
+  padding-right: 10rem;
+  /* display: flex;
+  flex-wrap: wrap; */
+  align-content: center;
+}
 .top-pane {
-  display: flex;
+  /* display: flex; */
   height: 350px;
 }
 </style>

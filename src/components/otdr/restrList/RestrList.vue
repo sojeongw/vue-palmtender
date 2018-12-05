@@ -1,7 +1,7 @@
 <template>
-  <div id="app" v-if="hasResult">
+  <div id="app">
     <b-card no-body header="식당 리스트" header-tag="header">
-      <b-list-group flush>
+      <b-list-group flush v-if="hasResult">
         <div v-for="(list,index) in lists" v-bind:key="index">
           <b-list-group-item
             :to="{name:'restr-detail', params:{restr_id: list.restr_id}}"
@@ -16,6 +16,7 @@
           </b-list-group-item>
         </div>
       </b-list-group>
+      <b-list-group-item v-else class="align-items-start">검색결과가 없습니다</b-list-group-item>
     </b-card>
   </div>
 </template>

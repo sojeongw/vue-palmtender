@@ -1,5 +1,6 @@
 <template>
   <div id="pane">
+    메뉴이름 {{menuName}}
     <menu-option></menu-option>
     table: {{table_id}}
     <p/>
@@ -22,9 +23,11 @@ export default {
       total: null,
       basicPrice: null,
       cartOption: [],
-      table_id: null
+      table_id: null,
+      optionTotal: null
     };
   },
+  props: ["menuName"],
   components: {
     MenuOption: MenuOption
   },
@@ -44,22 +47,28 @@ export default {
         // this.cartOption[key] = { [`${opKey}`]: opVal };
       }
       console.log("key 확인: " + JSON.stringify(this.cartOption));
+      this.optionTotal = amount;
 
       // 총계
-      this.total = amount + this.basicPrice;
+      // this.total = amount + this.basicPrice;
       // console.log("총계", amount, this.basicPrice, this.total);
 
       /////////////////////////////////
       const baseURI = "http://219.240.99.118:4000";
       // const baseURI = "http://localhost:4000";
 
-      axios
-        .post(baseURI + "/cart-push/", {
-          optionName: this.cartOption,
+      axios({
+        method: "post",
+        url: baseURI + "/cart-push/",
+        data: {
+          selectedOptions: this.cartOption,
           restr_id: this.restr_id,
           menu_id: this.menu_id,
-          table_id: this.table_id
-        })
+          table_id: this.table_id,
+          menuPrice: this.basicPrice,
+          optionTotal: this.optionTotal
+        }
+      })
         .then(function(response) {
           console.log("axios 성공" + response);
         })
@@ -67,46 +76,27 @@ export default {
           console.log(error);
         });
 
-      // var params = new URLSearchParams();
-      // // 메뉴 id
-      // params.append("menu_id", this.menu_id);
-      // // 선택한 옵션명과 내용
-      // // params.append("selectedOptions", JSON/stringify(this.cartOption));
-      // for (var key in this.cartOption) {
-      //   // console.log("key값 저장: ", this.cartOption[key].opName);
-      //   // console.log("value값 저장: ", this.cartOption[key].opVal.price);
-      //   // console.log("value값 저장: ", this.cartOption[key].opVal.subname);
-      //   params.append("optionIndex", key);
-      //   params.append("optionName", this.cartOption[key].opName);
-      //   params.append("subName", this.cartOption[key].opVal.subname);
-      //   params.append("optionPrice", this.cartOption[key].opVal.price);
-      // }
-      // // 옵션 가격
-      // params.append("optionAmount", amount);
-      // // 메뉴 가격
-      // params.append("menuPrice", this.basicPrice);
-      // // 총 가격
-      // params.append("total", this.total);
-      // // 레스토랑 아이디
-      // params.append("restr_id", this.restr_id);
-      // // 테이블 아이디
-      // params.append("table_id", this.table_id);
-
-      // this.$http
-      //   .post(`${baseURI}/cart-push/`, params)
-      //   .then(result => {
-      //     console.log("성공: ", result.data);
-      //     //   this.cart = result.data;
+      // axios
+      //   .post(baseURI + "/cart-push/", {
+      //     selectedOptions: this.cartOption,
+      //     restr_id: this.restr_id,
+      //     menu_id: this.menu_id,
+      //     table_id: this.table_id,
+      //     menuPrice: this.basicPrice,
+      //     optionTotal: this.optionTotal
       //   })
-      //   .catch(error => console.log(error));
-    },
-    hideModal() {
-      this.$refs.myModalRef.hide();
+      //   .then(function(response) {
+      //     console.log("axios 성공" + response);
+      //   })
+      //   .catch(function(error) {
+      //     console.log(error);
+      //   });
     }
   },
   created() {
     this.$eventBus.$on("addToCart", this.addToCart);
     this.table_id = localStorage.getItem("table_id");
+    this.restr_id = localStorage.getItem("restr_id");
 
     const baseURI = "http://219.240.99.118:4000";
     this.$http
@@ -118,9 +108,9 @@ export default {
       .get(`${baseURI}/menu-detail?menu_id=` + this.$route.params.menu_id)
       .then(result => {
         this.basicPrice = result.data[0].menuPrice;
-        this.restr_id = result.data[0].menuRestr_id;
+        // this.restr_id = result.data[0].menuRestr_id;
         console.log("메뉴 가격 구하깅", result.data[0]);
-        console.log("cartoption 타입", typeof this.cartOption);
+        // console.log("cartoption 타입", typeof this.cartOption);
       }); // get
   } // created
 };

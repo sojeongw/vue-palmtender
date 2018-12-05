@@ -1,47 +1,11 @@
 <template>
   <div class="restr-pane">
-    <b-card
-      title="Card Title"
-      img-src="http://www.menupan.com/restaurant/restimg/006/zzmenuimg/h1198364_z.jpg"
-      img-alt="Image"
-      img-left
-      tag="article"
-      style="max-width: 20rem;"
-      class="mb-2"
-    >
-      <p class="card-text"></p>
-      <div class="split restr-info" v-for="item in items" v-bind:key="item.restr_id">
-        <div class="info-pane">
-          <div>{{item.restrCategoryName}}</div>
-          <h5 class="mt-0 mb-1">{{item.restrName}}</h5>
-          <div>운영시간: {{item.restrHour}}</div>
-          <div>
-            {{item.restrAddr}}
-            <br>
-            {{item.restrTel}}
-          </div>
-          <p/>
-          <div>{{item.restrInfo}}</div>
-          <p/>
-          <div>잔여좌석: {{item.restrSeatNum}}석</div>
-          <div>주차공간: {{item.restrParking}}대</div>
-        </div>
-      </div>
+    <div class="split restr-info" v-for="item in items" v-bind:key="item.restr_id">
+      <img src="/src/assets/images/bongchu/Bongchu_menu_1.jpg" class="restr-img">
 
-      <b-button href="#" variant="primary">Go somewhere</b-button>
-    </b-card>
-
-    <!-- <div class="split restr-info" v-for="item in items" v-bind:key="item.restr_id">
-    
-      <img
-        src="http://www.menupan.com/restaurant/restimg/006/zzmenuimg/h1198364_z.jpg"
-        class="restr-img"
-      >
-   
       <div class="info-pane">
         <div>{{item.restrCategoryName}}</div>
         <h5 class="mt-0 mb-1">{{item.restrName}}</h5>
-        <div>운영시간: {{item.restrHour}}</div>
         <div>
           {{item.restrAddr}}
           <br>
@@ -50,10 +14,15 @@
         <p/>
         <div>{{item.restrInfo}}</div>
         <p/>
-        <div>잔여좌석: {{item.restrSeatNum}}석</div>
-        <div>주차공간: {{item.restrParking}}대</div>
+        <div>
+          영업시간 {{item.restrHour}}
+          <br>
+          잔여좌석 {{item.restrSeatNum}}석
+          <br>
+          주차공간 {{item.restrParking}}대
+        </div>
       </div>
-    </div>-->
+    </div>
     <!-- <div class="restr-pane">
       <img src="https://cbmpress.com/toronto/wp-content/uploads/sites/3/2017/12/10-2.jpg">
       
@@ -86,6 +55,7 @@ export default {
       items: []
     };
   },
+
   computed: {
     hasResult() {
       console.log("RestrDetail hasResult()");
@@ -123,7 +93,9 @@ export default {
   max-width: 300px;
   max-height: 300px;
 }
-
+.mb-1 {
+  padding-top: 0.5rem;
+}
 /* .restr-pane {
   background: lightblue;
   height: 24rem;

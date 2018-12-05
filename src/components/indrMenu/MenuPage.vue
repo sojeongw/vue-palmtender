@@ -1,7 +1,29 @@
 <template>
-  <div>
-    <h3>menu list</h3>
-    <div v-if="hasResult">
+  <div class="pane">
+    <b-card class="card" header="메뉴" header-tag="header">
+      <b-list-group flush>
+        <div v-for="(list,index) in lists" v-bind:key="index">
+          <b-list-group-item
+            class="align-items-start"
+            :to="{name:'menu-detail', params:{menu_id: list.menu_id, menuName:list.menuName}}"
+          >
+            <div class="d-flex w-100">
+              <!-- <div class="d-flex w-100 justify-content-between"> -->
+              <div class="menu-img">
+                <img src="/src/assets/images/bongchu/Bongchu_menu_4.jpg">
+              </div>
+              <div class="menu-info">
+                <h5 class="mb-1">{{list.menuName}}</h5>
+                <p class="mb-1">{{list.menuInfo}}</p>
+                <p class="mb-1">{{list.menuPrice}}원</p>
+                <small class="text-muted">알러지 정보: {{list.menuAllergy}}</small>
+              </div>
+            </div>
+          </b-list-group-item>
+        </div>
+      </b-list-group>
+    </b-card>
+    <!-- <div v-if="hasResult">
       <div v-for="(item, key) in items" v-bind:key="key">
         <div>
           <router-link
@@ -11,9 +33,10 @@
           <article>{{key}}: {{item.menuInfo}} - {{item.menuAllergy}} - {{item.menuPrice}}</article>
         </div>
       </div>
-    </div>
+    </div>-->
   </div>
 </template>
+
 
 <script>
 export default {
@@ -22,10 +45,12 @@ export default {
       items: [],
       // NFC에서 받는 값
       // restr_Id: 2,
-      table_id: null
+      table_id: null,
       // retag: 0
+      lists: []
     };
   },
+
   computed: {
     hasResult() {
       console.log("MenuPage hasResult()");
@@ -54,9 +79,70 @@ export default {
         localStorage.setItem("restr_id", parseInt(this.$route.params.restr_id));
         localStorage.setItem("table_id", parseInt(this.$route.params.table_id));
       });
+
+    this.$http
+      .get(`${baseURI}/detail?restr_id=` + this.$route.params.restr_id)
+      .then(result => {
+        console.log("MenuList created()");
+        console.log(result.data[0].menu);
+        // this.lists = result.data;
+        this.lists = result.data[0].menu;
+      });
   } // created
 };
 </script>
 
 <style scoped>
+.pane {
+  padding-top: 0.5rem;
+  padding-left: 10rem;
+  padding-right: 10rem;
+  width: 100%;
+  /* display: flex;
+  flex-direction: row;
+  flex: 1; */
+  /* height: 500px; */
+  overflow-y: auto;
+}
+.menu-info {
+  float: right;
+  padding-left: 3rem;
+}
+.menu-img {
+  float: left;
+  width: auto;
+  height: auto;
+  max-width: 100px;
+  max-height: 100px;
+}
+a:link {
+  text-decoration: none;
+}
+a:visited {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: none;
+}
+@media (max-width: 600px) {
+  .pane {
+    padding: 0.5rem;
+    display: table-cell;
+    /* 그 밑에 직개 자식에는 display 성질을 table-cell으로 바꾸어 줘야 한다.*/
+    vertical-align: middle;
+    /*table에 관한 수직정렬 속성 top, middle, bottom 3가지가 있다.*/
+    position: relative;
+  }
+  .menu-img {
+    /* position: absolute; */
+    /* float: none; */
+    width: 50%;
+    height: 50%;
+  }
+  .menu-info {
+    /* position: absolute; */
+    /* padding-left: 5rem; */
+    float: none;
+  }
+}
 </style>

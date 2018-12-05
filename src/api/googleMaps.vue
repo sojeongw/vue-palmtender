@@ -118,7 +118,7 @@ export default {
                   icon: "/src/assets/images/gray.png",
                   name: result.data[i].restrName, //식당이름
                   description: result.data[i].restrInfo, //식당소개
-                  tableinfo: "남은좌석 : " + result.data[i].usableTable //사용가능 테이블 수
+                  tableinfo: "남은 테이블 : " + result.data[i].usableTable //사용가능 테이블 수
                 });
               } else {
                 this.markers.push({
@@ -127,7 +127,7 @@ export default {
                   icon: "/src/assets/images/red.png",
                   name: result.data[i].restrName, //식당이름
                   description: result.data[i].restrInfo, //식당소개
-                  tableinfo: "남은좌석 : " + result.data[i].usableTable //사용가능 테이블 수
+                  tableinfo: "남은 테이블 : " + result.data[i].usableTable //사용가능 테이블 수
                 });
               }
             }
@@ -165,7 +165,7 @@ export default {
                   icon: "/src/assets/images/gray.png",
                   name: result.data[i].restrName, //식당이름
                   description: result.data[i].restrInfo, //식당소개
-                  tableinfo: "남은좌석 : " + result.data[i].usableTable //사용가능 테이블 수
+                  tableinfo: "남은 테이블 : " + result.data[i].usableTable //사용가능 테이블 수
                 });
               } else {
                 this.markers.push({
@@ -174,7 +174,7 @@ export default {
                   icon: "/src/assets/images/red.png",
                   name: result.data[i].restrName, //식당이름
                   description: result.data[i].restrInfo, //식당소개
-                  tableinfo: "남은좌석 : " + result.data[i].usableTable //사용가능 테이블 수
+                  tableinfo: "남은 테이블 : " + result.data[i].usableTable //사용가능 테이블 수
                 });
               }
             }
