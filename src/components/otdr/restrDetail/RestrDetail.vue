@@ -1,22 +1,26 @@
 <template>
   <div class="restr-pane">
     <div class="split restr-info" v-for="item in items" v-bind:key="item.restr_id">
-      <b-media class="restr-img" left-align vertical-align="center">
-        <b-img
-          src="http://www.menupan.com/restaurant/restimg/006/zzmenuimg/h1198364_z.jpg"
-          slot="aside"
-          alt="placeholder"
-        />
-        <div>{{item.restrCategoryName}}</div>
-        <h5 class="mt-0 mb-1">{{item.restrName}}</h5>
-        <div>운영시간: {{item.restrHour}}</div>
-        <div>
-          {{item.restrAddr}}
-          <br>
-          {{item.restrTel}}
+      <b-media left-align vertical-align="center">
+        <div class="restr-img">
+          <b-img
+            src="http://www.menupan.com/restaurant/restimg/006/zzmenuimg/h1198364_z.jpg"
+            slot="aside"
+            alt="placeholder"
+          />
         </div>
-        <p/>
-        <div>{{item.restrInfo}}</div>
+        <div class="info-pane">
+          <div>{{item.restrCategoryName}}</div>
+          <h5 class="mt-0 mb-1">{{item.restrName}}</h5>
+          <div>운영시간: {{item.restrHour}}</div>
+          <div>
+            {{item.restrAddr}}
+            <br>
+            {{item.restrTel}}
+          </div>
+          <p/>
+          <div>{{item.restrInfo}}</div>
+        </div>
       </b-media>
     </div>
 
@@ -76,16 +80,15 @@ export default {
 .restr-pane {
   padding: 1rem;
 }
-.restr-info {
-  /* width: 800px; */
-  /* display: flex;
-  flex: 1; */
+.info-pane {
+  padding-left: 1rem;
 }
 .restr-img {
-  /* width: auto; */
-  /* height: auto; */
-  /* max-width: 100px; */
-  /* max-height: 100px; */
+  float: left;
+  width: auto;
+  height: auto;
+  max-width: 200px;
+  max-height: 200px;
 }
 
 /* .restr-pane {

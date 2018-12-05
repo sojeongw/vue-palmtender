@@ -34,8 +34,8 @@
         </v-card>
       </v-flex>
     </v-layout>-->
-    <b-card header="식당 리스트" header-tag="header">
-      <b-list-group>
+    <b-card no-body header="식당 리스트" header-tag="header">
+      <b-list-group flush>
         <div v-for="(list,index) in lists" v-bind:key="index">
           <b-list-group-item
             :to="{name:'restr-detail', params:{restr_id: list.restr_id}}"

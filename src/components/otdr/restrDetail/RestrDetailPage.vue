@@ -2,8 +2,8 @@
 <template>
   <div>
     <restr-detail/>
-    <!-- <menu-list/>
-    <table-status/>
+    <menu-list/>
+    <!--<table-status/>
     <review-list/>-->
     <!-- <router-view></router-view> -->
   </div>

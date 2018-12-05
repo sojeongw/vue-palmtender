@@ -1,16 +1,19 @@
 <template>
   <div>
-    <p/>
-    <h3>menu list</h3>
-    <div v-if="hasResult">
-      <div v-for="list in lists" v-bind:key="list.restr_id">
-        <div>
-          {{list.menuName}}
-          <article>{{list.menuInfo}} - {{list.menuAllergy}} - {{list.menuPrice}}</article>
-          <p/>
+    <b-card no-body header="메뉴" header-tag="header">
+      <b-list-group flush>
+        <div v-for="(list,index) in lists" v-bind:key="index">
+          <b-list-group-item class="flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1">{{list.menuName}}</h5>
+              <large>{{list.menuPrice}}원</large>
+            </div>
+            <p class="mb-1">{{list.menuInfo}}</p>
+            <small class="text-muted">알러지 정보: {{list.menuAllergy}}</small>
+          </b-list-group-item>
         </div>
-      </div>
-    </div>
+      </b-list-group>
+    </b-card>
   </div>
 </template>
 
