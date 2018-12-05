@@ -1,7 +1,7 @@
 <template>
   <div class="restr-pane">
     <div class="split restr-info" v-for="item in items" v-bind:key="item.restr_id">
-      <img src="/src/assets/images/bongchu/Bongchu_menu_1.jpg" class="restr-img">
+      <img :src="item.restrRegistPicture" class="restr-img">
 
       <div class="info-pane">
         <div>{{item.restrCategoryName}}</div>
@@ -83,15 +83,19 @@ export default {
 }
 .info-pane {
   padding: 1rem;
+  padding-left: 2rem;
+  /* margin-top: 1rem; */
   display: flex;
+  flex: 1;
   flex-direction: column;
 }
 .restr-img {
   float: left;
-  width: auto;
-  height: auto;
-  max-width: 300px;
-  max-height: 300px;
+  width: 300px;
+  height: 300px;
+  /* max-width: 300px;
+  max-height: 300px; */
+  object-fit: cover;
 }
 .mb-1 {
   padding-top: 0.5rem;

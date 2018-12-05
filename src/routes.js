@@ -9,16 +9,17 @@ import OrderPage from "./components/indrOrder/OrderPage";
 import OrderComplPage from "./components/indrOrder/OrderComplPage";
 import CartCompleted from "./components/indrCart/CartCompleted";
 
+// const OrderComplPage = () => import("./OrderComplPage.vue");
+
 const routes = [
+  { mode: "history", path: "/", redirect: "/otdr/" },
   {
-    path: "/",
-    redirect: "/otdr/"
-  },
-  {
+    mode: "history",
     path: "/otdr/",
     component: RestrListPage,
     children: [
       {
+        mode: "history",
         path: "/otdr/:lat/:lng",
         component: RestrListPage,
         children: []
@@ -26,6 +27,7 @@ const routes = [
     ]
   },
   {
+    mode: "history",
     path: "/detail/:restr_id",
     component: RestrDetailPage,
     name: "restr-detail"
@@ -36,44 +38,42 @@ const routes = [
     // ]
   },
   {
+    mode: "history",
     path: "/review_r",
     component: ReviewPage,
     name: "reviewPage"
   },
   {
+    mode: "history",
     path: "/cart/:restr_id/:table_id",
     component: CartPage,
     name: "cart-page"
     // props: true
   },
   {
+    mode: "history",
     path: "/menu/:restr_id/:table_id/:retag",
     component: MenuPage,
     name: "menu-page"
   },
   {
+    mode: "history",
     path: "/menu-detail/:menu_id",
     component: MenuDetailPage,
     name: "menu-detail",
     // 테이블 id를 props로 전달하기 위함
     props: true
   },
+  { mode: "history", path: "/pay", component: PayPage, name: "pay" },
+  { mode: "history", path: "/order", component: OrderPage, name: "order" },
   {
-    path: "/pay",
-    component: PayPage,
-    name: "pay"
-  },
-  {
-    path: "/order",
-    component: OrderPage,
-    name: "order"
-  },
-  {
+    mode: "history",
     path: "/order-completed",
     component: OrderComplPage,
     name: "order-completed"
   },
   {
+    mode: "history",
     path: "/cart-completed",
     component: CartCompleted,
     name: "cart-completed"

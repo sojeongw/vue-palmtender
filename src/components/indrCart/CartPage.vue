@@ -25,7 +25,14 @@
     <!-- <span>체크한 이름: {{ checkedMenu }}</span> -->
     <b-navbar class="nav-bar" type="dark" variant="white" toggleable>
       <div class="btn-order">
-        <router-link :to="{name:'order'}" exact tag="b-button" size="sm" @click="orderMenu">주문하기</router-link>
+        <!-- <router-link
+          :to="{name:'order-completed'}"
+          exact
+          tag="b-button"
+          size="sm"
+          @click="orderMenu"
+        >주문하기</router-link>-->
+        <button @click="orderMenu">주문하기</button>
       </div>
     </b-navbar>
     <!-- <button v-on:click="deleteItem">삭제하기</button> -->
@@ -33,6 +40,7 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
@@ -53,7 +61,27 @@ export default {
     }
   },
   methods: {
-    orderMenu() {},
+    orderMenu() {
+      console.log("오더!");
+      const baseURI = "http://219.240.99.118:4000";
+      axios
+        .post(baseURI + "/order/", {
+          restr_id: this.restr_id,
+          table_id: this.table_id,
+          menu_id: this.menu_id[0],
+          ea: 1,
+          memo: "test memo",
+          price: 500,
+          options: this.result[0].selectedOptions
+        })
+        .then(function(response) {
+          console.log("order 성공 " + response);
+          // this.$route.push("/order-completed");
+        })
+        .catch(function(error) {
+          console.log("에러나따!!! " + error);
+        });
+    },
     deleteItem() {
       const baseURI = "http://219.240.99.118:4000";
       this.$http
@@ -92,7 +120,9 @@ export default {
         // console.log("카트 조회", result.data.length);
         // console.log("카트 조회", result.data[0]);
         if (result.data.length > 0) {
+          // 카트 내용
           this.result = result.data;
+          // 메뉴 아이디 저장
           for (var i in this.result) {
             console.log("cart check result값" + i + ": ", this.result[i]);
             this.menu_id[i] = this.result[i].cartMenu_id;

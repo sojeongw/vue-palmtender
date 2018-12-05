@@ -8,11 +8,16 @@
             class="flex-column align-items-start"
           >
             <div class="d-flex w-100 justify-content-between">
+              <!-- <div class="restr-img"> -->
+              <!-- <img :src="list.restrRegistPicture"> -->
+              <!-- </div> -->
+              <!-- <div class="restr-info"> -->
               <h5 class="mb-1">{{index+1}}. {{list.restrName}}</h5>
               <small>{{list.restrCategoryName}}</small>
             </div>
             <p class="mb-1">{{list.restrInfo}}</p>
             <small class="text-muted">사용 가능 테이블: {{list.usableTable}}</small>
+            <!-- </div> -->
           </b-list-group-item>
         </div>
       </b-list-group>
@@ -60,14 +65,21 @@ export default {
 <style scoped>
 #app {
   padding: 0.5rem;
+  /* display: flex; */
+  /* flex-direction: row; */
 }
-img {
-  display: block;
-  max-width: 200px;
-  max-height: 200px;
+.restr-img {
+  float: left;
   width: auto;
   height: auto;
-  /* height: 200px; */
+  max-width: 100px;
+  max-height: 100px;
+}
+.restr-info {
+  /* float: right; */
+  /* display: flex;
+  flex-direction: column;
+  padding-left: 1rem; */
 }
 a:link {
   text-decoration: none;

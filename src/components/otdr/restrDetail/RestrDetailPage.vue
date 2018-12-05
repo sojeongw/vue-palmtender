@@ -63,8 +63,8 @@ export default {
 <style scoped>
 .pane {
   padding: 1rem;
-  padding-left: 10rem;
-  padding-right: 10rem;
+  padding-left: 5rem;
+  padding-right: 5rem;
   /* display: flex;
   flex-wrap: wrap; */
   align-content: center;

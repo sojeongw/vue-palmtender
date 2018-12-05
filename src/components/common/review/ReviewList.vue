@@ -1,12 +1,10 @@
 <template>
   <div>
-    <h3>review list</h3>
     <div v-if="hasResult">
       <div v-for="item in items" v-bind:key="item.restr_id">
         <div>
-          {{item.reviewDate}}
           <article>{{item.reviewContents}} - {{item.reviewRating}}</article>
-          <article>{{item.reviewUser_id}} - {{item.review_id}}</article>
+          <star-rating :rating="4"></star-rating>
         </div>
       </div>
     </div>

@@ -7,12 +7,14 @@
           <div class="d-flex w-100">
             <!-- <div class="d-flex w-100 justify-content-between"> -->
             <div class="menu-img">
-              <img src="/src/assets/images/bongchu/Bongchu_menu_4.jpg">
+              <img :src="list.menuPhoto">
             </div>
             <div class="menu-info">
               <h5 class="mb-1">{{list.menuName}}</h5>
               <p class="mb-1">{{list.menuInfo}}</p>
-              <p class="mb-1">{{list.menuPrice}}원</p>
+              <div v-if="list.menuPrice!=0">
+                <p class="mb-1">{{list.menuPrice}}원</p>
+              </div>
               <small class="text-muted">알러지 정보: {{list.menuAllergy}}</small>
             </div>
           </div>
@@ -63,14 +65,20 @@ export default {
   overflow-y: auto;
 }
 .menu-info {
+  position: relative;
   float: right;
-  padding-left: 3rem;
+  /* position 변경에 따라 띄워주기 */
+  padding-left: 8rem;
+  padding-top: 0.5rem;
+  text-align: left;
 }
 .menu-img {
+  position: absolute;
   float: left;
-  width: auto;
-  height: auto;
-  max-width: 100px;
-  max-height: 100px;
+  width: 100px;
+  height: 100px;
+  /* max-width: 100px;
+  max-height: 100px; */
+  object-fit: cover;
 }
 </style>

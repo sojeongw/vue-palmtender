@@ -19,7 +19,6 @@
         v-for="(m, index) in markers"
         :label="{
                   color:'black',
-                  fontFamily: 'Material Icons',
                   fontSize: '20px',
                   text: m.text
                 }"
@@ -115,7 +114,7 @@ export default {
                 this.markers.push({
                   position: marker, //식당 위치
                   text: "" + (i + 1),
-                  icon: "/src/assets/images/gray.png",
+                  icon: "/src/assets/image/gray.png",
                   name: result.data[i].restrName, //식당이름
                   description: result.data[i].restrInfo, //식당소개
                   tableinfo: "남은 테이블 : " + result.data[i].usableTable //사용가능 테이블 수
@@ -124,7 +123,7 @@ export default {
                 this.markers.push({
                   position: marker, //식당 위치
                   text: "" + (i + 1),
-                  icon: "/src/assets/images/red.png",
+                  icon: "/src/assets/image/blue.png",
                   name: result.data[i].restrName, //식당이름
                   description: result.data[i].restrInfo, //식당소개
                   tableinfo: "남은 테이블 : " + result.data[i].usableTable //사용가능 테이블 수
@@ -162,7 +161,7 @@ export default {
                 this.markers.push({
                   position: marker, //식당 위치
                   text: "" + (i + 1),
-                  icon: "/src/assets/images/gray.png",
+                  icon: "/src/assets/image/gray.png",
                   name: result.data[i].restrName, //식당이름
                   description: result.data[i].restrInfo, //식당소개
                   tableinfo: "남은 테이블 : " + result.data[i].usableTable //사용가능 테이블 수
@@ -171,7 +170,7 @@ export default {
                 this.markers.push({
                   position: marker, //식당 위치
                   text: "" + (i + 1),
-                  icon: "/src/assets/images/red.png",
+                  icon: "/src/assets/image/blue.png",
                   name: result.data[i].restrName, //식당이름
                   description: result.data[i].restrInfo, //식당소개
                   tableinfo: "남은 테이블 : " + result.data[i].usableTable //사용가능 테이블 수

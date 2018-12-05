@@ -10,12 +10,14 @@
             <div class="d-flex w-100">
               <!-- <div class="d-flex w-100 justify-content-between"> -->
               <div class="menu-img">
-                <img src="/src/assets/images/bongchu/Bongchu_menu_4.jpg">
+                <img :src="list.menuPhoto">
               </div>
               <div class="menu-info">
                 <h5 class="mb-1">{{list.menuName}}</h5>
                 <p class="mb-1">{{list.menuInfo}}</p>
-                <p class="mb-1">{{list.menuPrice}}원</p>
+                <div v-if="list.menuPrice!=0">
+                  <p class="mb-1">{{list.menuPrice}}원</p>
+                </div>
                 <small class="text-muted">알러지 정보: {{list.menuAllergy}}</small>
               </div>
             </div>
@@ -23,6 +25,7 @@
         </div>
       </b-list-group>
     </b-card>
+    <button>결제하기</button>
     <!-- <div v-if="hasResult">
       <div v-for="(item, key) in items" v-bind:key="key">
         <div>
@@ -47,7 +50,8 @@ export default {
       // restr_Id: 2,
       table_id: null,
       // retag: 0
-      lists: []
+      lists: [],
+      retag: null
     };
   },
 
@@ -134,14 +138,16 @@ a:hover {
     position: relative;
   }
   .menu-img {
-    /* position: absolute; */
+    position: absolute;
+    /* padding-left: 0rem;
+    margin-left: 0rem; */
     /* float: none; */
     width: 50%;
     height: 50%;
   }
   .menu-info {
     /* position: absolute; */
-    /* padding-left: 5rem; */
+    padding-left: 7.5rem;
     float: none;
   }
 }
