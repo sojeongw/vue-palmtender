@@ -5,10 +5,7 @@ import routes from "./routes";
 import axios from "axios";
 import * as VueGoogleMaps from "vue2-google-maps";
 import BootstrapVue from "bootstrap-vue";
-import VueMaterial from "vue-material";
-import "vue-material/dist/vue-material.min.css";
-
-Vue.use(VueMaterial);
+// import VueMaterial from "vue-material";
 
 // event bus
 // Vue.prototype.$EventBus = new Vue();

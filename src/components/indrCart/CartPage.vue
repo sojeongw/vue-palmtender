@@ -52,7 +52,8 @@ export default {
       total: null,
       menuItems: [],
       result: [],
-      checkedMenu: []
+      checkedMenu: [],
+      resultOptions: []
     };
   },
   watch: {
@@ -64,6 +65,12 @@ export default {
     orderMenu() {
       console.log("오더!");
       const baseURI = "http://219.240.99.118:4000";
+
+      for (var i in this.result) {
+        this.resultOptions[i] = this.result[i].selectedOptions;
+      }
+      console.log("resultOp: ", this.resultOptions);
+
       axios
         .post(baseURI + "/order/", {
           restr_id: this.restr_id,
@@ -81,6 +88,7 @@ export default {
         .catch(function(error) {
           console.log("에러나따!!! " + error);
         });
+      this.$router.push("/order-completed");
     },
     deleteItem() {
       const baseURI = "http://219.240.99.118:4000";

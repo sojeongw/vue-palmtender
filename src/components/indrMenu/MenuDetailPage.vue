@@ -1,8 +1,8 @@
 <template>
   <div id="pane">
-    메뉴이름 {{menuName}}
+    <!-- 메뉴이름 {{menuName}} -->
     <menu-option></menu-option>
-    table: {{table_id}}
+    <!-- table: {{table_id}} -->
     <p/>
   </div>
 </template>

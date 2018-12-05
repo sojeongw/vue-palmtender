@@ -57,7 +57,7 @@ export default {
 .pane {
   padding-left: 0.5rem;
   padding-right: 5rem;
-  width: 940;
+  /* width: 940; */
   /* display: flex;
   flex-direction: row;
   flex: 1; */

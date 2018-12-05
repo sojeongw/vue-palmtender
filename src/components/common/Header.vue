@@ -2,14 +2,20 @@
   <div>
     <b-navbar class="nav-bar" toggleable="md" type="dark" variant="dark">
       <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
-      <b-navbar-brand href="/otdr">Palmtender</b-navbar-brand>
+      <b-navbar-brand
+        class="brand-logo"
+        :to="{name:'menu-page',params:{restr_id:restr_id, table_id:table_id, retag:retag}}"
+      >Palmtender</b-navbar-brand>
       <b-collapse is-nav id="nav_collapse">
         <b-navbar-nav class="ml-auto">
           <b-navbar-nav>
             <!-- <b-nav-item href="#">Sign In</b-nav-item>
             <b-nav-item href="#">Join</b-nav-item>-->
-            <b-nav-item href="/cart/:restr_id/:table_id">장바구니</b-nav-item>
-            <b-nav-item href="/order">결제하기</b-nav-item>
+            <b-nav-item
+              :to="{name:'menu-page',params:{restr_id:restr_id, table_id:table_id,retag:retag}}"
+            >메뉴</b-nav-item>
+            <b-nav-item :to="{name:'cart-page',params:{restr_id:restr_id, table_id:table_id}}">장바구니</b-nav-item>
+            <b-nav-item :to="{name:'order',params:{restr_id:restr_id, table_id:table_id}}">결제하기</b-nav-item>
           </b-navbar-nav>
         </b-navbar-nav>
       </b-collapse>
@@ -25,16 +31,32 @@ import "bootstrap-vue/dist/bootstrap-vue.css";
 export default {
   data() {
     return {
-      restr_id: null,
-      table_id: null
+      restr_id: "",
+      table_id: "",
+      retag: ""
     };
   },
   created() {
     this.table_id = localStorage.getItem("table_id");
     this.restr_id = localStorage.getItem("restr_id");
+    this.retag = localStorage.getItem("retag");
+    console.log("header test", this.table_id);
   }
 };
 </script>
 
 <style scoped>
+.brand-logo {
+  text-decoration: none;
+  color: white;
+}
+a:link {
+  text-decoration: none;
+}
+a:visited {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: none;
+}
 </style>

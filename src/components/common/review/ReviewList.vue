@@ -1,10 +1,11 @@
 <template>
   <div>
     <div v-if="hasResult">
-      <div v-for="item in items" v-bind:key="item.restr_id">
+      <div v-for="(item, index) in items" v-bind:key="index">
         <div>
-          <article>{{item.reviewContents}} - {{item.reviewRating}}</article>
-          <star-rating :rating="4"></star-rating>
+          <article>{{index+1}}. {{item.reviewContents}}</article>
+          <star-rating read-only :rating="item.reviewRating" :star-size="20"></star-rating>
+          <br>
         </div>
       </div>
     </div>
@@ -12,7 +13,11 @@
 </template>
 
 <script>
+import StarRating from "vue-star-rating";
 export default {
+  components: {
+    StarRating
+  },
   data() {
     return {
       items: []

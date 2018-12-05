@@ -8,8 +8,10 @@ import PayPage from "./components/indrPay/PayPage";
 import OrderPage from "./components/indrOrder/OrderPage";
 import OrderComplPage from "./components/indrOrder/OrderComplPage";
 import CartCompleted from "./components/indrCart/CartCompleted";
+import PayComplPage from "./components/indrPay/PayComplPage";
 
-// const OrderComplPage = () => import("./OrderComplPage.vue");
+// const Foo = () => import("./components/indrCart/CartPage.vue");
+// const Koo = () => import("./components/indrOrder/OrderComplPage.vue");
 
 const routes = [
   { mode: "history", path: "/", redirect: "/otdr/" },
@@ -77,6 +79,12 @@ const routes = [
     path: "/cart-completed",
     component: CartCompleted,
     name: "cart-completed"
+  },
+  {
+    mode: "history",
+    path: "/pay-completed",
+    component: PayComplPage,
+    name: "pay-completed"
   }
 ];
 

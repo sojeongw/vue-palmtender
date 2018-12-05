@@ -1,16 +1,21 @@
 <template>
   <div id="pane">
-    <!-- <div>
-      <div>메뉴 사진: {{menuItems.menuPhoto}}</div>
-      <div>메뉴 정보: {{menuItems.menuInfo}}</div>
-      <div>메뉴 재료: {{menuItems.menuIngredients}}</div>
-      <div>메뉴 이름: {{menuItems.menuName}}</div>
-      <div>메뉴 카테고리: {{menuItems.menuCategory_id}}</div>
-      <div>메뉴 가격: {{menuItems.menuPrice}}</div>
-      <div>알러지 정보: {{menuItems.menuAllergy}}</div>
-      <div>메뉴가 속한 식당 아이디: {{menuItems.menuRestr_id}}</div>
-      <div>메뉴 아이디: {{menuItems.menu_id}}</div>
-    </div>-->
+    <div>
+      <div>
+        <img :src="menuItems.menuPhoto">
+      </div>
+      <div class="menu-info">
+        <h6>{{menuItems.menuName}}</h6>
+        {{menuItems.menuInfo}}
+        <br>
+        <!-- {{menuItems.menuPrice}}원 -->
+        <p/>
+        재료: {{menuItems.menuIngredients}}
+        <br>
+        알러지 정보: {{menuItems.menuAllergy}}
+        <p/>
+      </div>
+    </div>
     <!-- <b-form> -->
     <!-- param: {{optionParam}} -->
     <div id="option-select" v-for="(option,key) in options" :key="key">
@@ -25,33 +30,43 @@
       </b-form-group>
     </div>
 
-    <div>
+    <!-- <div>
       Selected:
       <strong>{{ selected }}</strong>
       <p/>
+    </div>-->
+    <div class="basic-price">
+      <div class="bp-label">기본 가격</div>
+      <div class="bp-value">
+        <strong>{{menuItems.menuPrice}}원</strong>
+      </div>
     </div>
-    <div>
-      amount:
-      <strong>{{ amount }}</strong>
-      <p/>
+    <div class="option-price">
+      <div class="op-label">옵션 가격</div>
+      <div class="op-value">+
+        <strong>{{ amount }}원</strong>
+      </div>
+    </div>
+    <div class="amount">
+      <strong>{{menuItems.menuPrice+amount}}원</strong>
     </div>
     <!-- </b-form> -->
-    <div>
+    <div class="btn-cart">
       <router-link :to="{name:'cart-completed'}">
-        <button @click="addToCart(selected)">장바구니 넣기</button>
+        <b-button @click="addToCart(selected)" variant="primary">장바구니 넣기</b-button>
       </router-link>
       <!-- <router-link @click="addToCart(selected)" :to="{name:'cart-completed'}" tag="button">장바구니 추가</router-link> -->
     </div>
     <p/>
     <div>
       <!-- <router-link :to="{name:'order'}"> -->
-      <button>바로 주문하기</button>
+      <!-- <button>바로 주문하기</button> -->
       <!-- </router-link> -->
     </div>
-    <router-link
+    <!-- <router-link
       :to="{name:'cart-page', params:{restr_id:restr_id, table_id:table_id}}"
       tag="button"
-    >장바구니 보기</router-link>
+    >장바구니 보기</router-link>-->
   </div>
 </template>
 
@@ -77,7 +92,8 @@ export default {
         } // 0
       ],
       optionToCart: [],
-      amount: 0
+      amount: 0,
+      menuItems: []
     };
   },
 
@@ -130,6 +146,13 @@ export default {
       .then(result => {
         this.setOptions(result.data[0].options);
       }); // get
+
+    this.$http
+      .get(`${baseURI}/menu-detail?menu_id=` + this.$route.params.menu_id)
+      .then(result => {
+        console.log("메뉴정보: ", result.data[0]);
+        this.menuItems = result.data[0];
+      }); // get
   } // created
 };
 </script>
@@ -137,6 +160,52 @@ export default {
 <style scoped>
 #option-select {
   width: 150px;
+}
+.menu-info {
+  padding-top: 1rem;
+}
+.basic-price {
+  /* justify-content: space-between; */
+  /* display: inline; */
+}
+.bp-label {
+  display: inline;
+  /* float: left;
+  text-align: left; */
+}
+.bp-value {
+  display: inline;
+  /* float: right;
+  text-align: right; */
+}
+.btn-cart {
+  padding-top: 1rem;
+  /* position: absolute; */
+}
+.option-price {
+  /* justify-content: space-between; */
+}
+.op-label {
+  display: inline;
+  /* position: absolute;
+  padding-top: 1rem;
+  float: left;
+  text-align: left; */
+}
+.op-value {
+  display: inline;
+  /* position: absolute;
+  padding-top: 1rem;
+  padding-left: 15rem;
+
+  float: right;
+  text-align: right; */
+}
+.amount {
+  /* position: absolute;
+  padding-top: 2.5rem;
+ */
+  padding-left: 3.5rem;
 }
 </style>
 

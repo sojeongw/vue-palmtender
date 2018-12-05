@@ -23,26 +23,6 @@
         </div>
       </div>
     </div>
-    <!-- <div class="restr-pane">
-      <img src="https://cbmpress.com/toronto/wp-content/uploads/sites/3/2017/12/10-2.jpg">
-      
-        <div class="restr-name">
-          <h1>{{item.restrName}}</h1>
-          <div class="restr-info">{{item.restrInfo}}</div>
-        </div>
-        <div class="restr-body">restr body</div>
-     
-    </div>-->
-    <!-- <div>{{item.restrCategoryName}}</div>
-    <h5 class="mt-0">{{item.restrName}}</h5>
-    <div>운영시간: {{item.restrHour}}</div>
-    <div>{{item.restrAddr}}</div>
-    <div>{{item.restrTel}}</div>
-    <p></p>
-    <div>{{item.restrInfo}}</div>
-    <p/>
-    <div>잔여좌석: {{item.restrSeatNum}}석</div>
-    <div>주차공간: {{item.restrParking}}대</div>-->
   </div>
 </template>
 

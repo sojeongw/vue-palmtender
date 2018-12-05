@@ -25,7 +25,7 @@
         </div>
       </b-list-group>
     </b-card>
-    <button>결제하기</button>
+    <!-- <button>결제하기</button> -->
     <!-- <div v-if="hasResult">
       <div v-for="(item, key) in items" v-bind:key="key">
         <div>
@@ -136,6 +136,8 @@ a:hover {
     vertical-align: middle;
     /*table에 관한 수직정렬 속성 top, middle, bottom 3가지가 있다.*/
     position: relative;
+    height: 500px;
+    overflow-y: scroll;
   }
   .menu-img {
     position: absolute;
