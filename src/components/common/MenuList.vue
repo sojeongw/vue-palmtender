@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="pane">
     <b-card no-body header="메뉴" header-tag="header">
       <b-list-group flush>
         <div v-for="(list,index) in lists" v-bind:key="index">
@@ -46,4 +46,11 @@ export default {
 </script>
 
 <style scoped>
+.pane {
+  padding: 1rem;
+  display: flex;
+  flex: 1;
+  /* height: 500px; */
+  overflow-y: auto;
+}
 </style>

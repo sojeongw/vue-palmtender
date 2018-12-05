@@ -1,10 +1,12 @@
 
 <template>
   <div>
-    <restr-detail/>
-    <menu-list/>
-    <!--<table-status/>
-    <review-list/>-->
+    <div class="top-pane">
+      <restr-detail/>
+      <menu-list/>
+    </div>
+    <table-status/>
+    <!--<review-list/>-->
     <!-- <router-view></router-view> -->
   </div>
 </template>
@@ -50,4 +52,8 @@ export default {
 </script>
 
 <style scoped>
+.top-pane {
+  display: flex;
+  height: 350px;
+}
 </style>

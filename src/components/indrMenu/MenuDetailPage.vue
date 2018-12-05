@@ -55,7 +55,10 @@ export default {
 
       axios
         .post(baseURI + "/cart-push/", {
-          optionName: this.cartOption
+          optionName: this.cartOption,
+          restr_id: this.restr_id,
+          menu_id: this.menu_id,
+          table_id: this.table_id
         })
         .then(function(response) {
           console.log("axios 성공" + response);

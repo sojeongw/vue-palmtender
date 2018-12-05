@@ -203,7 +203,7 @@ export default {
       //인포윈도우 이미지
       return `
        <b-card title=" ${marker.name}"
-                img-src="https://placekitten.com/500/350"
+                img-src=""
                 img-fluid
                 img-alt="image"
                 img-top>
@@ -232,14 +232,13 @@ export default {
 </script>
 
 <style scoped>
+@media screen and (max-width: 800px) {
+  .mr-sm-2 {
+    width: 100%;
+  }
+}
+
 .set-place {
   padding: 1rem;
-}
-.map-label {
-  /* display: flex;
-  flex: 1; */
-  /* position: relative; */
-  /* padding-left: 6rem; */
-  /* float: inherit; */
 }
 </style>

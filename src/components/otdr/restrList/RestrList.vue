@@ -1,39 +1,5 @@
 <template>
   <div id="app" v-if="hasResult">
-    <!-- <v-layout row>
-      <v-flex xs12 sm6 offset-sm3>
-        <v-card>
-          <v-toolbar color="cyan" dark>
-            <v-toolbar-side-icon></v-toolbar-side-icon>
-
-            <v-toolbar-title>Inbox</v-toolbar-title>
-
-            <v-spacer></v-spacer>
-
-            <v-btn icon>
-              <v-icon>search</v-icon>
-            </v-btn>
-          </v-toolbar>
-
-          <v-list two-line>
-            <template v-for="(list,index) in lists">
-              <v-subheader v-if="list.header" :key="list.header">{{ item.header }}</v-subheader>
-              <v-divider v-else-if="list.divider" :inset="list.inset" :key="index"></v-divider>
-
-              <v-list-tile v-else :key="index" avatar>
-                <v-list-tile-avatar>
-                <img :src="item.avatar">
-                </v-list-tile-avatar>
-                <v-list-tile-content>
-                  <v-list-tile-title v-html="list.restrName"></v-list-tile-title>
-                  <v-list-tile-sub-title v-html="list.restrInfo"></v-list-tile-sub-title>
-                </v-list-tile-content>
-              </v-list-tile>
-            </template>
-          </v-list>
-        </v-card>
-      </v-flex>
-    </v-layout>-->
     <b-card no-body header="식당 리스트" header-tag="header">
       <b-list-group flush>
         <div v-for="(list,index) in lists" v-bind:key="index">
@@ -91,6 +57,9 @@ export default {
 </script>
 
 <style scoped>
+#app {
+  padding: 0.5rem;
+}
 img {
   display: block;
   max-width: 200px;

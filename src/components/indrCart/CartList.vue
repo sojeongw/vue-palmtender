@@ -1,8 +1,7 @@
 <template>
   <!-- <div v-if="hasResult"> -->
   <div>
-    <!-- <div v-for="(name,key) in result.optionName" :key="key">{{name}}</div> -->
-    <!-- <div v-for="(price,index)in result.optionPrice" :key="index">{{price}}</div> -->
+    <div v-for="(item,index) in result" :key="index">{{item.optionName}}</div>
     {{result}}
   </div>
 </template>
