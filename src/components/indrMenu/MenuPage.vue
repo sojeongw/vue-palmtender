@@ -82,6 +82,7 @@ export default {
         localStorage.setItem("retag", parseInt(this.$route.params.retag) + 1);
         localStorage.setItem("restr_id", parseInt(this.$route.params.restr_id));
         localStorage.setItem("table_id", parseInt(this.$route.params.table_id));
+        console.log("타입체크");
       });
 
     this.$http

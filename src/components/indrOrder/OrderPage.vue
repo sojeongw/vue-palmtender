@@ -144,7 +144,7 @@ export default {
       // const baseURI = "http://localhost:4000";
 
       axios({
-        method: "get",
+        method: "post",
         url: baseURI + "/pay",
         data: {
           restr_id: this.restr_id,

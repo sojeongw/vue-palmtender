@@ -6,7 +6,7 @@
       class="md-primary"
       md-icon="done"
       md-label="Completed"
-      md-description="주문이 완료되었습니다."
+      md-description="결제가 완료되었습니다."
     ></md-empty-state>
   </div>
 </template>
