@@ -40,9 +40,9 @@ export default {
     };
   },
   created() {
-    this.retag = localStorage.getItem("retag");
-    this.restr_id = localStorage.getItem("restr_id");
-    this.table_id = localStorage.getItem("table_id");
+    this.retag = sessionStorage.getItem("retag");
+    this.restr_id = sessionStorage.getItem("restr_id");
+    this.table_id = sessionStorage.getItem("table_id");
   }
 };
 </script>

@@ -122,8 +122,8 @@ export default {
     // console.log("CartPage: created()", this.$route.params.table_id);
     // this.restr_id = this.$route.params.restr_id;
     // this.table_id = this.$route.params.table_id;
-    this.restr_id = parseInt(localStorage.getItem("restr_id"));
-    this.table_id = parseInt(localStorage.getItem("table_id"));
+    this.restr_id = parseInt(sessionStorage.getItem("restr_id"));
+    this.table_id = parseInt(sessionStorage.getItem("table_id"));
 
     const baseURI = "http://219.240.99.118:4000";
     this.$http

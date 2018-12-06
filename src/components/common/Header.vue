@@ -41,9 +41,9 @@ export default {
   },
   methods: {},
   created() {
-    this.table_id = parseInt(localStorage.getItem("table_id"));
-    this.restr_id = parseInt(localStorage.getItem("restr_id"));
-    this.retag = parseInt(localStorage.getItem("retag"));
+    this.table_id = parseInt(sessionStorage.getItem("table_id"));
+    this.restr_id = parseInt(sessionStorage.getItem("restr_id"));
+    this.retag = parseInt(sessionStorage.getItem("retag"));
 
     bus.$on("setTable_id", function(table_id) {
       console.log("set table id", table_id);

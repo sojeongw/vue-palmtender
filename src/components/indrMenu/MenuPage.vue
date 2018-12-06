@@ -82,9 +82,15 @@ export default {
         this.items = result.data;
 
         // 태그 유무
-        localStorage.setItem("retag", parseInt(this.$route.params.retag) + 1);
-        localStorage.setItem("restr_id", parseInt(this.$route.params.restr_id));
-        localStorage.setItem("table_id", parseInt(this.table_id));
+        sessionStorage.setItem("retag", parseInt(this.$route.params.retag) + 1);
+        sessionStorage.setItem(
+          "restr_id",
+          parseInt(this.$route.params.restr_id)
+        );
+        sessionStorage.setItem("table_id", parseInt(this.table_id));
+        // localStorage.setItem("retag", parseInt(this.$route.params.retag) + 1);
+        // localStorage.setItem("restr_id", parseInt(this.$route.params.restr_id));
+        // localStorage.setItem("table_id", parseInt(this.table_id));
         console.log("타입체크", parseInt(this.table_id));
         // 테이블 아이디 보내기
         bus.$emit("setTable_id", parseInt(this.$route.params.table_id));

@@ -65,8 +65,8 @@ export default {
   created() {
     const baseURI = "http://219.240.99.118:4000";
 
-    this.restr_id = parseInt(localStorage.getItem("restr_id"));
-    this.table_id = parseInt(localStorage.getItem("table_id"));
+    this.restr_id = parseInt(sessionStorage.getItem("restr_id"));
+    this.table_id = parseInt(sessionStorage.getItem("table_id"));
 
     this.$http
       .get(
