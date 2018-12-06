@@ -1,29 +1,25 @@
 <template>
-  <div>
-    <div class="pane">
+  <div class="body">
+    <div class="pane" v-if="hasResult">
       <!-- <div class="card-text"> -->
       <div v-for="(res,index) in result" :key="index">
         <b-card :header="`No.`+(index+1)+` `+res.menuName" header-tag="header" class="card">
           <!-- <input type="checkbox" :id="res.cartMenu_id" :value="res" v-model="checkedMenu[index]"> -->
           <!-- <label :for="res.cartMenu_id"> -->
           <!-- 식당 id: {{res.cartRestr_id}} -->
-          <br>
-          메뉴 가격: {{res.menuPrice}}
+          <strong>메뉴 가격</strong>
+          {{res.menuPrice}}원
           <p/>
+          <strong>옵션 가격</strong>
           <div v-for="(option, key) in res.selectedOptions" :key="key">
             {{option.opName}}: {{option.opVal.subname}}
-            <br>
-            +{{option.opVal.price}}원
-            <p/>
+            ( +{{option.opVal.price}}원)
           </div>
           <!-- </label> -->
           <p/>
         </b-card>
       </div>
       <!-- </div> -->
-    </div>
-    <!-- <span>체크한 이름: {{ checkedMenu }}</span> -->
-    <b-navbar class="nav-bar" type="dark" variant="white" toggleable>
       <div class="btn-order">
         <!-- <router-link
           :to="{name:'order-completed'}"
@@ -32,9 +28,14 @@
           size="sm"
           @click="orderMenu"
         >주문하기</router-link>-->
-        <button @click="orderMenu">주문하기</button>
+        <b-btn @click="orderMenu" v-b-modal.modalsm variant="primary">주문하기</b-btn>
+        <b-modal id="modalsm" size="sm" title="Small Modal">주문을 진행 하시겠습니까?</b-modal>
       </div>
-    </b-navbar>
+    </div>
+    <div v-else>장바구니 내역이 없습니다.</div>
+    <!-- <span>체크한 이름: {{ checkedMenu }}</span> -->
+    <!-- <b-navbar class="nav-bar" type="dark" variant="white" toggleable> -->
+    <!-- </b-navbar> -->
     <!-- <button v-on:click="deleteItem">삭제하기</button> -->
   </div>
 </template>
@@ -47,8 +48,8 @@ export default {
       restr_id: null,
       table_id: null,
       menu_id: [],
-      // optionAmount: null,
-      // menuPrice: null,
+      optionAmount: null,
+      menuPrice: null,
       total: null,
       menuItems: [],
       result: [],
@@ -61,33 +62,46 @@ export default {
       console.log("데이터 갱신", data);
     }
   },
+  computed: {
+    hasResult() {
+      console.log("hasResult()");
+      return this.result.length > 0;
+    }
+  }, //computed
   methods: {
     orderMenu() {
-      console.log("오더!");
+      console.log("카트!");
       const baseURI = "http://219.240.99.118:4000";
 
-      for (var i in this.result) {
-        this.resultOptions[i] = this.result[i].selectedOptions;
-      }
-      console.log("resultOp: ", this.resultOptions);
+      // for (var i in this.result) {
+      //   this.resultOptions[i] = this.result[i].selectedOptions;
+      //   console.log("resultOptions: ", this.resultOptions);
+      // }
 
-      axios
-        .post(baseURI + "/order/", {
-          restr_id: this.restr_id,
-          table_id: this.table_id,
-          menu_id: this.menu_id[0],
-          ea: 1,
-          memo: "test memo",
-          price: 500,
-          options: this.result[0].selectedOptions
-        })
-        .then(function(response) {
-          console.log("order 성공 " + response);
-          // this.$route.push("/order-completed");
-        })
-        .catch(function(error) {
-          console.log("에러나따!!! " + error);
-        });
+      for (var i in this.result) {
+        axios
+          .post(baseURI + "/order/", {
+            // order: this.result
+            restr_id: this.result[i].cartRestr_id,
+            table_id: this.result[i].cartTable_id,
+            menu_id: this.result[i].cartMenu_id,
+            ea: 1,
+            memo: "test memo" + i,
+            price: this.result[i].menuPrice,
+            options: this.result[i].selectedOptions
+          })
+          .then(function(response) {
+            console.log("order 성공 " + i);
+            for (var key in response) {
+              console.log("response: ", response[key]);
+            }
+            // this.$route.push("/order-completed");
+          })
+          .catch(function(error) {
+            console.log("에러나따!!! " + i + error);
+          });
+      }
+
       this.$router.push("/order-completed");
     },
     deleteItem() {
@@ -113,8 +127,8 @@ export default {
     // console.log("CartPage: created()", this.$route.params.table_id);
     // this.restr_id = this.$route.params.restr_id;
     // this.table_id = this.$route.params.table_id;
-    this.restr_id = localStorage.getItem("restr_id");
-    this.table_id = localStorage.getItem("table_id");
+    this.restr_id = parseInt(localStorage.getItem("restr_id"));
+    this.table_id = parseInt(localStorage.getItem("table_id"));
 
     const baseURI = "http://219.240.99.118:4000";
     this.$http
@@ -132,10 +146,13 @@ export default {
           this.result = result.data;
           // 메뉴 아이디 저장
           for (var i in this.result) {
-            console.log("cart check result값" + i + ": ", this.result[i]);
             this.menu_id[i] = this.result[i].cartMenu_id;
           }
-          console.log("menu_id: ", this.menu_id);
+          console.log("cart check result값 ", this.result);
+          this.optionAmount = this.result[i].menuPrice;
+          // this.menuPrice = this.
+          // console.log("menu_id: ", this.menu_id);
+
           // console.log("cartList menuItems ", this.menuItems);
         }
         // return this.menuItems;
@@ -145,6 +162,9 @@ export default {
 </script>
 
 <style scoped>
+.body {
+  padding: 1rem;
+}
 .pane {
   padding: 0.5rem;
   box-sizing: content-box;
@@ -158,6 +178,7 @@ export default {
 .nav-bar {
 }
 .btn-order {
+  padding-top: 1rem;
   /* display: block;
   margin-left: auto;
   margin-right: auto;

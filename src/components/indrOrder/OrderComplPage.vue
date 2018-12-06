@@ -8,6 +8,7 @@
       md-label="Completed"
       md-description="주문이 완료되었습니다."
     ></md-empty-state>
+    <!-- <b-btn variant="primary"></b-btn> -->
   </div>
 </template>
 

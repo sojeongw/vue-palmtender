@@ -1,25 +1,39 @@
 <template>
-  <div>
-    <div>주문들어간 목록</div>
+  <div class="body">
+    <!-- <div>주문들어간 목록</div> -->
     <!-- {{result}} -->
     <p/>
-    <div v-for="(res,index) in result" :key="index">
-      <!-- {{res}} -->
-      {{res.menuName}}
-      {{res.menuPrice}}원
-      <div v-for="(op, key) in res.optionValue" :key="key">
-        <!-- {{op}} -->
-        {{op.opName}}
-        {{op.opVal.subname}}
-        +{{op.opVal.price}}원
+
+    <div v-if="hasResult" class="pane">
+      <div v-for="(res,index) in result" :key="index">
+        <b-card :header="`No.`+(index+1)+` `+res.menuName" header-tag="header">
+          <!-- {{res}} -->
+          <strong>메뉴 가격</strong>
+          {{res.menuPrice}}원
+          <p/>
+          <strong>옵션 가격</strong>
+          <br>
+          <div v-for="(op, key) in res.optionValue" :key="key">
+            <!-- {{op}} -->
+            {{op.opName}}: {{op.opVal.subname}}
+            (+{{op.opVal.price}}원)
+          </div>
+          <p/>
+        </b-card>
       </div>
-      <p/>
+      <div class="amount">
+        <strong>총 결제 금액</strong>
+        {{totalAmount}}원
+      </div>
+      <div class="btn-pay">
+        <b-btn @click="sendToServer" variant="primary">결제하기</b-btn>
+      </div>
     </div>
+    <div v-else>주문 내역이 없습니다.</div>
     <!-- <div>{{cartItem}}</div> -->
     <!-- <div v-for="item in cartItem" :key="item.key">{{item}}</div> -->
     <!-- <router-link :to="{name:'order-completed'}" exact> -->
-    <button @click="sendToServer">결제하기</button>
-    메뉴판으로 가기
+    <!-- 메뉴판으로 가기 -->
     <!-- </router-link> -->
   </div>
 </template>
@@ -42,11 +56,17 @@ export default {
       totalAmount: 0
     };
   },
+  computed: {
+    hasResult() {
+      console.log("hasResult()");
+      return this.result.length > 0;
+    }
+  }, //computed
   created() {
     const baseURI = "http://219.240.99.118:4000";
 
-    this.restr_id = localStorage.getItem("restr_id");
-    this.table_id = localStorage.getItem("table_id");
+    this.restr_id = parseInt(localStorage.getItem("restr_id"));
+    this.table_id = parseInt(localStorage.getItem("table_id"));
 
     this.$http
       .get(
@@ -165,4 +185,16 @@ export default {
 </script>
 
 <style scoped>
+.body {
+  padding: 1rem;
+}
+.pane {
+  padding: 0.5rem;
+}
+.btn-pay {
+  padding-top: 1rem;
+}
+.amount {
+  padding-top: 1rem;
+}
 </style>
