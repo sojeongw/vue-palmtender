@@ -117,7 +117,11 @@ export default {
                   icon: "/src/assets/image/gray.png",
                   name: result.data[i].restrName, //식당이름
                   description: result.data[i].restrInfo, //식당소개
-                  tableinfo: "남은 테이블 : " + result.data[i].usableTable //사용가능 테이블 수
+                  tableinfo:
+                    "사용 가능 테이블 : " +
+                    result.data[i].usableTable +
+                    "/" +
+                    result.data[i].restrSeatNum //사용가능 테이블 수
                 });
               } else {
                 this.markers.push({
@@ -126,7 +130,11 @@ export default {
                   icon: "/src/assets/image/blue.png",
                   name: result.data[i].restrName, //식당이름
                   description: result.data[i].restrInfo, //식당소개
-                  tableinfo: "남은 테이블 : " + result.data[i].usableTable //사용가능 테이블 수
+                  tableinfo:
+                    "사용 가능 테이블 : " +
+                    result.data[i].usableTable +
+                    "/" +
+                    result.data[i].restrSeatNum //사용가능 테이블 수
                 });
               }
             }
@@ -164,7 +172,11 @@ export default {
                   icon: "/src/assets/image/gray.png",
                   name: result.data[i].restrName, //식당이름
                   description: result.data[i].restrInfo, //식당소개
-                  tableinfo: "남은 테이블 : " + result.data[i].usableTable //사용가능 테이블 수
+                  tableinfo:
+                    "사용 가능 테이블 : " +
+                    result.data[i].usableTable +
+                    "/" +
+                    result.data[i].restrSeatNum //사용가능 테이블 수
                 });
               } else {
                 this.markers.push({
@@ -173,7 +185,11 @@ export default {
                   icon: "/src/assets/image/blue.png",
                   name: result.data[i].restrName, //식당이름
                   description: result.data[i].restrInfo, //식당소개
-                  tableinfo: "남은 테이블 : " + result.data[i].usableTable //사용가능 테이블 수
+                  tableinfo:
+                    "사용 가능 테이블 : " +
+                    result.data[i].usableTable +
+                    "/" +
+                    result.data[i].restrSeatNum //사용가능 테이블 수
                 });
               }
             }
@@ -202,10 +218,8 @@ export default {
       //인포윈도우 이미지
       return `
        <b-card title=" ${marker.name}"
-                img-src=""
-                img-fluid
-                img-alt="image"
-                img-top>
+       
+               style="max-width:500px;">
               
             <h6 style="padding-top: 0.5rem">
             ${marker.name}

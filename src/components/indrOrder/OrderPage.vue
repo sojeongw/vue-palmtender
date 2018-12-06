@@ -6,7 +6,7 @@
 
     <div v-if="hasResult" class="pane">
       <div v-for="(res,index) in result" :key="index">
-        <b-card :header="`No.`+(index+1)+` `+res.menuName" header-tag="header">
+        <b-card :header="`No.`+(index+1)+` `+res.menuName" header-tag="header" class="card">
           <!-- {{res}} -->
           <strong>메뉴 가격</strong>
           {{res.menuPrice}}원
@@ -196,5 +196,8 @@ export default {
 }
 .amount {
   padding-top: 1rem;
+}
+.card {
+  margin-bottom: 0.5rem;
 }
 </style>

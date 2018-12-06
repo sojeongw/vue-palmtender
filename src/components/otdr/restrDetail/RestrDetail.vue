@@ -17,7 +17,7 @@
         <div>
           영업시간 {{item.restrHour}}
           <br>
-          잔여좌석 {{item.restrSeatNum}}석
+          좌석수 {{item.restrSeatNum}}석
           <br>
           주차공간 {{item.restrParking}}대
         </div>

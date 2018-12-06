@@ -29,6 +29,8 @@
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 
+import Vue from "vue";
+var bus = new Vue();
 export default {
   data() {
     return {
@@ -37,10 +39,16 @@ export default {
       retag: null
     };
   },
+  methods: {},
   created() {
     this.table_id = parseInt(localStorage.getItem("table_id"));
     this.restr_id = parseInt(localStorage.getItem("restr_id"));
     this.retag = parseInt(localStorage.getItem("retag"));
+
+    bus.$on("setTable_id", function(table_id) {
+      console.log("set table id", table_id);
+    });
+
     console.log("header test", this.table_id);
   }
 };

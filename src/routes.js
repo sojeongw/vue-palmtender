@@ -16,12 +16,12 @@ import PayComplPage from "./components/indrPay/PayComplPage";
 const routes = [
   { mode: "history", path: "/", redirect: "/otdr/" },
   {
-    mode: "history",
+    // mode: "history",
     path: "/otdr/",
     component: RestrListPage,
     children: [
       {
-        mode: "history",
+        // mode: "history",
         path: "/otdr/:lat/:lng",
         component: RestrListPage,
         children: []
@@ -29,7 +29,7 @@ const routes = [
     ]
   },
   {
-    mode: "history",
+    // mode: "history",
     path: "/detail/:restr_id",
     component: RestrDetailPage,
     name: "restr-detail"
@@ -40,48 +40,58 @@ const routes = [
     // ]
   },
   {
-    mode: "history",
+    // mode: "history",
     path: "/review_r",
     component: ReviewPage,
     name: "reviewPage"
   },
   {
-    mode: "history",
+    // mode: "history",
     path: "/cart/:restr_id/:table_id",
     component: CartPage,
     name: "cart-page"
     // props: true
   },
   {
-    mode: "history",
+    // mode: "history",
     path: "/menu/:restr_id/:table_id/:retag",
     component: MenuPage,
     name: "menu-page"
   },
   {
-    mode: "history",
+    // mode: "history",
     path: "/menu-detail/:menu_id",
     component: MenuDetailPage,
     name: "menu-detail",
     // 테이블 id를 props로 전달하기 위함
     props: true
   },
-  { mode: "history", path: "/pay", component: PayPage, name: "pay" },
-  { mode: "history", path: "/order", component: OrderPage, name: "order" },
   {
-    mode: "history",
+    // mode: "history",
+    path: "/pay",
+    component: PayPage,
+    name: "pay"
+  },
+  {
+    // mode: "history",
+    path: "/order",
+    component: OrderPage,
+    name: "order"
+  },
+  {
+    // mode: "history",
     path: "/order-completed",
     component: OrderComplPage,
     name: "order-completed"
   },
   {
-    mode: "history",
+    // mode: "history",
     path: "/cart-completed",
     component: CartCompleted,
     name: "cart-completed"
   },
   {
-    mode: "history",
+    // mode: "history",
     path: "/pay-completed",
     component: PayComplPage,
     name: "pay-completed"

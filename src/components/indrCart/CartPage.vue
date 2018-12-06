@@ -21,14 +21,8 @@
       </div>
       <!-- </div> -->
       <div class="btn-order">
-        <!-- <router-link
-          :to="{name:'order-completed'}"
-          exact
-          tag="b-button"
-          size="sm"
-          @click="orderMenu"
-        >주문하기</router-link>-->
-        <b-btn @click="orderMenu" v-b-modal.modalsm variant="primary">주문하기</b-btn>
+        <!-- <b-btn></b-btn> -->
+        <b-btn @click="orderMenu(result)" v-b-modal.modalsm variant="primary">주문하기</b-btn>
         <b-modal id="modalsm" size="sm" title="Small Modal">주문을 진행 하시겠습니까?</b-modal>
       </div>
     </div>
@@ -69,8 +63,8 @@ export default {
     }
   }, //computed
   methods: {
-    orderMenu() {
-      console.log("카트!");
+    orderMenu(result) {
+      // console.log("orderMenu: ", result);
       const baseURI = "http://219.240.99.118:4000";
 
       // for (var i in this.result) {
@@ -79,6 +73,7 @@ export default {
       // }
 
       for (var i in this.result) {
+        console.log("result for: ", this.result[i]);
         axios
           .post(baseURI + "/order/", {
             // order: this.result

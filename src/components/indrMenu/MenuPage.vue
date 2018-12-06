@@ -42,6 +42,9 @@
 
 
 <script>
+import Vue from "vue";
+var bus = new Vue();
+
 export default {
   data() {
     return {
@@ -75,21 +78,22 @@ export default {
       )
       .then(result => {
         this.table_id = this.$route.params.table_id;
-        console.log("MenuPage: created()", result.data);
+        console.log("MenuPage: created() menu", result.data);
         this.items = result.data;
 
         // 태그 유무
         localStorage.setItem("retag", parseInt(this.$route.params.retag) + 1);
         localStorage.setItem("restr_id", parseInt(this.$route.params.restr_id));
-        localStorage.setItem("table_id", parseInt(this.$route.params.table_id));
-        console.log("타입체크", typeof parseInt(this.$route.params.restr_id));
+        localStorage.setItem("table_id", parseInt(this.table_id));
+        console.log("타입체크", parseInt(this.table_id));
+        // 테이블 아이디 보내기
+        bus.$emit("setTable_id", parseInt(this.$route.params.table_id));
       });
 
     this.$http
       .get(`${baseURI}/detail?restr_id=` + this.$route.params.restr_id)
       .then(result => {
-        console.log("MenuList created()");
-        console.log(result.data[0].menu);
+        console.log("MenuPage created() detail: ", result.data[0].menu);
         // this.lists = result.data;
         this.lists = result.data[0].menu;
       });

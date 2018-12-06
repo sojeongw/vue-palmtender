@@ -38,8 +38,7 @@ export default {
     this.$http
       .get(`${baseURI}/detail?restr_id=` + this.$route.params.restr_id)
       .then(result => {
-        console.log("MenuList created()");
-        console.log(result.data[0].menu);
+        console.log("MenuList created()", result.data[0].menu);
         // this.lists = result.data;
         this.lists = result.data[0].menu;
       });

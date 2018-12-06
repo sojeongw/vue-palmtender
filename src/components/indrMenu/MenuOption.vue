@@ -43,7 +43,8 @@
     </div>
     <div class="option-price">
       <div class="op-label">옵션 가격</div>
-      <div class="op-value">+
+      <div class="op-value">
+        +
         <strong>{{ amount }}원</strong>
       </div>
     </div>
@@ -106,19 +107,20 @@ export default {
     // toggleActive: function(s) {
     //   s.active = !s.active;
     // },
-    total: function() {
-      this.amount = 0;
-      this.options[0].optionValue[0].value.price.forEach(function(s) {
-        if (s.selected) {
-          total += s.price;
-        }
-      });
-      console.log("total:", total);
-      // return total;
-    },
+    // total: function() {
+    //   this.amount = 0;
+    //   this.options[0].optionValue[0].value.price.forEach(function(s) {
+    //     if (s.selected) {
+    //       total += s.price;
+    //     }
+    //   });
+    //   console.log("total:", total);
+    //   // return total;
+    // },
     // addService: function() {},
     // deleteService: function() {},
     setOptions(result) {
+      // 뷰에 뿌려주는 옵션 정보
       console.log("set options result: ", result);
       this.options = result;
     }
@@ -150,7 +152,7 @@ export default {
     this.$http
       .get(`${baseURI}/menu-detail?menu_id=` + this.$route.params.menu_id)
       .then(result => {
-        console.log("메뉴정보: ", result.data[0]);
+        console.log("menuOption 메뉴정보: ", result.data[0]);
         this.menuItems = result.data[0];
       }); // get
   } // created
