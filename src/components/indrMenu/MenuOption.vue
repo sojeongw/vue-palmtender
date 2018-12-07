@@ -85,7 +85,7 @@ export default {
       table_id: null,
       selected: [],
       // menu_id를 키, option을 value로 해서 보내기
-      menu_id: null,
+      menu_id,
       options: [
         {
           optionName: null,
@@ -139,6 +139,9 @@ export default {
     this.retag = sessionStorage.getItem("retag");
     this.restr_id = sessionStorage.getItem("restr_id");
     this.table_id = sessionStorage.getItem("table_id");
+    // this.retag = localStorage.getItem("retag");
+    // this.restr_id = localStorage.getItem("restr_id");
+    // this.table_id = localStorage.getItem("table_id");
 
     const baseURI = "http://219.240.99.118:4000";
     // const baseURI = "http://localhost:4000";

@@ -189,8 +189,13 @@ export default {
   },
   created() {
     this.$eventBus.$on("addToCart", this.addToCart);
-    this.table_id = sessionStorage.getItem("table_id");
+
+    this.retag = sessionStorage.getItem("retag");
     this.restr_id = sessionStorage.getItem("restr_id");
+    this.table_id = sessionStorage.getItem("table_id");
+
+    // this.table_id = localStorage.getItem("table_id");
+    // this.restr_id = localStorage.getItem("restr_id");
 
     const baseURI = "http://219.240.99.118:4000";
     this.$http
@@ -206,10 +211,6 @@ export default {
         console.log("메뉴 가격 구하깅", result.data[0].menuPrice);
         // console.log("cartoption 타입", typeof this.cartOption);
       }); // get
-
-    this.retag = sessionStorage.getItem("retag");
-    this.restr_id = sessionStorage.getItem("restr_id");
-    this.table_id = sessionStorage.getItem("table_id");
 
     this.$http
       .get(`${baseURI}/menu-option?menu_id=` + this.$route.params.menu_id)

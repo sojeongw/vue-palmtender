@@ -41,9 +41,10 @@ export default {
   },
   methods: {},
   created() {
-    this.table_id = parseInt(sessionStorage.getItem("table_id"));
-    this.restr_id = parseInt(sessionStorage.getItem("restr_id"));
-    this.retag = parseInt(sessionStorage.getItem("retag"));
+    console.log("콘솔 테스트", this.$route.name, this.$route.name);
+    this.table_id = sessionStorage.getItem("table_id");
+    this.restr_id = sessionStorage.getItem("restr_id");
+    this.retag = sessionStorage.getItem("retag");
 
     bus.$on("setTable_id", function(table_id) {
       console.log("set table id", table_id);
