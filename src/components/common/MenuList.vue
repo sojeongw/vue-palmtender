@@ -60,7 +60,7 @@ export default {
   /* display: flex;
   flex-direction: row;
   flex: 1; */
-  /* height: 500px; */
+  height: 500px;
   overflow-y: auto;
 }
 .menu-info {

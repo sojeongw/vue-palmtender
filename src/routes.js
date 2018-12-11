@@ -9,6 +9,7 @@ import OrderPage from "./components/indrOrder/OrderPage";
 import OrderComplPage from "./components/indrOrder/OrderComplPage";
 import CartCompleted from "./components/indrCart/CartCompleted";
 import PayComplPage from "./components/indrPay/PayComplPage";
+import MenuOption from "./components/indrMenu/MenuOption";
 
 // const Foo = () => import("./components/indrCart/CartPage.vue");
 // const Koo = () => import("./components/indrOrder/OrderComplPage.vue");
@@ -95,6 +96,12 @@ const routes = [
     path: "/pay-completed",
     component: PayComplPage,
     name: "pay-completed"
+  },
+  {
+    // mode: "history",
+    path: "/test",
+    component: MenuOption,
+    name: "test"
   }
 ];
 

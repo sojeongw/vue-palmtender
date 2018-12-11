@@ -9,7 +9,10 @@
         <div>
           {{item.restrAddr}}
           <br>
-          {{item.restrTel}}
+          <a :href="'tel:'+item.restrTel">
+            <img src="/src/assets/image/phone.png" class="img-phone">
+            {{item.restrTel}}
+          </a>
         </div>
         <p/>
         <div>{{item.restrInfo}}</div>
@@ -57,6 +60,20 @@ export default {
 </script>
 
 <style scoped>
+a:link {
+  text-decoration: none;
+  color: black;
+}
+a:visited {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: none;
+  color: dodgerblue;
+}
+.img-phone {
+  width: 20px;
+}
 .restr-pane {
   padding: 1rem;
   display: flex;

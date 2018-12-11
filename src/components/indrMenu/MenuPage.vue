@@ -1,6 +1,6 @@
 <template>
   <div class="pane">
-    <b-card class="card" header="메뉴" header-tag="header">
+    <b-card class="card" header="메뉴" header-tag="header" v-if="hasResult">
       <b-list-group flush>
         <div v-for="(list,index) in lists" v-bind:key="index">
           <b-list-group-item
@@ -61,7 +61,7 @@ export default {
   computed: {
     hasResult() {
       console.log("MenuPage hasResult()");
-      return this.items.length > 0;
+      return this.lists.length > 0;
     }
   },
   created() {
@@ -80,7 +80,6 @@ export default {
       .then(result => {
         this.table_id = this.$route.params.table_id;
         console.log("MenuPage: created() menu", result.data);
-        console.log("MenuPage: created() params", result.data);
         this.items = result.data;
 
         // 태그 유무
@@ -102,6 +101,7 @@ export default {
         bus.$emit("setTable_id", this.$route.params.table_id);
       });
 
+    // 메뉴 정보 뿌리기
     this.$http
       .get(`${baseURI}/detail?restr_id=` + this.$route.params.restr_id)
       .then(result => {

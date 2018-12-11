@@ -1,7 +1,7 @@
 <template>
   <div class="pane">
     <div v-if="hasResult">
-      <div v-for="(item,key) in items" v-bind:key="key">
+      <div v-for="(item,key) in items" v-bind:key="key" class="table-infopane">
         <h6>{{item.table_id}}번 테이블</h6>
         전체 좌석 {{item.tableSeatTotal}}
         <br>
@@ -9,8 +9,8 @@
         <br>
         점유 좌석{{item.tableAmountDone}}-->
         <!-- status 0이 사용불가 -->
-        <b-button size="sm" v-if="item.tableStatus==0">사용 불가</b-button>
-        <b-button size="sm" variant="primary" v-else>사용 가능</b-button>
+        <b-button size="sm" v-if="item.tableStatus==0" class="available">사용 불가</b-button>
+        <b-button size="sm" variant="primary" v-else class="notAvailable">사용 가능</b-button>
         <p/>
       </div>
     </div>
@@ -53,13 +53,18 @@ export default {
 
 <style scoped>
 .pane {
-  padding: 0.5rem;
+  padding: 0.1rem;
   /* padding-right: 5rem; */
   /* height: 500px; */
   /* display: flex;
   flex-direction: row;
   flex: 1; */
   /* height: 500px; */
+
   overflow-y: auto;
+}
+.table-infopane {
+  display: inline-block;
+  padding: 0.5rem;
 }
 </style>

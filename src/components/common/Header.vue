@@ -1,13 +1,13 @@
 <template>
   <div>
     <b-navbar class="nav-bar" toggleable="md" type="dark" variant="dark">
-      <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
+      <b-navbar-toggle target="nav_collapse" v-if="status!==0"></b-navbar-toggle>
       <b-navbar-brand class="brand-logo" to="/otdr">Palmtender</b-navbar-brand>
       <!-- <b-navbar-brand
         class="brand-logo"
         :to="{name:'menu-page',params:{restr_id:restr_id, table_id:table_id, retag:retag}}"
       >Palmtender</b-navbar-brand>-->
-      <b-collapse is-nav id="nav_collapse">
+      <b-collapse is-nav id="nav_collapse" v-if="status!==0">
         <b-navbar-nav class="ml-auto">
           <b-navbar-nav>
             <!-- <b-nav-item href="#">Sign In</b-nav-item>
@@ -36,21 +36,28 @@ export default {
     return {
       restr_id: null,
       table_id: null,
-      retag: null
+      retag: null,
+      status: null
     };
   },
   methods: {},
   created() {
-    console.log("콘솔 테스트", this.$route.name, this.$route.name);
+    console.log("route 정보", this.$route.name, this.$route);
+    console.log("세션 길이", sessionStorage.length);
+    // console.log("콘솔 테스트", this.$route.name, this.$route.name);
     this.table_id = sessionStorage.getItem("table_id");
     this.restr_id = sessionStorage.getItem("restr_id");
     this.retag = sessionStorage.getItem("retag");
 
-    bus.$on("setTable_id", function(table_id) {
-      console.log("set table id", table_id);
-    });
+    // session에 값이 없으면 nav 메뉴를 표시하지 않음
+    this.status = sessionStorage.length;
+    console.log("session storage length: ", this.status);
 
-    console.log("header test", this.table_id);
+    // bus.$on("setTable_id", function(table_id) {
+    //   console.log("set table id", table_id);
+    // });
+
+    console.log("header test", sessionStorage.getItem("restr_id"));
   }
 };
 </script>

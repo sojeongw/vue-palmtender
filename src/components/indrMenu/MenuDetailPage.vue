@@ -26,13 +26,16 @@
     <!-- param: {{optionParam}} -->
     <div id="option-select" v-for="(option,key) in options" :key="key">
       {{option.optionName}}
+      <!-- <b-form @submit="onSubmit"> -->
       <b-form-group :id="option.optionName" :name="option.optionName">
         <b-form-select
-          v-on:Change="selectOption"
+          @change.native="selectOption(selected)"
           v-model="selected[key]"
           :options="option.optionValue"
-          class="mb-3"
+          class="mb-0"
         />
+        <!-- v-model="selected[key]" -->
+        <b-form-invalid-feedback id="input2LiveFeedback">This is a required field</b-form-invalid-feedback>
       </b-form-group>
     </div>
 
@@ -59,9 +62,10 @@
     </div>
     <!-- </b-form> -->
     <div class="btn-cart">
-      <router-link :to="{name:'cart-completed'}">
-        <b-button @click="addToCart(selected)" variant="primary">장바구니 넣기</b-button>
-      </router-link>
+      <!-- <router-link :to="{name:'cart-completed'}"> -->
+      <b-button type="submit" @click="addToCart(selected)" variant="primary">장바구니 넣기</b-button>
+      {{clickCount}}
+      <!-- </router-link> -->
       <!-- <router-link @click="addToCart(selected)" :to="{name:'cart-completed'}" tag="button">장바구니 추가</router-link> -->
     </div>
     <p/>
@@ -82,6 +86,8 @@ import MenuOption from "./MenuOption";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 import axios from "axios";
+import { validationMixin } from "vuelidate";
+import { required, minLength } from "vuelidate/lib/validators";
 // import Vue from "vue";
 // var eventBus = new Vue();
 
@@ -90,6 +96,8 @@ export default {
     return {
       // restr_id: null,
       // menu_id: null,
+      alertMsg: null,
+      clickCount: 0,
       total: null,
       basicPrice: null,
       cartOption: [],
@@ -109,54 +117,68 @@ export default {
       ],
       optionToCart: [],
       amount: 0,
-      menuItems: []
+      menuItems: [],
+      form: {}
     };
   },
   // props: ["menuName"],
   components: {
     MenuOption: MenuOption
   },
-  computed: {
-    selectOption: function() {
-      this.amount = 0;
-      for (var key in this.selected) {
-        // console.log("가격 구하기", this.selected[key].price);
-        this.amount += this.selected[key].price;
+  mixins: [validationMixin],
+  validations: {
+    form: {
+      selected: {
+        required
       }
-      return this.amount;
     }
   },
+  computed: {},
   // router에서 받아온 props
   // props: ["table_id"],
   methods: {
+    selectOption(selected) {
+      // this.clickCount = 0;
+      this.clickCount++;
+      console.log("click count: ", this.clickCount);
+      console.log("selected: ", selected);
+    },
     addToCart(selected) {
       // console.log("받은 테이블 아이디", this.table_id);
       // console.log("emit on: ", selected, options, amount);
-      console.log(
-        "addToCart selected: ",
-        selected,
-        "options: ",
-        this.options,
-        "option amount: ",
-        this.amount
-      );
+      // console.log("add to cart key ", key);
 
-      for (var key in selected) {
-        // console.log("for 확인1 : ", options[key].optionName);
-        // console.log("for 확인2 : ", selected[key]);
-        var opName = this.options[key].optionName;
-        var opVal = this.selected[key];
-        this.cartOption[key] = { opName, opVal };
-        // this.cartOption[key] = { [`${opKey}`]: opVal };
+      // change가 발생한 적이 있었다면
+      if (this.clickCount > 0) {
+        console.log(
+          "addToCart selected: ",
+          selected,
+          "options: ",
+          this.options,
+          "option amount: ",
+          this.amount
+        );
+
+        for (var key in selected) {
+          // console.log("for 확인1 : ", options[key].optionName);
+          // console.log("for 확인2 : ", selected[key]);
+          var opName = this.options[key].optionName;
+          var opVal = this.selected[key];
+          this.cartOption[key] = { opName, opVal };
+          // this.cartOption[key] = { [`${opKey}`]: opVal };
+        }
+        console.log("key 확인: " + JSON.stringify(this.cartOption));
+        this.optionTotal = this.amount;
+
+        // 총계
+        // this.total = amount + this.basicPrice;
+        // console.log("총계", amount, this.basicPrice, this.total);
+
+        this.sendToServer();
+        this.$router.push("/cart-completed");
+      } else {
+        alert("항목을 입력해주세요");
       }
-      console.log("key 확인: " + JSON.stringify(this.cartOption));
-      this.optionTotal = this.amount;
-
-      // 총계
-      // this.total = amount + this.basicPrice;
-      // console.log("총계", amount, this.basicPrice, this.total);
-
-      this.sendToServer();
     },
     setOptions(result) {
       // 뷰에 뿌려주는 옵션 정보
