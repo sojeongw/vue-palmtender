@@ -1,22 +1,24 @@
 
 <template>
-  <div class="pane">
+  <div class="panes">
     <div class="top-pane">
       <restr-detail/>
     </div>
-    <b-card no-body>
-      <b-tabs card>
-        <b-tab title="메뉴" active>
-          <menu-list/>
-        </b-tab>
-        <b-tab title="테이블 현황">
-          <table-status/>
-        </b-tab>
-        <b-tab title="리뷰">
-          <review-list/>
-        </b-tab>
-      </b-tabs>
-    </b-card>
+    <div class="bottom-pane">
+      <b-card no-body>
+        <b-tabs card>
+          <b-tab title="메뉴" active>
+            <menu-list/>
+          </b-tab>
+          <b-tab title="테이블 현황">
+            <table-status/>
+          </b-tab>
+          <b-tab title="리뷰">
+            <review-list/>
+          </b-tab>
+        </b-tabs>
+      </b-card>
+    </div>
   </div>
 </template>
 
@@ -61,8 +63,8 @@ export default {
 </script>
 
 <style scoped>
-.pane {
-  padding: 1rem;
+.panes {
+  padding: 0.5rem;
   padding-left: 5rem;
   padding-right: 5rem;
   /* display: flex;
@@ -71,6 +73,31 @@ export default {
 }
 .top-pane {
   /* display: flex; */
-  height: 350px;
+  height: 45vh;
+}
+.bottom-pane {
+  width: 80vh;
+}
+@media screen and (max-width: 800px) {
+  .panes {
+    padding: 0.5rem;
+
+    display: table-cell;
+    vertical-align: middle;
+    /* overflow: hidden; */
+    /* position: absolute; */
+  }
+  .top-pane {
+    height: auto;
+    width: auto;
+  }
+  .bottom-pane {
+    /* position: absolute; */
+    width: auto;
+    /* height: 20vh; */
+  }
+
+  /*height: 100%; */
+  /* overflow-y: hidden; */
 }
 </style>

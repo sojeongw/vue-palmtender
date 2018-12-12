@@ -2,7 +2,8 @@
   <div>
     <div class="set-place">
       <label class="map-label">
-        <gmap-autocomplete style="width:300px" class="mr-sm-2" @place_changed="setPlace"></gmap-autocomplete>
+        <gmap-autocomplete class="mr-sm-2" @place_changed="setPlace"></gmap-autocomplete>
+
         <b-button
           size="sm"
           @click="searchList"
@@ -245,13 +246,25 @@ export default {
 </script>
 
 <style scoped>
-@media screen and (max-width: 800px) {
-  .mr-sm-2 {
-    width: 100%;
-  }
-}
-
 .set-place {
   padding: 1rem;
+}
+html,
+body,
+template {
+  width: 100%;
+  height: 100%;
+}
+
+@media screen and (max-width: 800px) {
+  html,
+  body,
+  template {
+    width: 100%;
+    height: 100%;
+  }
+  .map-label {
+    width: 320px;
+  }
 }
 </style>

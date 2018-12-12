@@ -1,7 +1,7 @@
 <template>
   <div class="pane">
-    <b-card class="card" header="메뉴" header-tag="header" v-if="hasResult">
-      <b-list-group flush>
+    <b-card header="메뉴" header-tag="header" v-if="hasResult">
+      <b-list-group flush class="menu-infoPane">
         <div v-for="(list,index) in lists" v-bind:key="index">
           <b-list-group-item
             class="align-items-start"
@@ -114,16 +114,23 @@ export default {
 </script>
 
 <style scoped>
+html,
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+}
 .pane {
   padding-top: 0.5rem;
   padding-left: 10rem;
   padding-right: 10rem;
   width: 100%;
+  height: 100%;
   /* display: flex;
   flex-direction: row;
   flex: 1; */
   /* height: 500px; */
-  overflow-y: auto;
+  /* overflow-y: auto; */
 }
 .menu-info {
   float: right;
@@ -146,15 +153,19 @@ a:hover {
   text-decoration: none;
 }
 @media (max-width: 600px) {
+  html,
+  body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+  }
   .pane {
     padding: 0.5rem;
-    display: table-cell;
-    /* 그 밑에 직개 자식에는 display 성질을 table-cell으로 바꾸어 줘야 한다.*/
-    vertical-align: middle;
-    /*table에 관한 수직정렬 속성 top, middle, bottom 3가지가 있다.*/
+  }
+  .menu-infoPane {
     position: relative;
-    height: 500px;
-    overflow-y: scroll;
+    height: 75vh;
+    overflow-y: auto;
   }
   .menu-img {
     position: absolute;

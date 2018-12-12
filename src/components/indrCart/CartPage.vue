@@ -2,7 +2,7 @@
   <div class="body">
     <div class="pane" v-if="hasResult">
       <!-- <div class="card-text"> -->
-      <div v-for="(res,index) in result" :key="index">
+      <div v-for="(res,index) in result" :key="index" class="list-pane">
         <b-card :header="`No.`+(index+1)+` `+res.menuName" header-tag="header" class="card">
           <!-- <input type="checkbox" :id="res.cartMenu_id" :value="res" v-model="checkedMenu[index]"> -->
           <!-- <label :for="res.cartMenu_id"> -->
@@ -18,12 +18,7 @@
           <!-- </label> -->
           <p/>
         </b-card>
-      </div>
-      <!-- </div> -->
-      <div class="btn-order">
-        <!-- <b-btn></b-btn> -->
-        <b-btn @click="orderMenu(result)" v-b-modal.modalsm variant="primary">주문하기</b-btn>
-        <b-modal id="modalsm" size="sm" title="Small Modal">주문을 진행 하시겠습니까?</b-modal>
+        <!-- </div> -->
       </div>
     </div>
     <div v-else>장바구니 내역이 없습니다.</div>
@@ -31,6 +26,11 @@
     <!-- <b-navbar class="nav-bar" type="dark" variant="white" toggleable> -->
     <!-- </b-navbar> -->
     <!-- <button v-on:click="deleteItem">삭제하기</button> -->
+    <div class="btn-order" v-if="hasResult">
+      <!-- <b-btn></b-btn> -->
+      <b-btn @click="orderMenu(result)" v-b-modal.modalsm variant="primary">주문하기</b-btn>
+      <b-modal id="modalsm" size="sm" title="Small Modal">주문을 진행 하시겠습니까?</b-modal>
+    </div>
   </div>
 </template>
 
@@ -157,21 +157,26 @@ export default {
 </script>
 
 <style scoped>
+html,
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+}
 .body {
   padding: 1rem;
 }
 .pane {
   padding: 0.5rem;
   box-sizing: content-box;
-  height: auto;
-  max-height: 500px;
-  overflow-y: scroll;
+  height: 75vh;
+  overflow-y: auto;
 }
+
 .card {
   margin-bottom: 0.5rem;
 }
-.nav-bar {
-}
+
 .btn-order {
   padding-top: 1rem;
   /* display: block;

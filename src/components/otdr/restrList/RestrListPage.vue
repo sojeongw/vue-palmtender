@@ -24,14 +24,21 @@ export default {
 </script>
 
 <style scoped>
+html,
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+}
 .panes {
   height: 100%;
   display: flex;
+  width: 100%;
 }
 .pane-map,
 .pane-list {
   display: flex;
-  min-width: 0;
+  /* min-width: 0; */
 }
 .pane-map {
   flex: 1;
@@ -49,8 +56,13 @@ export default {
   height: 600px;
 }
 @media screen and (max-width: 1000px) {
-  .pane-map {
-    flex: 1 !important;
+  .panes {
+    display: table-cell;
+    /* 그 밑에 직계 자식에는 display 성질을 table-cell으로 바꾸어 줘야 한다.*/
+    vertical-align: middle;
+    /*table에 관한 수직정렬 속성 top, middle, bottom 3가지가 있다.*/
+    /* position: absolute; */
   }
 }
 </style>
+

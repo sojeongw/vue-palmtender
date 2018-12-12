@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="pane">
     <div v-if="hasResult">
       <div v-for="(item, index) in items" v-bind:key="index">
         <div>
@@ -47,4 +47,10 @@ export default {
 </script>
 
 <style scoped>
+@media screen and (max-width: 800px) {
+  .pane {
+    height: 33vh;
+    overflow-y: auto;
+  }
+}
 </style>

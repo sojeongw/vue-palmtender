@@ -1,7 +1,7 @@
 <template>
   <b-form @submit="onSubmit">
     <b-form-group id="exampleInputGroup1" label="Name" label-for="exampleInput1">
-      <b-form-input
+      <!-- <b-form-input
         id="exampleInput1"
         type="text"
         v-model="form.name"
@@ -19,7 +19,7 @@
         :options="foods"
         :state="!$v.form.foods.$invalid"
         v-model="form.foods"
-      />
+      />-->
       <b-form-invalid-feedback id="input2LiveFeedback">This is a required field</b-form-invalid-feedback>
     </b-form-group>
     <b-button type="submit" variant="primary" :disabled="$v.form.$invalid">Submit</b-button>
@@ -27,8 +27,8 @@
 </template>
 
 <script>
-import { validationMixin } from "vuelidate";
-import { required, minLength } from "vuelidate/lib/validators";
+// import { validationMixin } from "vuelidate";
+// import { required, minLength } from "vuelidate/lib/validators";
 
 export default {
   name: "myForm",
@@ -38,18 +38,18 @@ export default {
       form: {}
     };
   },
-  mixins: [validationMixin],
-  validations: {
-    form: {
-      foods: {
-        required
-      },
-      name: {
-        required,
-        minLength: minLength(3)
-      }
-    }
-  },
+  // mixins: [validationMixin],
+  // validations: {
+  //   form: {
+  //     foods: {
+  //       required
+  //     },
+  //     name: {
+  //       required,
+  //       minLength: minLength(3)
+  //     }
+  //   }
+  // },
   methods: {
     onSubmit() {
       // form submit logic

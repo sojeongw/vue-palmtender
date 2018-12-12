@@ -2,7 +2,7 @@
   <div class="pane">
     <!-- <b-card no-body header="메뉴" header-tag="header"> -->
     <b-list-group flush>
-      <div v-for="(list,index) in lists" v-bind:key="index">
+      <div v-for="(list,index) in lists" v-bind:key="index" class="list-pane">
         <b-list-group-item class="align-items-start">
           <div class="d-flex w-100">
             <!-- <div class="d-flex w-100 justify-content-between"> -->
@@ -60,7 +60,9 @@ export default {
   /* display: flex;
   flex-direction: row;
   flex: 1; */
-  height: 500px;
+  /* 메뉴 출력 부분 높이 */
+  height: 50vh;
+  /* position: absolute; */
   overflow-y: auto;
 }
 .menu-info {
@@ -79,5 +81,17 @@ export default {
   /* max-width: 100px;
   max-height: 100px; */
   object-fit: cover;
+}
+@media screen and (max-width: 800px) {
+  .pane {
+    height: 33vh;
+    /* overflow-y: auto; */
+    padding-right: 0rem;
+    padding-left: 0rem;
+    /* display: table-cell; */
+    /* 그 밑에 직개 자식에는 display 성질을 table-cell으로 바꾸어 줘야 한다.*/
+    vertical-align: middle;
+    /*table에 관한 수직정렬 속성 top, middle, bottom 3가지가 있다.*/
+  }
 }
 </style>

@@ -71,6 +71,12 @@ a:hover {
   text-decoration: none;
   color: dodgerblue;
 }
+html,
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+}
 .img-phone {
   width: 20px;
 }
@@ -82,14 +88,15 @@ a:hover {
   padding: 1rem;
   padding-left: 2rem;
   /* margin-top: 1rem; */
-  display: flex;
-  flex: 1;
-  flex-direction: column;
+  /* display: flex;
+  flex: 1; */
+  /* flex-direction: column; */
+  display: inline-block;
 }
 .restr-img {
   float: left;
-  width: 300px;
-  height: 300px;
+  width: 40vh;
+  height: 40vh;
   /* max-width: 300px;
   max-height: 300px; */
   object-fit: cover;
@@ -97,32 +104,26 @@ a:hover {
 .mb-1 {
   padding-top: 0.5rem;
 }
-/* .restr-pane {
-  background: lightblue;
-  height: 24rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+@media screen and (max-width: 800px) {
+  .panes {
+    display: table-cell;
+    /* 그 밑에 직개 자식에는 display 성질을 table-cell으로 바꾸어 줘야 한다.*/
+    vertical-align: middle;
+    /*table에 관한 수직정렬 속성 top, middle, bottom 3가지가 있다.*/
+    position: absolute;
+  }
+  .restr-img {
+    float: none;
+    width: 100%;
+    height: 10vh;
+    /* max-width: 300px;
+  max-height: 300px; */
+    object-fit: cover;
+  }
+  .info-pane {
+    padding-left: 0.5rem;
+  }
+  /*height: 100%; */
+  /* overflow-y: hidden; */
 }
-.restr-name {
-  margin-top: -5rem;
-  width: 500px;
-  padding: 1rem;
-  color: white;
-  position: relative;
-}
-.restr-info {
-  margin-top: 1rem;
-  font-size: 1.25rem;
-}
-.restr-body {
-  padding: 2rem;
-  padding-top: 2.5rem;
-  padding-bottom: 2.5rem;
-  background: white;
-  transform: translateY(10rem);
-  margin: 0 auto;
-  min-height: 20rem;
-  box-shadow: 10px 5px 5px gray;
-} */
 </style>

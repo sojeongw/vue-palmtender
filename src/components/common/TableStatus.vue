@@ -67,4 +67,10 @@ export default {
   display: inline-block;
   padding: 0.5rem;
 }
+@media screen and (max-width: 800px) {
+  .pane {
+    height: 33vh;
+    overflow-y: auto;
+  }
+}
 </style>

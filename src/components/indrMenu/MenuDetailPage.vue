@@ -1,10 +1,4 @@
 <template>
-  <!-- <div id="pane"> -->
-  <!-- 메뉴이름 {{menuName}} -->
-  <!-- <menu-option></menu-option> -->
-  <!-- table: {{table_id}} -->
-  <!-- <p/> -->
-  <!-- </div> -->
   <div id="pane">
     <div>
       <div>
@@ -14,7 +8,6 @@
         <h6>{{menuItems.menuName}}</h6>
         {{menuItems.menuInfo}}
         <br>
-        <!-- {{menuItems.menuPrice}}원 -->
         <p/>
         재료: {{menuItems.menuIngredients}}
         <br>
@@ -29,13 +22,16 @@
       <!-- <b-form @submit="onSubmit"> -->
       <b-form-group :id="option.optionName" :name="option.optionName">
         <b-form-select
+          :name="option.optionName"
           @change.native="selectOption(selected)"
+          :state="selectState"
           v-model="selected[key]"
           :options="option.optionValue"
           class="mb-0"
         />
+
         <!-- v-model="selected[key]" -->
-        <b-form-invalid-feedback id="input2LiveFeedback">This is a required field</b-form-invalid-feedback>
+        <b-form-invalid-feedback id="inputLiveFeedback">This is a required field</b-form-invalid-feedback>
       </b-form-group>
     </div>
 
@@ -64,7 +60,7 @@
     <div class="btn-cart">
       <!-- <router-link :to="{name:'cart-completed'}"> -->
       <b-button type="submit" @click="addToCart(selected)" variant="primary">장바구니 넣기</b-button>
-      {{clickCount}}
+      <!-- {{clickCount}} -->
       <!-- </router-link> -->
       <!-- <router-link @click="addToCart(selected)" :to="{name:'cart-completed'}" tag="button">장바구니 추가</router-link> -->
     </div>
@@ -86,8 +82,8 @@ import MenuOption from "./MenuOption";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 import axios from "axios";
-import { validationMixin } from "vuelidate";
-import { required, minLength } from "vuelidate/lib/validators";
+// import { validationMixin } from "vuelidate";
+// import { required, minLength } from "vuelidate/lib/validators";
 // import Vue from "vue";
 // var eventBus = new Vue();
 
@@ -125,15 +121,12 @@ export default {
   components: {
     MenuOption: MenuOption
   },
-  mixins: [validationMixin],
-  validations: {
-    form: {
-      selected: {
-        required
-      }
+
+  computed: {
+    selectState(key) {
+      // return (this.selected >0 ? true : false);
     }
   },
-  computed: {},
   // router에서 받아온 props
   // props: ["table_id"],
   methods: {
@@ -251,56 +244,44 @@ export default {
 </script>
 
 <style scoped>
-#pane {
-  padding: 1rem;
-}
-#option-select {
-  width: 150px;
-}
-.menu-info {
-  padding-top: 1rem;
-}
-.basic-price {
-  /* justify-content: space-between; */
-  /* display: inline; */
-}
-.bp-label {
-  display: inline;
-  /* float: left;
+@media (max-width: 600px) {
+  html,
+  body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+  }
+  #pane {
+    padding: 1rem;
+  }
+  #option-select {
+    width: 30vh;
+  }
+  .menu-info {
+    padding-top: 1rem;
+  }
+  .bp-label {
+    display: inline;
+    /* float: left;
   text-align: left; */
-}
-.bp-value {
-  display: inline;
-  /* float: right;
+  }
+  .bp-value {
+    display: inline;
+    /* float: right;
   text-align: right; */
-}
-.btn-cart {
-  padding-top: 1rem;
-  /* position: absolute; */
-}
-.option-price {
-  /* justify-content: space-between; */
-}
-.op-label {
-  display: inline;
-  /* position: absolute;
-  padding-top: 1rem;
-  float: left;
-  text-align: left; */
-}
-.op-value {
-  display: inline;
-  /* position: absolute;
-  padding-top: 1rem;
-  padding-left: 15rem;
-
-  float: right;
-  text-align: right; */
-}
-.amount {
-  /* position: absolute;
-  padding-top: 2.5rem;
- */
-  padding-left: 3.5rem;
+  }
+  .btn-cart {
+    padding-top: 1rem;
+    /* position: absolute; */
+  }
+  .op-label {
+    display: inline;
+  }
+  .op-value {
+    display: inline;
+  }
+  .amount {
+    padding-left: 3.5rem;
+  }
 }
 </style>

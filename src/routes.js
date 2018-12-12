@@ -1,6 +1,8 @@
 import RestrListPage from "./components/otdr/restrList/RestrListPage";
 import RestrDetailPage from "./components/otdr/restrDetail/RestrDetailPage";
 import ReviewPage from "./components/common/review/ReviewPage";
+import SignIn from "./components/common/SignIn";
+import Join from "./components/common/Join";
 import CartPage from "./components/indrCart/CartPage";
 import MenuPage from "./components/indrMenu/MenuPage";
 import MenuDetailPage from "./components/indrMenu/MenuDetailPage";
@@ -20,6 +22,7 @@ const routes = [
     // mode: "history",
     path: "/otdr/",
     component: RestrListPage,
+    name: "otdr",
     children: [
       {
         // mode: "history",
@@ -34,6 +37,7 @@ const routes = [
     path: "/detail/:restr_id",
     component: RestrDetailPage,
     name: "restr-detail"
+
     // children: [
     //   {
     //     // path가 parent랑 이어지는건 아니고 내용만 chlid로 포함됨
@@ -102,6 +106,18 @@ const routes = [
     path: "/test",
     component: MenuOption,
     name: "test"
+  },
+  {
+    // mode: "history",
+    path: "/sign-in",
+    component: SignIn,
+    name: "sign-in"
+  },
+  {
+    // mode: "history",
+    path: "/join",
+    component: Join,
+    name: "join"
   }
 ];
 

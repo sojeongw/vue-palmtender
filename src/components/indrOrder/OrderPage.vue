@@ -2,8 +2,6 @@
   <div class="body">
     <!-- <div>주문들어간 목록</div> -->
     <!-- {{result}} -->
-    <p/>
-
     <div v-if="hasResult" class="pane">
       <div v-for="(res,index) in result" :key="index">
         <b-card :header="`No.`+(index+1)+` `+res.menuName" header-tag="header" class="card">
@@ -21,6 +19,14 @@
           <p/>
         </b-card>
       </div>
+    </div>
+    <div v-else>주문 내역이 없습니다.</div>
+    <!-- <div>{{cartItem}}</div> -->
+    <!-- <div v-for="item in cartItem" :key="item.key">{{item}}</div> -->
+    <!-- <router-link :to="{name:'order-completed'}" exact> -->
+    <!-- 메뉴판으로 가기 -->
+    <!-- </router-link> -->
+    <div v-if="hasResult">
       <div class="amount">
         <strong>총 결제 금액</strong>
         {{totalAmount}}원
@@ -29,12 +35,6 @@
         <b-btn @click="sendToServer" variant="primary">결제하기</b-btn>
       </div>
     </div>
-    <div v-else>주문 내역이 없습니다.</div>
-    <!-- <div>{{cartItem}}</div> -->
-    <!-- <div v-for="item in cartItem" :key="item.key">{{item}}</div> -->
-    <!-- <router-link :to="{name:'order-completed'}" exact> -->
-    <!-- 메뉴판으로 가기 -->
-    <!-- </router-link> -->
   </div>
 </template>
 
@@ -192,6 +192,8 @@ export default {
 }
 .pane {
   padding: 0.5rem;
+  height: 73vh;
+  overflow-y: auto;
 }
 .btn-pay {
   padding-top: 1rem;
